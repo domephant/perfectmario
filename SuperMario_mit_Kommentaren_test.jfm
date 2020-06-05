@@ -1,9 +1,9 @@
 object SuperMario_mit_Kommentaren_test: TFGUIForm
-  Left = 635
-  Top = 72
+  Left = 249
+  Top = 131
   BorderIcons = [biSystemMenu]
   ClientHeight = 681
-  ClientWidth = 1264
+  ClientWidth = 1279
   Color = clBtnFace
   ParentFont = True
   FormStyle = fsStayOnTop
@@ -149,7 +149,7 @@ object SuperMario_mit_Kommentaren_test: TFGUIForm
     Tag = 12
     Left = 0
     Top = 630
-    Width = 1280
+    Width = 5000
     Height = 55
     Hint = 'jPanel1'
     Font.Charset = DEFAULT_CHARSET

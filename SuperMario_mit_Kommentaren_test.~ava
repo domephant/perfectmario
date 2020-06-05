@@ -3,80 +3,87 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.event.*;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 
 /**
  *
  * Beschreibung
  *
  * @version 1.0 vom 01.06.2020
- * @Marc Stüwe, Lars von Bandel, Niklas Goldschmidt und Dominik Schult 
+ * @Marc Stüwe, Lars von Bandel, Niklas Goldschmidt und Dominik Schult
  */
 
 public class SuperMario_mit_Kommentaren_test extends JApplet {
   // Anfang Attribute
-  private JPanel marioCharacter = new JPanel(null, true);                       //Panel marioCharacter wird definiert
-  private JPanel eventBox = new JPanel(null, true);                             //Panel eventBox wird definiert
-  private JPanel powerUP = new JPanel(null, true);                              //Panel powerUP wird definiert
-  int jumpspeed = 2;
-  int movespeed;                                                     
+  private JPanel marioCharacter = new JPanel(null, true); // Panel marioCharacter wird definiert
+  private JPanel eventBox = new JPanel(null, true); // Panel eventBox wird definiert
+  private JPanel powerUP = new JPanel(null, true); // Panel powerUP wird definiert
+  int jumpSpeed = 2;
+  int moveSpeed;
   boolean jumping = false;
-  boolean moveright = false;
-  boolean moveleft = false;
+  boolean moveRight = false;
+  boolean moveLeft = false;
   private Timer timer_update = new Timer(1000, null);
   private JButton bStart = new JButton();
-  int maxjumpheight = 220;
-  int currentjumpheight = 0;
-  int mariowidth = marioCharacter.getWidth();
-  int mariobottom = marioCharacter.getY() + marioCharacter.getHeight();
+  int maxJumpHeight = 220;
+  int currentJumpHeight = 0;
+  int marioWidth = marioCharacter.getWidth();
+  int marioBottom = marioCharacter.getY() + marioCharacter.getHeight();
   private JPanel ground = new JPanel(null, true);
+  ArrayList<JPanel> panels = new ArrayList<JPanel>();
   // Ende Attribute
-  
+
   public void init() {
     Container cp = getContentPane();
     cp.setLayout(null);
-    cp.setSize(1080,720);                          
-    cp.setBounds(0, 0, 1280, 720);
-    KeyboardFocusManager.getCurrentKeyboardFocusManager().addKeyEventDispatcher(new KeyEventDispatcher() {         //Event für die Abfrage der Tasteneingaben wird definiert
+    cp.setSize(1080, 720);
+    cp.setBounds(0, 0, 1295, 720);
+    panels.add(eventBox);
+    panels.add(powerUP);
+    panels.add(ground);
+    powerUP.hide();
+    KeyboardFocusManager.getCurrentKeyboardFocusManager().addKeyEventDispatcher(new KeyEventDispatcher() { // Event für die Abfrage der Tasteneingaben wird definiert
 
-            @Override
-            public boolean dispatchKeyEvent(KeyEvent ke) {
-                  switch (ke.getID()) {
-                    case KeyEvent.KEY_PRESSED:                                                                 //sollte irgendeine Taste heruntergedrückt werden, wird folgender Code abgefragt
-                        if (ke.getKeyCode() == KeyEvent.VK_SPACE) {                                            //Wenn die heruntergedrückte Taste die Leertaste ist
-                            jumping = true;
-                            if(contactwithbox_top()){
-                            powerUP.show();
-                            }
-                        }
-                        if(ke.getKeyCode() == KeyEvent.VK_D){
-                           movespeed = 2;
-                           moveright = true;                                                  //folgender Befehl wird ausgeführt, sollte Taste 'D' gedrückt werden
-                           //moveSidewards(movespeed);
-                        }
-                        if(ke.getKeyCode() == KeyEvent.VK_A){                                                  //folgender Befehl wird ausgeführt, sollte Taste 'A' gedrückt werden
-                           movespeed = -2;
-                           moveleft = true;
-                           //moveSidewards(movespeed);
-                        }
-                        break;
-            
-                    case KeyEvent.KEY_RELEASED:                                                                //Folgendes passiert, sollte eine Taste losgelassen werden
-                        if(ke.getKeyCode() == KeyEvent.VK_D){
-                           moveright = false;                                                 
-                        }
-                        if(ke.getKeyCode() == KeyEvent.VK_A){
-                           moveleft = false;                                                 
-                        }
-                        break;
-                    }
-                    return false;
+      @Override
+      public boolean dispatchKeyEvent(KeyEvent ke) {
+        switch (ke.getID()) {
+        case KeyEvent.KEY_PRESSED: // sollte irgendeine Taste heruntergedrückt werden, wird folgender Code abgefragt
+          if (ke.getKeyCode() == KeyEvent.VK_SPACE) { // Wenn die heruntergedrückte Taste die Leertaste ist
+            jumping = true;
+            if (contactwithbox_top()) {
+              powerUP.show();
             }
-        });
+          }
+          if (ke.getKeyCode() == KeyEvent.VK_D) {
+            moveSpeed = -2;
+            moveRight = true; // folgender Befehl wird ausgeführt, sollte Taste 'D' gedrückt werden
+            // moveSidewards(movespeed);
+          }
+          if (ke.getKeyCode() == KeyEvent.VK_A) { // folgender Befehl wird ausgeführt, sollte Taste 'A' gedrückt werden
+            moveSpeed = 2;
+            moveLeft = true;
+            // moveSidewards(movespeed);
+          }
+          break;
+
+        case KeyEvent.KEY_RELEASED: // Folgendes passiert, sollte eine Taste losgelassen werden
+          if (ke.getKeyCode() == KeyEvent.VK_D) {
+            moveRight = false;
+          }
+          if (ke.getKeyCode() == KeyEvent.VK_A) {
+            moveLeft = false;
+          }
+          break;
+        }
+        return false;
+      }
+    });
     // Anfang Komponenten
-    
+
     marioCharacter.setBounds(230, 350, 100, 100);
     marioCharacter.setOpaque(true);
     marioCharacter.setBackground(Color.CYAN);
+
     cp.add(marioCharacter);
     eventBox.setBounds(230, 450, 50, 50);
     eventBox.setOpaque(true);
@@ -84,10 +91,10 @@ public class SuperMario_mit_Kommentaren_test extends JApplet {
     cp.add(eventBox);
     powerUP.setBounds(eventBox.getX(), eventBox.getY() - eventBox.getHeight(), 50, 50);
     powerUP.setOpaque(true);
-    powerUP.setBackground(Color.CYAN); 
+    powerUP.setBackground(Color.CYAN);
     cp.add(powerUP);
-    timer_update.addActionListener(new ActionListener() { 
-      public void actionPerformed(ActionEvent evt) { 
+    timer_update.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent evt) {
         timer_update_ActionPerformed(evt);
       }
     });
@@ -96,67 +103,77 @@ public class SuperMario_mit_Kommentaren_test extends JApplet {
     bStart.setBounds(1172, 7, 75, 25);
     bStart.setText("Start");
     bStart.setMargin(new Insets(2, 2, 2, 2));
-    bStart.addActionListener(new ActionListener() { 
-      public void actionPerformed(ActionEvent evt) { 
+    bStart.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent evt) {
         bStart_ActionPerformed(evt);
       }
     });
     cp.add(bStart);
     timer_update.setDelay(1);
-    ground.setBounds(0, 630, 1280, 55);
+    ground.setBounds(0, 630, 5000, 55);
     ground.setOpaque(true);
     ground.setBackground(Color.GREEN);
     cp.add(ground);
     // Ende Komponenten
-    
+
   } // end of init
-  public void move(int a){
-    if (moveright == true || moveleft == true) {
-      marioCharacter.setLocation(marioCharacter.getX() + movespeed, marioCharacter.getY()); 
+
+  public void move(int a) {
+    if (moveRight == true || moveLeft == true) {
+      // marioCharacter.setLocation(marioCharacter.getX() + movespeed,
+      // marioCharacter.getY());
+      for (int i = 0; i < panels.size(); i++) {
+        JPanel panel = (JPanel) panels.toArray()[i];
+        panel.setLocation(panel.getX() + moveSpeed, panel.getY());
+      }
     }
-    if (jumping == true && currentjumpheight <= maxjumpheight) {
-      marioCharacter.setLocation(marioCharacter.getX(), (marioCharacter.getY() - jumpspeed));
-      currentjumpheight= currentjumpheight + jumpspeed;
+    if (jumping == true && currentJumpHeight <= maxJumpHeight) {
+      marioCharacter.setLocation(marioCharacter.getX(), (marioCharacter.getY() - jumpSpeed));
+      currentJumpHeight = currentJumpHeight + jumpSpeed;
     } // end of if
   }
 
   // Anfang Methoden
   public void timer_update_ActionPerformed(ActionEvent evt) {
-    //Methoden zu Bewegung ud die Schwerkraft werden bei jedem Pick abgerufen
-    this.move(movespeed);
+    // Methoden zu Bewegung ud die Schwerkraft werden bei jedem Pick abgerufen
+    this.move(moveSpeed);
     this.variablereset();
     this.gravity();
   } // end of timer_update_ActionPerformed
 
   public void bStart_ActionPerformed(ActionEvent evt) {
-    //Updatetimer wird gestartet
+    // Updatetimer wird gestartet
     timer_update.start();
   }
+
   public void variablereset() {
-    if (currentjumpheight == maxjumpheight) {
-      currentjumpheight = 0;
+    if (currentJumpHeight == maxJumpHeight) {
+      currentJumpHeight = 0;
       jumping = false;
     } // end of if
   }
-  public void gravity(){
+
+  public void gravity() {
     if (jumping == false && this.contactwithground_top() == false) {
-      marioCharacter.setLocation(marioCharacter.getX(), marioCharacter.getY() + jumpspeed);
-    } // end of if                            
+      marioCharacter.setLocation(marioCharacter.getX(), marioCharacter.getY() + jumpSpeed);
+    } // end of if
   }
-  public boolean contactwithground_top(){
+
+  public boolean contactwithground_top() {
     if ((marioCharacter.getY() + marioCharacter.getHeight()) == ground.getY()) {
       return true;
     } else {
-      return false; 
-    } // end of if-else         
+      return false;
+    } // end of if-else
   }
-  public boolean contactwithbox_top(){
-    if (marioCharacter.getY()-100 <= eventBox.getY() && (marioCharacter.getX() >= eventBox.getX() && marioCharacter.getX() <= eventBox.getX() + 50)) {
+
+  public boolean contactwithbox_top() {
+    if (marioCharacter.getY() - 100 <= eventBox.getY()
+        && (marioCharacter.getX() >= eventBox.getX() && marioCharacter.getX() <= eventBox.getX() + 50)) {
       return true;
     } else {
-      return false; 
-    } // end of if-else         
+      return false;
+    } // end of if-else
   }// Ende Methoden
-  
-} // end of class SuperMario_mit_Kommentaren_test
 
+} // end of class SuperMario_mit_Kommentaren_test
