@@ -16,8 +16,9 @@ public class SuperMario_mit_Kommentaren_test extends JApplet {
   // Anfang Attribute
   private JPanel marioCharacter = new JPanel(null, true);                       //Panel marioCharacter wird definiert
   private JPanel eventBox = new JPanel(null, true);                             //Panel eventBox wird definiert
+  private JPanel powerUP = new JPanel(null, true);                              //Panel powerUP wird definiert
   int jumpspeed = 2;
-  int movespeed;
+  int movespeed;                                                     
   boolean jumping = false;
   boolean moveright = false;
   boolean moveleft = false;
@@ -35,6 +36,7 @@ public class SuperMario_mit_Kommentaren_test extends JApplet {
     cp.setLayout(null);
     cp.setSize(1080,720);                          
     cp.setBounds(0, 0, 1280, 720);
+    powerUP.hide();
     KeyboardFocusManager.getCurrentKeyboardFocusManager().addKeyEventDispatcher(new KeyEventDispatcher() {         //Event für die Abfrage der Tasteneingaben wird definiert
 
             @Override
@@ -43,6 +45,9 @@ public class SuperMario_mit_Kommentaren_test extends JApplet {
                     case KeyEvent.KEY_PRESSED:                                                                 //sollte irgendeine Taste heruntergedrückt werden, wird folgender Code abgefragt
                         if (ke.getKeyCode() == KeyEvent.VK_SPACE) {                                            //Wenn die heruntergedrückte Taste die Leertaste ist
                             jumping = true;
+                            if(contactwithbox_top()){
+                            powerUP.show();
+                            }
                         }
                         if(ke.getKeyCode() == KeyEvent.VK_D){
                            movespeed = 2;
@@ -78,6 +83,10 @@ public class SuperMario_mit_Kommentaren_test extends JApplet {
     eventBox.setOpaque(true);
     eventBox.setBackground(new Color(0xFFC800));
     cp.add(eventBox);
+    powerUP.setBounds(eventBox.getX(), eventBox.getY() - eventBox.getHeight(), 50, 50);
+    powerUP.setOpaque(true);
+    powerUP.setBackground(Color.CYAN); 
+    cp.add(powerUP);
     timer_update.addActionListener(new ActionListener() { 
       public void actionPerformed(ActionEvent evt) { 
         timer_update_ActionPerformed(evt);
@@ -143,7 +152,7 @@ public class SuperMario_mit_Kommentaren_test extends JApplet {
     } // end of if-else         
   }
   public boolean contactwithbox_top(){
-    if ((marioCharacter.getY() + marioCharacter.getHeight()) == eventBox.getY()) {
+    if (marioCharacter.getY()-100 <= eventBox.getY() && (marioCharacter.getX() >= eventBox.getX() && marioCharacter.getX() <= eventBox.getX() + 50)) {
       return true;
     } else {
       return false; 
