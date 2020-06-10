@@ -4,6 +4,10 @@ import javax.swing.*;
 import javax.swing.event.*;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
+import java.io.*;
+import java.awt.image.BufferedImage;
+import javax.imageio.*;
+import java.awt.Image;
 
 /**
  *
@@ -31,6 +35,12 @@ public class SuperMario_mit_Kommentaren_test extends JApplet {
   int marioBottom = marioCharacter.getY() + marioCharacter.getHeight();
   private JPanel ground = new JPanel(null, true);
   ArrayList<JPanel> panels = new ArrayList<JPanel>();
+  private BufferedImage boxImage;
+  private BufferedImage eventBoxImage;
+  
+  private Graphics BoxGraphics;
+  private Graphics eventBoxGraphics;
+  private JPanel box = new JPanel(null, true);
   // Ende Attribute
 
   public void init() {
@@ -41,6 +51,7 @@ public class SuperMario_mit_Kommentaren_test extends JApplet {
     panels.add(eventBox);
     panels.add(powerUP);
     panels.add(ground);
+    panels.add(box);
     powerUP.hide();
     KeyboardFocusManager.getCurrentKeyboardFocusManager().addKeyEventDispatcher(new KeyEventDispatcher() { // Event für die Abfrage der Tasteneingaben wird definiert
 
@@ -86,8 +97,7 @@ public class SuperMario_mit_Kommentaren_test extends JApplet {
 
     cp.add(marioCharacter);
     eventBox.setBounds(230, 450, 50, 50);
-    eventBox.setOpaque(true);
-    eventBox.setBackground(new Color(0xFFC800));
+    eventBox.setOpaque(false);
     cp.add(eventBox);
     powerUP.setBounds(eventBox.getX(), eventBox.getY() - eventBox.getHeight(), 50, 50);
     powerUP.setOpaque(true);
@@ -114,17 +124,20 @@ public class SuperMario_mit_Kommentaren_test extends JApplet {
     ground.setOpaque(true);
     ground.setBackground(Color.GREEN);
     cp.add(ground);
+    box.setBounds(175, 450, 50, 50);
+    box.setOpaque(false);
+    cp.add(box);
     // Ende Komponenten
-
+    loadBuffedImages();
   } // end of init
 
-  public void move(int a) {
+  public void move() {
     if (moveRight == true || moveLeft == true) {
-      // marioCharacter.setLocation(marioCharacter.getX() + movespeed,
-      // marioCharacter.getY());
+      //marioCharacter.setLocation(marioCharacter.getX() + moveSpeed, marioCharacter.getY());
       for (int i = 0; i < panels.size(); i++) {
         JPanel panel = (JPanel) panels.toArray()[i];
         panel.setLocation(panel.getX() + moveSpeed, panel.getY());
+        paintLabels();
       }
     }
     if (jumping == true && currentJumpHeight <= maxJumpHeight) {
@@ -136,9 +149,10 @@ public class SuperMario_mit_Kommentaren_test extends JApplet {
   // Anfang Methoden
   public void timer_update_ActionPerformed(ActionEvent evt) {
     // Methoden zu Bewegung ud die Schwerkraft werden bei jedem Pick abgerufen
-    this.move(moveSpeed);
+    this.move();
     this.variablereset();
     this.gravity();
+    paintLabels();
   } // end of timer_update_ActionPerformed
 
   public void bStart_ActionPerformed(ActionEvent evt) {
@@ -174,6 +188,27 @@ public class SuperMario_mit_Kommentaren_test extends JApplet {
     } else {
       return false;
     } // end of if-else
-  }// Ende Methoden
+  }
+  
+  private void loadBuffedImages(){
+    
+    try {
+      boxImage = ImageIO.read((getClass().getResourceAsStream("box.jpg")));
+      eventBoxImage = ImageIO.read((getClass().getResourceAsStream("eventBox.jpg")));
+
+    } catch(Exception e) {
+      System.out.println(e.toString());
+    }
+
+  }
+  
+  private void paintLabels(){
+    BoxGraphics = box.getGraphics();
+    eventBoxGraphics = eventBox.getGraphics();
+    BoxGraphics.drawImage(boxImage,0,0,this);
+    eventBoxGraphics.drawImage(eventBoxImage,0,0,this);
+    eventBox.paint(eventBoxGraphics);   
+  }
+  // Ende Methoden
 
 } // end of class SuperMario_mit_Kommentaren_test
