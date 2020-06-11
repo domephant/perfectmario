@@ -1,0 +1,23 @@
+object SuperMario_mit_Kommentaren: TFGUIForm
+  Left = 230
+  Top = 227
+  BorderIcons = [biSystemMenu]
+  ClientHeight = 261
+  ClientWidth = 284
+  Color = clBtnFace
+  ParentFont = True
+  FormStyle = fsStayOnTop
+  OldCreateOrder = True
+  Position = poDesigned
+  ShowHint = True
+  Visible = True
+  OnClose = FormClose
+  OnCloseQuery = FormCloseQuery
+  OnResize = FormResize
+  FrameType = 7
+  Resizable = False
+  Undecorated = False
+  Background = clBtnFace
+  PixelsPerInch = 96
+  TextHeight = 13
+end
