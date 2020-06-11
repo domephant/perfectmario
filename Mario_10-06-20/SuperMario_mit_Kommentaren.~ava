@@ -25,6 +25,7 @@ import java.awt.font.TextAttribute;
 
 public class SuperMario_mit_Kommentaren extends JApplet {
   //Benutzte Objekte (Charakter, Box, PowerUp, Boden und ein Array zum Speichern der zu bewegenden Panels wird definiert
+  // Anfang Attribute
   private JPanel marioCharacter = new JPanel(null, true);
   private JPanel eventBox = new JPanel(null, true);
   private JPanel powerUP = new JPanel(null, true);
@@ -49,6 +50,7 @@ public class SuperMario_mit_Kommentaren extends JApplet {
   private Timer opponent_jump = new Timer(1000, null);
   private Timer opponentleft = new Timer(1000, null);
   private JTextField text_fail = new JTextField();
+  private Timer chek_for_finishline = new Timer(1000, null);
   // Ende Attribute
 
 
@@ -56,7 +58,7 @@ public class SuperMario_mit_Kommentaren extends JApplet {
     Container cp = getContentPane();
     cp.setLayout(null);
     cp.setSize(1080, 720);
-    cp.setBounds(0, 0, 1295, 720);
+    cp.setBounds(0, 0, 356, 501);
     panels.add(eventBox);
     panels.add(powerUP);
     panels.add(ground);
@@ -168,6 +170,14 @@ public class SuperMario_mit_Kommentaren extends JApplet {
     text_fail.setFont(new Font(text_fail_map));
     text_fail.setForeground(Color.WHITE);
     cp.add(text_fail);
+    chek_for_finishline.addActionListener(new ActionListener() { 
+      public void actionPerformed(ActionEvent evt) { 
+        chek_for_finishline_ActionPerformed(evt);
+      }
+    });
+    chek_for_finishline.setRepeats(true);
+    chek_for_finishline.setInitialDelay(0);
+    chek_for_finishline.setDelay(1);
     // Ende Komponenten
 
   } // end of init
@@ -206,6 +216,8 @@ public class SuperMario_mit_Kommentaren extends JApplet {
     opponent_jump.start();    //Alle 200ms wird Math.random ausgef?hrt. Wenn dabei 0 rauskommt, springt der Gegner
     //opponentleft wird gestartet
     opponentleft.start();     //Dadurch bewegt sich der Gegner jede 10ms um -2 ausser einer der Sonderf?lle trift ein
+    //check_for_finishline wird gestertet
+    chek_for_finishline.start();   //Jede ms wird kontrolliert ob Mario im Ziel angekommen ist
   }
 
   public void variablereset() {
@@ -310,4 +322,27 @@ public class SuperMario_mit_Kommentaren extends JApplet {
       opponentleft.stop();
      } // end of if
     }
-} 
+    
+  public void chek_for_finishline_ActionPerformed(ActionEvent evt) {
+    // TODO hier Quelltext einfügen
+  
+  } // end of chek_for_finishline_ActionPerformed
+
+  }// Ende Methoden
+    
+    
+    
+        
+    
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+

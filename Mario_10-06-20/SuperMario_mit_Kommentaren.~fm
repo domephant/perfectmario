@@ -1,9 +1,9 @@
 object SuperMario_mit_Kommentaren: TFGUIForm
-  Left = 230
-  Top = 227
+  Left = 1033
+  Top = 228
   BorderIcons = [biSystemMenu]
-  ClientHeight = 261
-  ClientWidth = 284
+  ClientHeight = 462
+  ClientWidth = 340
   Color = clBtnFace
   ParentFont = True
   FormStyle = fsStayOnTop
@@ -20,4 +20,25 @@ object SuperMario_mit_Kommentaren: TFGUIForm
   Background = clBtnFace
   PixelsPerInch = 96
   TextHeight = 13
+  object chek_for_finishline: TTimer
+    Tag = 49
+    Left = 8
+    Top = 10
+    Width = 33
+    Height = 28
+    Hint = 'timer1'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -12
+    Font.Name = 'Dialog'
+    Font.Style = [fsBold]
+    Foreground = 3355443
+    Background = 15658734
+    actionPerformed = 'chek_for_finishline_ActionPerformed'
+    Coalesce = False
+    Delay = 1
+    InitialDelay = 0
+    LogTimers = False
+    Repeats = True
+  end
 end
