@@ -19,9 +19,14 @@ import java.awt.Image;
 
 public class SuperMario_mit_Kommentaren_test extends JApplet {
   // Anfang Attribute
-  private JPanel marioCharacter = new JPanel(null, true); // Panel marioCharacter wird definiert
-  private JPanel eventBox = new JPanel(null, true); // Panel eventBox wird definiert
-  private JPanel powerUP = new JPanel(null, true); // Panel powerUP wird definiert
+  
+  //JPanels werden definiert
+  private JPanel marioCharacter = new JPanel(null, true); 
+  private JPanel eventBox = new JPanel(null, true); 
+  private JPanel box = new JPanel(null, true);		
+  private JPanel powerUP = new JPanel(null, true); 
+  private JPanel ground = new JPanel(null, true);
+  
   int jumpSpeed = 2;
   int moveSpeed;
   boolean jumping = false;
@@ -33,14 +38,15 @@ public class SuperMario_mit_Kommentaren_test extends JApplet {
   int currentJumpHeight = 0;
   int marioWidth = marioCharacter.getWidth();
   int marioBottom = marioCharacter.getY() + marioCharacter.getHeight();
-  private JPanel ground = new JPanel(null, true);
   ArrayList<JPanel> panels = new ArrayList<JPanel>();
-  private BufferedImage boxImage;
-  private BufferedImage eventBoxImage;
   
-  private Graphics BoxGraphics;
-  private Graphics eventBoxGraphics;
-  private JPanel box = new JPanel(null, true);
+  //BufferedImages werden definiert
+  private BufferedImage boxImage;			
+  private BufferedImage eventBoxImage;		
+  
+  //Graphics werden definiert
+  private Graphics BoxGraphics;				
+  private Graphics eventBoxGraphics;		
   // Ende Attribute
 
   public void init() {
@@ -191,6 +197,7 @@ public class SuperMario_mit_Kommentaren_test extends JApplet {
   
   private void loadBuffedImages(){
     
+	//Es wird versucht die BufferedImages zu laden
     try {
       boxImage = ImageIO.read((getClass().getResourceAsStream("box.jpg")));
       eventBoxImage = ImageIO.read((getClass().getResourceAsStream("eventBox.jpg")));
@@ -201,11 +208,14 @@ public class SuperMario_mit_Kommentaren_test extends JApplet {
 
   }
   
+  
   private void paintLabels(){
+	//Graphics werden geladen und zeichnen ein Bild
     BoxGraphics = box.getGraphics();
     eventBoxGraphics = eventBox.getGraphics();
     BoxGraphics.drawImage(boxImage,0,0,this);
     eventBoxGraphics.drawImage(eventBoxImage,0,0,this);
+	//Die Graphics der Labels werden auf die Graphic gesetzt
     eventBox.paint(eventBoxGraphics);   
   }
   // Ende Methoden
