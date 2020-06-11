@@ -12,10 +12,10 @@ import java.awt.font.TextAttribute;
  * Beschreibung
  *
  * @version 1.3 vom 10.06.2020
- * @Marc Stüwe, Lars von Bandel, Niklas Goldschmidt und Dominik Schulz
+ * @Marc Stï¿½we, Lars von Bandel, Niklas Goldschmidt und Dominik Schulz
  *
  * Bekannte Bugs/Baustellen:
-  * Springen resettet sich nicht vernünftig, Fliegen möglich (muss noch umgecodet werden, gerade sehr unelegant gelöst)
+  * Springen resettet sich nicht vernï¿½nftig, Fliegen mï¿½glich (muss noch umgecodet werden, gerade sehr unelegant gelï¿½st)
   * groundpanel bewegt sich nicht mit
   * Marios Boxinteraktionen sind nicht fertig
   * Schleichen muss noch integriert werden
@@ -37,17 +37,17 @@ public class SuperMario_mit_Kommentaren extends JApplet {
   //ArrayLists werden definiert
   ArrayList<JPanel> panels = new ArrayList<JPanel>(); 
   
-  //Definition zusätzlicher Objekte
+  //Definition zusï¿½tzlicher Objekte
   private Timer timer_update = new Timer(1000, null);
   private JButton bStart = new JButton();
   
-  //Essentielle globale Bewegungsvariablen für Mario
+  //Essentielle globale Bewegungsvariablen fï¿½r Mario
   int jumpSpeed = 2;
   int moveSpeed;
   int maxJumpHeight = 220;
   int currentJumpHeight = 0;
   
-  //Abfragevariablen für Marios Aktionen
+  //Abfragevariablen fï¿½r Marios Aktionen
   int maxJumpHeightOpponent = 220;
   int currentJumpHeightOpponent = 0;
   boolean jumping = false;
@@ -78,13 +78,13 @@ public class SuperMario_mit_Kommentaren extends JApplet {
     panels.add(powerUP);
     panels.add(ground);
     powerUP.hide();
-    KeyboardFocusManager.getCurrentKeyboardFocusManager().addKeyEventDispatcher(new KeyEventDispatcher() { // Event für die Abfrage der Tasteneingaben wird definiert
+    KeyboardFocusManager.getCurrentKeyboardFocusManager().addKeyEventDispatcher(new KeyEventDispatcher() { // Event fï¿½r die Abfrage der Tasteneingaben wird definiert
 
       @Override
       public boolean dispatchKeyEvent(KeyEvent ke) {
         switch (ke.getID()) {
-        case KeyEvent.KEY_PRESSED: // sollte irgendeine Taste heruntergedrückt werden, wird folgender Code abgefragt
-          if (ke.getKeyCode() == KeyEvent.VK_SPACE) { // Wenn die heruntergedrückte Taste die Leertaste ist
+        case KeyEvent.KEY_PRESSED: // sollte irgendeine Taste heruntergedrï¿½ckt werden, wird folgender Code abgefragt
+          if (ke.getKeyCode() == KeyEvent.VK_SPACE) { // Wenn die heruntergedrï¿½ckte Taste die Leertaste ist
             jumping = true;
             if (contactwithbox_top()) {
               powerUP.show();
@@ -92,10 +92,10 @@ public class SuperMario_mit_Kommentaren extends JApplet {
           }
           if (ke.getKeyCode() == KeyEvent.VK_D) {
             moveSpeed = -2;
-            moveRight = true; // folgender Befehl wird ausgeführt, sollte Taste 'D' gedrückt werden
+            moveRight = true; // folgender Befehl wird ausgefï¿½hrt, sollte Taste 'D' gedrï¿½ckt werden
             // moveSidewards(movespeed);
           }
-          if (ke.getKeyCode() == KeyEvent.VK_A) { // folgender Befehl wird ausgeführt, sollte Taste 'A' gedrückt werden
+          if (ke.getKeyCode() == KeyEvent.VK_A) { // folgender Befehl wird ausgefï¿½hrt, sollte Taste 'A' gedrï¿½ckt werden
             moveSpeed = 2;
             moveLeft = true;
             // moveSidewards(movespeed);
@@ -197,7 +197,7 @@ public class SuperMario_mit_Kommentaren extends JApplet {
 	loadBuffedImages();
   } // end of init
   
-  //Methode für Bewegungen wird erstellt
+  //Methode fï¿½r Bewegungen wird erstellt
   public void move(int a) {
     //wenn Mario nach links oder rechts geht, verschiebt sich der Hintergrund / die Panels passend
     if (moveRight == true || moveLeft == true) {
@@ -237,23 +237,26 @@ public class SuperMario_mit_Kommentaren extends JApplet {
   }
 
   public void variablereset() {
-    // Wenn Mario bei seiner maximalen Sprunghöhe angekommen ist, wird es auf nicht mehr springend gesetzt, damit die Schwerkraft wieder greift
+    // Wenn Mario bei seiner maximalen Sprunghï¿½he angekommen ist, wird es auf nicht mehr springend gesetzt, damit die Schwerkraft wieder greift
     if (currentJumpHeight == maxJumpHeight) {
-      currentJumpHeight = 0;
+      currentJumpHeight = 1;
       jumping = false;
     } // end of if
   }
 
   public void gravity() {
-    // Sollte Mario nicht im Sprung sein oder auf dem Boden stehen, wird er nach unten verschoben, bis er den Boden berührt
+    // Sollte Mario nicht im Sprung sein oder auf dem Boden stehen, wird er nach unten verschoben, bis er den Boden berï¿½hrt
     if (jumping == false && this.contactwithground_top() == false) {
       marioCharacter.setLocation(marioCharacter.getX(), marioCharacter.getY() + jumpSpeed);
+      if (this.contactwithground_top() == true){
+        currentJumpHeight = 0;
+      }
     } // end of if
     if (opponentjump == false && this.opponentcontactwithground() == false) {     //Wenn der Gegner nicht Springt und nicht den Boden ber?hrt,
       opponent.setLocation(opponent.getX(), opponent.getY() + jumpSpeed);         //dann f?llt er zur?ck auf den Boden
     } // end of if
   }
-  //Wenn Mario den Boden berührt (Marios Y + Höhe = Y des Bodes), gibt die Methode true aus, um die Schwerkraft zu stoppen
+  //Wenn Mario den Boden berï¿½hrt (Marios Y + Hï¿½he = Y des Bodes), gibt die Methode true aus, um die Schwerkraft zu stoppen
   public boolean contactwithground_top() {
     if ((marioCharacter.getY() + marioCharacter.getHeight()) == ground.getY()) {
       return true;
@@ -343,6 +346,7 @@ public class SuperMario_mit_Kommentaren extends JApplet {
     // TODO hier Quelltext einfÃ¼gen
   
   } // end of chek_for_finishline_ActionPerformed
+
   private void loadBuffedImages(){
     
 	//Es wird versucht die BufferedImages zu laden
