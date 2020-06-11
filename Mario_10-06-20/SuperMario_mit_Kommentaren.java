@@ -26,20 +26,27 @@ import java.awt.font.TextAttribute;
 public class SuperMario_mit_Kommentaren extends JApplet {
   //Benutzte Objekte (Charakter, Box, PowerUp, Boden und ein Array zum Speichern der zu bewegenden Panels wird definiert
   // Anfang Attribute
-  private JPanel marioCharacter = new JPanel(null, true);
-  private JPanel eventBox = new JPanel(null, true);
-  private JPanel powerUP = new JPanel(null, true);
+  //JPanels werden definiert
+  private JPanel marioCharacter = new JPanel(null, true); 
+  private JPanel eventBox = new JPanel(null, true); 
+  private JPanel box = new JPanel(null, true);		
+  private JPanel powerUP = new JPanel(null, true); 
   private JPanel ground = new JPanel(null, true);
-  private JPanel opponent = new JPanel(null, true);  //Panel opponent wird definiert
+  private JPanel opponent = new JPanel(null, true);
+  
+  //ArrayLists werden definiert
   ArrayList<JPanel> panels = new ArrayList<JPanel>(); 
+  
   //Definition zusätzlicher Objekte
   private Timer timer_update = new Timer(1000, null);
   private JButton bStart = new JButton();
+  
   //Essentielle globale Bewegungsvariablen für Mario
   int jumpSpeed = 2;
   int moveSpeed;
   int maxJumpHeight = 220;
   int currentJumpHeight = 0;
+  
   //Abfragevariablen für Marios Aktionen
   int maxJumpHeightOpponent = 220;
   int currentJumpHeightOpponent = 0;
@@ -51,6 +58,14 @@ public class SuperMario_mit_Kommentaren extends JApplet {
   private Timer opponentleft = new Timer(1000, null);
   private JTextField text_fail = new JTextField();
   private Timer chek_for_finishline = new Timer(1000, null);
+  
+  //BufferedImages werden definiert
+  private BufferedImage boxImage;			
+  private BufferedImage eventBoxImage;		
+  
+  //Graphics werden definiert
+  private Graphics BoxGraphics;				
+  private Graphics eventBoxGraphics;	
   // Ende Attribute
 
 
@@ -179,7 +194,7 @@ public class SuperMario_mit_Kommentaren extends JApplet {
     chek_for_finishline.setInitialDelay(0);
     chek_for_finishline.setDelay(1);
     // Ende Komponenten
-
+	loadBuffedImages();
   } // end of init
   
   //Methode für Bewegungen wird erstellt
@@ -207,6 +222,7 @@ public class SuperMario_mit_Kommentaren extends JApplet {
     this.opponentjump();
     this.gravity();
     this.touched();
+	paintLabels();
   } // end of timer_update_ActionPerformed
 
   public void bStart_ActionPerformed(ActionEvent evt) {
@@ -327,8 +343,31 @@ public class SuperMario_mit_Kommentaren extends JApplet {
     // TODO hier Quelltext einfÃ¼gen
   
   } // end of chek_for_finishline_ActionPerformed
+  private void loadBuffedImages(){
+    
+	//Es wird versucht die BufferedImages zu laden
+    try {
+      boxImage = ImageIO.read((getClass().getResourceAsStream("box.jpg")));
+      eventBoxImage = ImageIO.read((getClass().getResourceAsStream("eventBox.jpg")));
 
-  }// Ende Methoden
+    } catch(Exception e) {
+      System.out.println(e.toString());
+    }
+
+  }
+  
+  
+  private void paintLabels(){
+	//Graphics werden geladen und zeichnen ein Bild
+    BoxGraphics = box.getGraphics();
+    eventBoxGraphics = eventBox.getGraphics();
+    BoxGraphics.drawImage(boxImage,0,0,this);
+    eventBoxGraphics.drawImage(eventBoxImage,0,0,this);
+	//Die Graphics der Labels werden auf die Graphic gesetzt
+    eventBox.paint(eventBoxGraphics);   
+  }
+  // Ende Methoden
+}
     
     
     
