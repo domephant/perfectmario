@@ -6,6 +6,10 @@ import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.awt.font.TextAttribute;
+import java.io.*;
+import java.awt.image.BufferedImage;
+import javax.imageio.*;
+import java.awt.Image;
 
 /**
  *
@@ -29,7 +33,7 @@ public class SuperMario_mit_Kommentaren extends JApplet {
   //JPanels werden definiert
   private JPanel marioCharacter = new JPanel(null, true); 
   private JPanel eventBox = new JPanel(null, true); 
-  private JPanel box = new JPanel(null, true);		
+  private JPanel box = new JPanel(null, true);    
   private JPanel powerUP = new JPanel(null, true); 
   private JPanel ground = new JPanel(null, true);
   private JPanel opponent = new JPanel(null, true);
@@ -60,12 +64,12 @@ public class SuperMario_mit_Kommentaren extends JApplet {
   private Timer chek_for_finishline = new Timer(1000, null);
   
   //BufferedImages werden definiert
-  private BufferedImage boxImage;			
-  private BufferedImage eventBoxImage;		
+  private BufferedImage boxImage;     
+  private BufferedImage eventBoxImage;    
   
   //Graphics werden definiert
-  private Graphics BoxGraphics;				
-  private Graphics eventBoxGraphics;	
+  private Graphics BoxGraphics;       
+  private Graphics eventBoxGraphics;  
   // Ende Attribute
 
 
@@ -73,7 +77,7 @@ public class SuperMario_mit_Kommentaren extends JApplet {
     Container cp = getContentPane();
     cp.setLayout(null);
     cp.setSize(1080, 720);
-    cp.setBounds(0, 0, 356, 501);
+    cp.setBounds(0, 0, 1295, 720);
     panels.add(eventBox);
     panels.add(powerUP);
     panels.add(ground);
@@ -175,9 +179,6 @@ public class SuperMario_mit_Kommentaren extends JApplet {
     text_fail.setText("I am sorry but you failed");
     text_fail.setBackground(Color.RED);
     text_fail.setVisible(false);
-    Hashtable<TextAttribute, Object> text_feil_map = new Hashtable<TextAttribute, Object>();
-    text_feil_map.put(TextAttribute.SIZE, new Integer(48));
-    text_feil_map.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
     Hashtable<TextAttribute, Object> text_fail_map = new Hashtable<TextAttribute, Object>();
     text_fail_map.put(TextAttribute.FAMILY, "Dialog");
     text_fail_map.put(TextAttribute.SIZE, new Integer(48));
@@ -194,7 +195,7 @@ public class SuperMario_mit_Kommentaren extends JApplet {
     chek_for_finishline.setInitialDelay(0);
     chek_for_finishline.setDelay(1);
     // Ende Komponenten
-	loadBuffedImages();
+  loadBuffedImages();
   } // end of init
   
   //Methode f�r Bewegungen wird erstellt
@@ -222,7 +223,7 @@ public class SuperMario_mit_Kommentaren extends JApplet {
     this.opponentjump();
     this.gravity();
     this.touched();
-	paintLabels();
+  paintLabels();
   } // end of timer_update_ActionPerformed
 
   public void bStart_ActionPerformed(ActionEvent evt) {
@@ -349,7 +350,7 @@ public class SuperMario_mit_Kommentaren extends JApplet {
 
   private void loadBuffedImages(){
     
-	//Es wird versucht die BufferedImages zu laden
+  //Es wird versucht die BufferedImages zu laden
     try {
       boxImage = ImageIO.read((getClass().getResourceAsStream("box.jpg")));
       eventBoxImage = ImageIO.read((getClass().getResourceAsStream("eventBox.jpg")));
@@ -362,12 +363,12 @@ public class SuperMario_mit_Kommentaren extends JApplet {
   
   
   private void paintLabels(){
-	//Graphics werden geladen und zeichnen ein Bild
+  //Graphics werden geladen und zeichnen ein Bild
     BoxGraphics = box.getGraphics();
     eventBoxGraphics = eventBox.getGraphics();
     BoxGraphics.drawImage(boxImage,0,0,this);
     eventBoxGraphics.drawImage(eventBoxImage,0,0,this);
-	//Die Graphics der Labels werden auf die Graphic gesetzt
+  //Die Graphics der Labels werden auf die Graphic gesetzt
     eventBox.paint(eventBoxGraphics);   
   }
   // Ende Methoden
