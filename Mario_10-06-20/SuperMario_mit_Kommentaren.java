@@ -37,6 +37,7 @@ public class SuperMario_mit_Kommentaren extends JApplet {
   private JPanel powerUP = new JPanel(null, true); 
   private JPanel ground = new JPanel(null, true);
   private JPanel opponent = new JPanel(null, true);
+  private JPanel flag = new JPanel(null, true);
   
   //ArrayLists werden definiert
   ArrayList<JPanel> panels = new ArrayList<JPanel>(); 
@@ -70,6 +71,7 @@ public class SuperMario_mit_Kommentaren extends JApplet {
   //Graphics werden definiert
   private Graphics BoxGraphics;       
   private Graphics eventBoxGraphics;  
+  private JTextField text_win = new JTextField();
   // Ende Attribute
 
 
@@ -87,31 +89,33 @@ public class SuperMario_mit_Kommentaren extends JApplet {
       @Override
       public boolean dispatchKeyEvent(KeyEvent ke) {
         switch (ke.getID()) {
-        case KeyEvent.KEY_PRESSED: // sollte irgendeine Taste heruntergedr�ckt werden, wird folgender Code abgefragt
-          if (ke.getKeyCode() == KeyEvent.VK_SPACE) { // Wenn die heruntergedr�ckte Taste die Leertaste ist
-            jumping = true;
-            if (contactwithbox_top()) {
-              powerUP.show();
+          case KeyEvent.KEY_PRESSED: // sollte irgendeine Taste heruntergedr�ckt werden, wird folgender Code abgefragt
+            if (ke.getKeyCode() == KeyEvent.VK_SPACE) { // Wenn die heruntergedr�ckte Taste die Leertaste ist
+              if (currentJumpHeight == 0){
+              jumping = true;  
+              }
+              if (contactwithbox_top()) {
+                powerUP.show();
             }
           }
-          if (ke.getKeyCode() == KeyEvent.VK_D) {
-            moveSpeed = -2;
-            moveRight = true; // folgender Befehl wird ausgef�hrt, sollte Taste 'D' gedr�ckt werden
+            if (ke.getKeyCode() == KeyEvent.VK_D) {
+              moveSpeed = -2;
+              moveRight = true; // folgender Befehl wird ausgef�hrt, sollte Taste 'D' gedr�ckt werden
             // moveSidewards(movespeed);
           }
-          if (ke.getKeyCode() == KeyEvent.VK_A) { // folgender Befehl wird ausgef�hrt, sollte Taste 'A' gedr�ckt werden
-            moveSpeed = 2;
-            moveLeft = true;
+            if (ke.getKeyCode() == KeyEvent.VK_A) { // folgender Befehl wird ausgef�hrt, sollte Taste 'A' gedr�ckt werden
+              moveSpeed = 2;
+              moveLeft = true;
             // moveSidewards(movespeed);
           }
           break;
 
-        case KeyEvent.KEY_RELEASED: // Folgendes passiert, sollte eine Taste losgelassen werden
-          if (ke.getKeyCode() == KeyEvent.VK_D) {
-            moveRight = false;
+          case KeyEvent.KEY_RELEASED: // Folgendes passiert, sollte eine Taste losgelassen werden
+            if (ke.getKeyCode() == KeyEvent.VK_D) {
+              moveRight = false;
           }
-          if (ke.getKeyCode() == KeyEvent.VK_A) {
-            moveLeft = false;
+            if (ke.getKeyCode() == KeyEvent.VK_A) {
+              moveLeft = false;
           }
           break;
         }
@@ -194,6 +198,22 @@ public class SuperMario_mit_Kommentaren extends JApplet {
     chek_for_finishline.setRepeats(true);
     chek_for_finishline.setInitialDelay(0);
     chek_for_finishline.setDelay(1);
+    flag.setBounds(1133, 13, 20, 20);
+    flag.setOpaque(true);
+    flag.setBackground(Color.CYAN);
+    cp.add(flag);
+    text_win.setBounds(300, 104, 690, 68);
+    text_win.setEditable(false);
+    text_win.setText("Congratulations! Goal achieved!");
+    text_win.setBackground(Color.GREEN);
+    text_win.setVisible(false);
+    Hashtable<TextAttribute, Object> text_win_map = new Hashtable<TextAttribute, Object>();
+    text_win_map.put(TextAttribute.FAMILY, "Dialog");
+    text_win_map.put(TextAttribute.SIZE, new Integer(48));
+    text_win_map.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
+    text_win.setFont(new Font(text_win_map));
+    text_win.setForeground(Color.WHITE);
+    cp.add(text_win);
     // Ende Komponenten
   loadBuffedImages();
   } // end of init
@@ -223,7 +243,7 @@ public class SuperMario_mit_Kommentaren extends JApplet {
     this.opponentjump();
     this.gravity();
     this.touched();
-  paintLabels();
+    //paintLabels();
   } // end of timer_update_ActionPerformed
 
   public void bStart_ActionPerformed(ActionEvent evt) {
@@ -332,19 +352,27 @@ public class SuperMario_mit_Kommentaren extends JApplet {
     if (opponetcontactleft() == true) {                                  //Falls der Gegner links aus dem Bild l?uft,
       opponent.setLocation(opponent.getX() + 1500, opponent.getY());     //wird er nach rechts ausserhalb des Bildes gesetzt und l?uft dann wieder nach links weiter
     } // end of if
-    } // end of opponentleft_ActionPerformed
+  } // end of opponentleft_ActionPerformed
   
   public void touched(){
-    if ((opponent.getX() - marioCharacter.getX() <=50 && opponent.getY() - marioCharacter.getY() <=50)) {
+    if ((opponent.getX() - marioCharacter.getX() <= 100) && (opponent.getY() - marioCharacter.getY() <= 100)) {
       text_fail.setVisible(true);
       timer_update.stop();
       opponent_jump.stop();    
       opponentleft.stop();
-     } // end of if
+    } // end of if
+    if (){
+  
     }
+  }
     
   public void chek_for_finishline_ActionPerformed(ActionEvent evt) {
-    // TODO hier Quelltext einfügen
+    if ((marioCharacter.getX() - flag.getX() <= flag.getWidth()) && (marioCharacter.getY() - flag.getY() <= flag.getHeight())) {
+      text_win.setVisible(true);
+      timer_update.stop();
+      opponent_jump.stop();    
+      opponentleft.stop(); 
+    } // end of if
   
   } // end of chek_for_finishline_ActionPerformed
 
@@ -358,7 +386,6 @@ public class SuperMario_mit_Kommentaren extends JApplet {
     } catch(Exception e) {
       System.out.println(e.toString());
     }
-
   }
   
   
