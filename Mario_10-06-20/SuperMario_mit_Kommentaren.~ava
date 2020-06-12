@@ -352,19 +352,19 @@ public class SuperMario_mit_Kommentaren extends JApplet {
     if (opponetcontactleft() == true) {                                  //Falls der Gegner links aus dem Bild l?uft,
       opponent.setLocation(opponent.getX() + 1500, opponent.getY());     //wird er nach rechts ausserhalb des Bildes gesetzt und l?uft dann wieder nach links weiter
     } // end of if
-    } // end of opponentleft_ActionPerformed
+  } // end of opponentleft_ActionPerformed
   
   public void touched(){
-    if ((opponent.getX() - marioCharacter.getX() <= 100) && (opponent.getY() - marioCharacter.getY() <= 100)) {
+    /*if ((opponent.getX() - marioCharacter.getX() <= 100) && (opponent.getY() - marioCharacter.getY() <= 100)) {
       text_fail.setVisible(true);
       timer_update.stop();
       opponent_jump.stop();    
       opponentleft.stop();
-     } // end of if
-    if (){
-  
-      }
+    } // end of if*/
+    if ((opponent.getX() + opponent.getWidth() == marioCharacter.getX()) && (opponent.getY() + opponent.getHeight() <= marioCharacter.getY())){
+      System.out.println("hello");
     }
+  }
     
   public void chek_for_finishline_ActionPerformed(ActionEvent evt) {
     if ((marioCharacter.getX() - flag.getX() <= flag.getWidth()) && (marioCharacter.getY() - flag.getY() <= flag.getHeight())) {
@@ -386,7 +386,6 @@ public class SuperMario_mit_Kommentaren extends JApplet {
     } catch(Exception e) {
       System.out.println(e.toString());
     }
-
   }
   
   

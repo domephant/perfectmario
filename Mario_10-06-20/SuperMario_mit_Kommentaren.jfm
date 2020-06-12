@@ -43,8 +43,8 @@ object SuperMario_mit_Kommentaren: TFGUIForm
   end
   object flag: TJPanel
     Tag = 12
-    Left = 1133
-    Top = 13
+    Left = 933
+    Top = 437
     Width = 20
     Height = 20
     Hint = 'jPanel1'

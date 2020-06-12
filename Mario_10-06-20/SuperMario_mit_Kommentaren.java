@@ -83,6 +83,7 @@ public class SuperMario_mit_Kommentaren extends JApplet {
     panels.add(eventBox);
     panels.add(powerUP);
     panels.add(ground);
+    panels.add(flag);
     powerUP.hide();
     KeyboardFocusManager.getCurrentKeyboardFocusManager().addKeyEventDispatcher(new KeyEventDispatcher() { // Event f�r die Abfrage der Tasteneingaben wird definiert
 
@@ -198,7 +199,7 @@ public class SuperMario_mit_Kommentaren extends JApplet {
     chek_for_finishline.setRepeats(true);
     chek_for_finishline.setInitialDelay(0);
     chek_for_finishline.setDelay(1);
-    flag.setBounds(1133, 13, 20, 20);
+    flag.setBounds(933, 437, 20, 20);
     flag.setOpaque(true);
     flag.setBackground(Color.CYAN);
     cp.add(flag);
@@ -267,7 +268,7 @@ public class SuperMario_mit_Kommentaren extends JApplet {
 
   public void gravity() {
     // Sollte Mario nicht im Sprung sein oder auf dem Boden stehen, wird er nach unten verschoben, bis er den Boden ber�hrt
-    if (jumping == false && this.contactwithground_top() == false) {
+    if (jumping == false && this.contactwithground_top() == false && this.contactwithopponent() != true) {
       marioCharacter.setLocation(marioCharacter.getX(), marioCharacter.getY() + jumpSpeed);
       if (this.contactwithground_top() == true){
         currentJumpHeight = 0;
@@ -284,6 +285,14 @@ public class SuperMario_mit_Kommentaren extends JApplet {
     } else {
       return false;
     } 
+  }
+  
+  public boolean contactwithopponent(){
+    if (marioCharacter.getBounds().intersects(opponent.getBounds())){
+      return true;
+    } else {
+      return false;
+    }
   }
   
   public boolean opponentcontactwithground(){
@@ -340,7 +349,7 @@ public class SuperMario_mit_Kommentaren extends JApplet {
         opponent.setLocation(opponent.getX() -100, opponent.getY());      //wird l?uft der Gegner mit 100 Einheiten pro 10ms richtung Mario, bis dieser n?her als 1200 einheiten ist
       } // end of if
       else {
-        opponent.setLocation(opponent.getX() -2, opponent.getY());        //sont l?uft der gegner alle 10ms um 2 Einheiten in Richtung des Gegners
+        opponent.setLocation(opponent.getX() -1, opponent.getY());        //sont l?uft der gegner alle 10ms um 2 Einheiten in Richtung des Gegners
       } // end of if-else
     } // end of if
     if (moveLeft == true && moveRight != true) {                         //Falls jedoch Mario nach links l?uft,
@@ -355,19 +364,28 @@ public class SuperMario_mit_Kommentaren extends JApplet {
   } // end of opponentleft_ActionPerformed
   
   public void touched(){
-    if ((opponent.getX() - marioCharacter.getX() <= 100) && (opponent.getY() - marioCharacter.getY() <= 100)) {
+    if (marioCharacter.getBounds().intersects(opponent.getBounds())){
+      if (marioCharacter.getBounds().contains(opponent.getBounds().x, opponent.getBounds().y) && marioCharacter.getBounds().contains(opponent.getBounds().x + 5, opponent.getBounds().y) || (marioCharacter.getBounds().contains(opponent.getBounds().x + opponent.getBounds().width, opponent.getBounds().y) && marioCharacter.getBounds().contains(opponent.getBounds().x + (opponent.getBounds().width -5), opponent.getBounds().y)) ){
+        text_fail.setVisible(true);
+        opponent_jump.stop();    
+        opponentleft.stop();
+        this.opponentdie();
+      } else {
       text_fail.setVisible(true);
       timer_update.stop();
       opponent_jump.stop();    
       opponentleft.stop();
-    } // end of if
-    if (){
-  
+      }
     }
   }
+
+  public void opponentdie(){
+    text_fail.setBackground(Color.BLUE);
+  }
+  
     
   public void chek_for_finishline_ActionPerformed(ActionEvent evt) {
-    if ((marioCharacter.getX() - flag.getX() <= flag.getWidth()) && (marioCharacter.getY() - flag.getY() <= flag.getHeight())) {
+    if (marioCharacter.getBounds().intersects(flag.getBounds())) {
       text_win.setVisible(true);
       timer_update.stop();
       opponent_jump.stop();    
