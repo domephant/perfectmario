@@ -43,8 +43,8 @@ object SuperMario_mit_Kommentaren: TFGUIForm
   end
   object flag: TJPanel
     Tag = 12
-    Left = 933
-    Top = 437
+    Left = 493
+    Top = 365
     Width = 20
     Height = 20
     Hint = 'jPanel1'
@@ -54,7 +54,7 @@ object SuperMario_mit_Kommentaren: TFGUIForm
     Font.Name = 'Dialog'
     Font.Style = [fsBold]
     Foreground = 3355443
-    Background = clAqua
+    Background = 11513855
     Border.BorderType = NoBorder
     Border.LineColor = clBlack
     Border.LineThickness = 0

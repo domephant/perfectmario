@@ -53,16 +53,23 @@ public class SuperMario_mit_Kommentaren extends JApplet {
   int currentJumpHeight = 0;
   
   //Abfragevariablen f�r Marios Aktionen
-  int maxJumpHeightOpponent = 220;
-  int currentJumpHeightOpponent = 0;
   boolean jumping = false;
   boolean moveRight = false;
   boolean moveLeft = false;
-  boolean opponentjump = false;
+  boolean flagtouched = false;
   private Timer opponent_jump = new Timer(1000, null);
   private Timer opponentleft = new Timer(1000, null);
   private JTextField text_fail = new JTextField();
   private Timer chek_for_finishline = new Timer(1000, null);
+
+  //Abfragevariablen fuer den Gegner
+  int maxJumpHeightOpponent = 110;
+  int currentJumpHeightOpponent = 0;
+  int opponentheight = 50;
+  int opponentwidth = 50;
+  boolean opponentjump = false;
+  boolean opponentdie = false;
+  boolean nottouched = true;
   
   //BufferedImages werden definiert
   private BufferedImage boxImage;     
@@ -159,7 +166,7 @@ public class SuperMario_mit_Kommentaren extends JApplet {
     ground.setOpaque(true);
     ground.setBackground(Color.GREEN);
     cp.add(ground);
-    opponent.setBounds(941, 350, 50, 50);
+    opponent.setBounds(1500, 575, opponentwidth, opponentheight);
     opponent.setOpaque(true);
     opponent.setBackground(Color.MAGENTA);
     cp.add(opponent);
@@ -199,9 +206,9 @@ public class SuperMario_mit_Kommentaren extends JApplet {
     chek_for_finishline.setRepeats(true);
     chek_for_finishline.setInitialDelay(0);
     chek_for_finishline.setDelay(1);
-    flag.setBounds(933, 437, 20, 20);
+    flag.setBounds(493, 365, 20, 20);
     flag.setOpaque(true);
-    flag.setBackground(Color.CYAN);
+    flag.setBackground(new Color(0xFFAFAF));
     cp.add(flag);
     text_win.setBounds(300, 104, 690, 68);
     text_win.setEditable(false);
@@ -244,6 +251,7 @@ public class SuperMario_mit_Kommentaren extends JApplet {
     this.opponentjump();
     this.gravity();
     this.touched();
+    this.opponentdie();
     //paintLabels();
   } // end of timer_update_ActionPerformed
 
@@ -275,7 +283,7 @@ public class SuperMario_mit_Kommentaren extends JApplet {
       }
     } // end of if
     if (opponentjump == false && this.opponentcontactwithground() == false) {     //Wenn der Gegner nicht Springt und nicht den Boden ber?hrt,
-      opponent.setLocation(opponent.getX(), opponent.getY() + jumpSpeed);         //dann f?llt er zur?ck auf den Boden
+      opponent.setLocation(opponent.getX(), opponent.getY() + jumpSpeed/2);         //dann f?llt er zur?ck auf den Boden
     } // end of if
   }
   //Wenn Mario den Boden ber�hrt (Marios Y + H�he = Y des Bodes), gibt die Methode true aus, um die Schwerkraft zu stoppen
@@ -334,8 +342,8 @@ public class SuperMario_mit_Kommentaren extends JApplet {
   
   public void opponentjump() {
     if (opponentjump == true && currentJumpHeightOpponent <= maxJumpHeightOpponent) {      //Wenn der Gegner springen soll und die maximale Springh?he noch nicht erreicht ist, springt er jede ms um 2 Einheiten nach oben
-      opponent.setLocation(opponent.getX(), opponent.getY() - jumpSpeed);           //Y-Koordinate um jumpSpeed erh?hen
-      currentJumpHeightOpponent += jumpSpeed;                                       //currentJumpHeightOpponent wird um jumpSpeed erh?ht
+      opponent.setLocation(opponent.getX(), opponent.getY() - jumpSpeed/2);           //Y-Koordinate um jumpSpeed erh?hen
+      currentJumpHeightOpponent += jumpSpeed/2;                                       //currentJumpHeightOpponent wird um jumpSpeed erh?ht
       if (currentJumpHeightOpponent == maxJumpHeightOpponent) {                     //Wenn currentJumpHeightOpponent gleich der maximalen Springh?he ist,
         opponentjump = false;                                                       //soll der Gegner nicht mehr springen
         currentJumpHeightOpponent = 0;                                              //und die Sprungh?he wird auf 0 zur?ckgesetzt
@@ -366,11 +374,8 @@ public class SuperMario_mit_Kommentaren extends JApplet {
   public void touched(){
     if (marioCharacter.getBounds().intersects(opponent.getBounds())){
       if (marioCharacter.getBounds().contains(opponent.getBounds().x, opponent.getBounds().y) && marioCharacter.getBounds().contains(opponent.getBounds().x + 5, opponent.getBounds().y) || (marioCharacter.getBounds().contains(opponent.getBounds().x + opponent.getBounds().width, opponent.getBounds().y) && marioCharacter.getBounds().contains(opponent.getBounds().x + (opponent.getBounds().width -5), opponent.getBounds().y)) ){
-        text_fail.setVisible(true);
-        opponent_jump.stop();    
-        opponentleft.stop();
-        this.opponentdie();
-      } else {
+        opponentdie = true;
+      } else if (nottouched == true) {
       text_fail.setVisible(true);
       timer_update.stop();
       opponent_jump.stop();    
@@ -380,17 +385,32 @@ public class SuperMario_mit_Kommentaren extends JApplet {
   }
 
   public void opponentdie(){
-    text_fail.setBackground(Color.BLUE);
+    if (opponentdie == true) {
+      nottouched = !true;
+      opponent.setBounds(opponent.getBounds().x, opponent.getBounds().y +1, opponent.getSize().width , opponent.getSize().height -1);
+    }
+    if (opponent.getBounds().height == -2){
+      opponentdie = false;
+      nottouched = true;
+      opponent.setBounds(1500, 575, opponentwidth, opponentheight);
+    }
   }
   
     
   public void chek_for_finishline_ActionPerformed(ActionEvent evt) {
     if (marioCharacter.getBounds().intersects(flag.getBounds())) {
+      flagtouched = true;
       text_win.setVisible(true);
       timer_update.stop();
       opponent_jump.stop();    
       opponentleft.stop(); 
     } // end of if
+    if (flagtouched == true){
+      if(this.contactwithground_top() != true){
+      marioCharacter.setBounds(marioCharacter.getBounds().x, marioCharacter.getBounds().y +1, marioCharacter.getBounds().width, marioCharacter.getBounds().height);
+      flag.setBounds(flag.getBounds().x, flag.getBounds().y +1, flag.getBounds().width, flag.getBounds().height);
+      }
+    }
   
   } // end of chek_for_finishline_ActionPerformed
 
