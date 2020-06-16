@@ -11,6 +11,7 @@ import java.awt.image.BufferedImage;
 import javax.imageio.*;
 import java.awt.Image;
 import javax.swing.JPanel;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -21,7 +22,7 @@ import javax.swing.JPanel;
  *
  * Bekannte Bugs/Baustellen:
   * Springen resettet sich nicht vern�nftig, Fliegen m�glich (muss noch umgecodet werden, gerade sehr unelegant gel�st)
-  * groundpanel bewegt sich nicht mit
+  * groundpanel bewegt sich nicht mit <- bewegt sich mit, ist größer als das Fenster
   * Marios Boxinteraktionen sind nicht fertig
   * Programmieren eines Gegners und weiterer Spielelemente
  */
@@ -74,7 +75,8 @@ public class SuperMario_mit_Kommentaren extends JApplet {
   
   //BufferedImages werden definiert
   private BufferedImage boxImage;     
-  private BufferedImage eventBoxImage;    
+  private BufferedImage eventBoxImage;
+  private Image testImage;   
   
   //Graphics werden definiert
   private Graphics BoxGraphics;       
@@ -87,8 +89,9 @@ public class SuperMario_mit_Kommentaren extends JApplet {
     Container cp = getContentPane();
     cp.setLayout(null);
     cp.setSize(1080, 720);
-    cp.setBounds(0, 0, 1295, 720);
+    cp.setBounds(0, 0, 957, 691);
     panels.add(eventBox);
+    panels.add(box);
     panels.add(powerUP);
     panels.add(ground);
     panels.add(flag);
@@ -142,15 +145,17 @@ public class SuperMario_mit_Kommentaren extends JApplet {
     });
     // Anfang Komponenten
 
-    marioCharacter.setBounds(230, 350, 50, 100);
+    marioCharacter.setBounds(230, 350, 32, 64);
     marioCharacter.setOpaque(true);
     marioCharacter.setBackground(Color.RED);
 
     cp.add(marioCharacter);
-    eventBox.setBounds(230, 450, 50, 50);
-    eventBox.setOpaque(true);
-    eventBox.setBackground(new Color(0xFFC800));
+    eventBox.setBounds(230, 450, 32, 32);
+    eventBox.setOpaque(false);
     cp.add(eventBox);
+    box.setBounds(262, 450, 32, 32);
+    box.setOpaque(false);
+    cp.add(box);
     powerUP.setBounds(eventBox.getX(), eventBox.getY() - eventBox.getHeight(), 50, 50);
     powerUP.setOpaque(true);
     powerUP.setBackground(Color.CYAN);
@@ -233,7 +238,7 @@ public class SuperMario_mit_Kommentaren extends JApplet {
     text_win.setForeground(Color.WHITE);
     cp.add(text_win);
     // Ende Komponenten
-  loadBuffedImages();
+    loadBuffedImages();
   } // end of init
     
   //Methode f�r Bewegungen wird erstellt
@@ -267,7 +272,7 @@ public class SuperMario_mit_Kommentaren extends JApplet {
     this.gravity();
     this.touched();
     this.opponentdie();
-    //paintLabels();
+    this.paintLabels();
   } // end of timer_update_ActionPerformed
 
   public void bStart_ActionPerformed(ActionEvent evt) {
@@ -445,7 +450,7 @@ public class SuperMario_mit_Kommentaren extends JApplet {
     try {
       boxImage = ImageIO.read((getClass().getResourceAsStream("box.jpg")));
       eventBoxImage = ImageIO.read((getClass().getResourceAsStream("eventBox.jpg")));
-
+      testImage = new ImageIcon(getClass().getResource("eventBox.jpg")).getImage();
     } catch(Exception e) {
       System.out.println(e.toString());
     }
@@ -453,13 +458,15 @@ public class SuperMario_mit_Kommentaren extends JApplet {
   
   
   private void paintLabels(){
-  //Graphics werden geladen und zeichnen ein Bild
-    BoxGraphics = box.getGraphics();
+    //Graphics werden geladen und zeichnen ein Bild
+    
+    //BoxGraphics = box.getGraphics();
     eventBoxGraphics = eventBox.getGraphics();
-    BoxGraphics.drawImage(boxImage,0,0,this);
-    eventBoxGraphics.drawImage(eventBoxImage,0,0,this);
-  //Die Graphics der Labels werden auf die Graphic gesetzt
-    eventBox.paint(eventBoxGraphics);   
+    //BoxGraphics.drawImage(boxImage,0,0,this);
+    eventBoxGraphics.drawImage(testImage,0,0,this);
+    
+    //Die Graphics der Labels werden auf die Graphic gesetzt
+    //eventBox.paint(eventBoxGraphics);
   }
   // Ende Methoden
 }
