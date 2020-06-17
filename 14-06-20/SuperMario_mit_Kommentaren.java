@@ -40,7 +40,9 @@ public class SuperMario_mit_Kommentaren extends JApplet {
   private JPanel flag = new JPanel(null, true);
   
   //ArrayLists werden definiert
-  ArrayList<JPanel> panels = new ArrayList<JPanel>(); 
+  ArrayList<JPanel> panels = new ArrayList<JPanel>();
+  ArrayList<JPanel> boxes = new ArrayList<JPanel>();  
+  ArrayList<JPanel> eventBoxes = new ArrayList<JPanel>();
   
   //Definition zus�tzlicher Objekte
   private Timer timer_update = new Timer(1000, null);
