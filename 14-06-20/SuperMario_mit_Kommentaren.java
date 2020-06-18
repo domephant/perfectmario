@@ -31,18 +31,119 @@ public class SuperMario_mit_Kommentaren extends JApplet {
   //Benutzte Objekte (Charakter, Box, PowerUp, Boden und ein Array zum Speichern der zu bewegenden Panels wird definiert
   // Anfang Attribute
   //JPanels werden definiert
-  private JPanel marioCharacter = new JPanel(null, true); 
-  private JPanel eventBox = new JPanel(null, true); 
-  private JPanel box = new JPanel(null, true);    
+  private JPanel marioCharacter = new JPanel(null, true);   
   private JPanel powerUP = new JPanel(null, true); 
   private JPanel ground = new JPanel(null, true);
   private JPanel opponent = new JPanel(null, true);
   private JPanel flag = new JPanel(null, true);
   
+  
+  //Boxen werden definiert
+  private JPanel box1 = new JPanel(null, true);
+  private JPanel box2 = new JPanel(null, true);
+  private JPanel box3 = new JPanel(null, true);
+  private JPanel box4 = new JPanel(null, true);
+  private JPanel box5 = new JPanel(null, true);
+  private JPanel box6 = new JPanel(null, true);
+  private JPanel box7 = new JPanel(null, true);
+  private JPanel box8 = new JPanel(null, true);
+  private JPanel box9 = new JPanel(null, true);
+  private JPanel box10 = new JPanel(null, true);
+  private JPanel box11 = new JPanel(null, true);
+  private JPanel box12 = new JPanel(null, true);
+  private JPanel box13 = new JPanel(null, true);
+  private JPanel box14 = new JPanel(null, true);
+  private JPanel box15 = new JPanel(null, true);
+  private JPanel box16 = new JPanel(null, true);
+  private JPanel box17 = new JPanel(null, true);
+  private JPanel box18 = new JPanel(null, true);
+  private JPanel box19 = new JPanel(null, true);
+  private JPanel box20 = new JPanel(null, true);
+  private JPanel box21 = new JPanel(null, true);
+  private JPanel box22 = new JPanel(null, true);
+  private JPanel box23 = new JPanel(null, true);
+  private JPanel box24 = new JPanel(null, true);
+  private JPanel box25 = new JPanel(null, true);
+  private JPanel box26 = new JPanel(null, true);
+  
+  //EventBoxen werden definiert
+  private JPanel eventBox1 = new JPanel(null, true);
+  private JPanel eventBox2 = new JPanel(null, true);  
+  private JPanel eventBox3 = new JPanel(null, true);
+  private JPanel eventBox4 = new JPanel(null, true);
+  private JPanel eventBox5 = new JPanel(null, true);
+  private JPanel eventBox6 = new JPanel(null, true);
+  private JPanel eventBox7 = new JPanel(null, true);
+  private JPanel eventBox8 = new JPanel(null, true);
+  private JPanel eventBox9 = new JPanel(null, true);
+  private JPanel eventBox10 = new JPanel(null, true);
+  private JPanel eventBox11 = new JPanel(null, true);
+  
+  //Röhren werden definiert
+  private JPanel tube1 = new JPanel(null, true);
+  
+  //Podest Boxen werden definiert
+  private JPanel pedestalBox1 = new JPanel(null, true);
+  private JPanel pedestalBox2 = new JPanel(null, true);
+  private JPanel pedestalBox3 = new JPanel(null, true);
+  private JPanel pedestalBox4 = new JPanel(null, true);
+  private JPanel pedestalBox5 = new JPanel(null, true);
+  private JPanel pedestalBox6 = new JPanel(null, true);
+  private JPanel pedestalBox7 = new JPanel(null, true);
+  private JPanel pedestalBox8 = new JPanel(null, true);
+  private JPanel pedestalBox9 = new JPanel(null, true);
+  private JPanel pedestalBox10 = new JPanel(null, true);
+  private JPanel pedestalBox11 = new JPanel(null, true);
+  private JPanel pedestalBox12 = new JPanel(null, true);
+  private JPanel pedestalBox13 = new JPanel(null, true);
+  private JPanel pedestalBox14 = new JPanel(null, true);
+  private JPanel pedestalBox15 = new JPanel(null, true);
+  private JPanel pedestalBox16 = new JPanel(null, true);
+  private JPanel pedestalBox17 = new JPanel(null, true);
+  private JPanel pedestalBox18 = new JPanel(null, true);
+  private JPanel pedestalBox19 = new JPanel(null, true);
+  private JPanel pedestalBox20 = new JPanel(null, true);
+  private JPanel pedestalBox21 = new JPanel(null, true);
+  private JPanel pedestalBox22 = new JPanel(null, true);
+  private JPanel pedestalBox23 = new JPanel(null, true);
+  private JPanel pedestalBox24 = new JPanel(null, true);
+  private JPanel pedestalBox25 = new JPanel(null, true);
+  private JPanel pedestalBox26 = new JPanel(null, true);
+  private JPanel pedestalBox27 = new JPanel(null, true);
+  private JPanel pedestalBox28 = new JPanel(null, true);
+  private JPanel pedestalBox29 = new JPanel(null, true);
+  private JPanel pedestalBox30 = new JPanel(null, true);
+  private JPanel pedestalBox31 = new JPanel(null, true);
+  private JPanel pedestalBox32 = new JPanel(null, true);
+  private JPanel pedestalBox33 = new JPanel(null, true);
+  private JPanel pedestalBox34 = new JPanel(null, true);
+  private JPanel pedestalBox35 = new JPanel(null, true);
+  private JPanel pedestalBox36 = new JPanel(null, true);
+  private JPanel pedestalBox37 = new JPanel(null, true);
+  private JPanel pedestalBox38 = new JPanel(null, true);
+  private JPanel pedestalBox39 = new JPanel(null, true);
+  private JPanel pedestalBox40 = new JPanel(null, true);
+  private JPanel pedestalBox41 = new JPanel(null, true);
+  private JPanel pedestalBox42 = new JPanel(null, true);
+  private JPanel pedestalBox43 = new JPanel(null, true);
+  private JPanel pedestalBox44 = new JPanel(null, true);
+  private JPanel pedestalBox45 = new JPanel(null, true);
+  private JPanel pedestalBox46 = new JPanel(null, true);
+  private JPanel pedestalBox47 = new JPanel(null, true);
+  private JPanel pedestalBox48 = new JPanel(null, true);
+  private JPanel pedestalBox49 = new JPanel(null, true);
+  private JPanel pedestalBox50 = new JPanel(null, true);
+  private JPanel pedestalBox51 = new JPanel(null, true);
+  private JPanel pedestalBox52 = new JPanel(null, true);
+  private JPanel pedestalBox53 = new JPanel(null, true);
+  
+  
+  
   //ArrayLists werden definiert
   ArrayList<JPanel> panels = new ArrayList<JPanel>();
   ArrayList<JPanel> boxes = new ArrayList<JPanel>();  
   ArrayList<JPanel> eventBoxes = new ArrayList<JPanel>();
+  ArrayList<JPanel> pedestalBoxes = new ArrayList<JPanel>();
   
   //Definition zus�tzlicher Objekte
   private Timer timer_update = new Timer(1000, null);
@@ -77,8 +178,7 @@ public class SuperMario_mit_Kommentaren extends JApplet {
   
   //BufferedImages werden definiert
   private BufferedImage boxImage;     
-  private BufferedImage eventBoxImage;
-  private Image testImage;   
+  private BufferedImage eventBoxImage; 
   
   //Graphics werden definiert
   private Graphics BoxGraphics;       
@@ -92,11 +192,199 @@ public class SuperMario_mit_Kommentaren extends JApplet {
     cp.setLayout(null);
     cp.setSize(1080, 720);
     cp.setBounds(0, 0, 957, 691);
-    panels.add(eventBox);
-    panels.add(box);
     panels.add(powerUP);
     panels.add(ground);
     panels.add(flag);
+  
+  //Boxen werden bei Panels & Boxes hinzugefügt
+  panels.add(box1);
+  panels.add(box2);
+  panels.add(box3);
+  panels.add(box4);
+  panels.add(box5);
+  panels.add(box6);
+  panels.add(box7);
+  panels.add(box8);
+  panels.add(box9);
+  panels.add(box10);
+  panels.add(box11);
+  panels.add(box12);
+  panels.add(box13);
+  panels.add(box14);
+  panels.add(box15);
+  panels.add(box16);
+  panels.add(box17);
+  panels.add(box18);
+  panels.add(box19);
+  panels.add(box20);
+  panels.add(box21);
+  panels.add(box22);
+  panels.add(box23);
+  panels.add(box24);
+  panels.add(box25);
+  panels.add(box26);
+  
+  boxes.add(box1);
+  boxes.add(box2);
+  boxes.add(box3);
+  boxes.add(box4);
+  boxes.add(box5);
+  boxes.add(box6);
+  boxes.add(box7);
+  boxes.add(box8);
+  boxes.add(box9);
+  boxes.add(box10);
+  boxes.add(box11);
+  boxes.add(box12);
+  boxes.add(box13);
+  boxes.add(box14);
+  boxes.add(box15);
+  boxes.add(box16);
+  boxes.add(box17);
+  boxes.add(box18);
+  boxes.add(box19);
+  boxes.add(box20);
+  boxes.add(box21);
+  boxes.add(box22);
+  boxes.add(box23);
+  boxes.add(box24);
+  boxes.add(box25);
+  boxes.add(box26);
+  
+  //EventBoxen werden bei Panels und EventBoxes hinzugefügt
+  panels.add(eventBox1);
+  panels.add(eventBox2);
+  panels.add(eventBox3);
+  panels.add(eventBox4);
+  panels.add(eventBox5);
+  panels.add(eventBox6);
+  panels.add(eventBox7);
+  panels.add(eventBox8);
+  panels.add(eventBox9);
+  panels.add(eventBox10);
+  panels.add(eventBox11);
+  
+  eventBoxes.add(eventBox1);
+  eventBoxes.add(eventBox2);
+  eventBoxes.add(eventBox3);
+  eventBoxes.add(eventBox4);
+  eventBoxes.add(eventBox5);
+  eventBoxes.add(eventBox6);
+  eventBoxes.add(eventBox7);
+  eventBoxes.add(eventBox8);
+  eventBoxes.add(eventBox9);
+  eventBoxes.add(eventBox10);
+  eventBoxes.add(eventBox11);
+  
+  //Podest Boxen werden bei Panels und PedestalBoxes hinzugefügt
+  panels.add(pedestalBox1);
+  panels.add(pedestalBox2);
+  panels.add(pedestalBox3);
+  panels.add(pedestalBox4);
+  panels.add(pedestalBox5);
+  panels.add(pedestalBox6);
+  panels.add(pedestalBox7);
+  panels.add(pedestalBox8);
+  panels.add(pedestalBox9);
+  panels.add(pedestalBox10);
+  panels.add(pedestalBox11);
+  panels.add(pedestalBox12);
+  panels.add(pedestalBox13);
+  panels.add(pedestalBox14);
+  panels.add(pedestalBox15);
+  panels.add(pedestalBox16);
+  panels.add(pedestalBox17);
+  panels.add(pedestalBox18);
+  panels.add(pedestalBox19);
+  panels.add(pedestalBox20);
+  panels.add(pedestalBox21);
+  panels.add(pedestalBox22);
+  panels.add(pedestalBox23);
+  panels.add(pedestalBox24);
+  panels.add(pedestalBox25);
+  panels.add(pedestalBox26);
+  panels.add(pedestalBox27);
+  panels.add(pedestalBox28);
+  panels.add(pedestalBox29);
+  panels.add(pedestalBox30);
+  panels.add(pedestalBox31);
+  panels.add(pedestalBox32);
+  panels.add(pedestalBox33);
+  panels.add(pedestalBox34);
+  panels.add(pedestalBox35);
+  panels.add(pedestalBox36);
+  panels.add(pedestalBox37);
+  panels.add(pedestalBox38);
+  panels.add(pedestalBox39);
+  panels.add(pedestalBox40);
+  panels.add(pedestalBox41);
+  panels.add(pedestalBox42);
+  panels.add(pedestalBox43);
+  panels.add(pedestalBox44);
+  panels.add(pedestalBox45);
+  panels.add(pedestalBox46);
+  panels.add(pedestalBox47);
+  panels.add(pedestalBox48);
+  panels.add(pedestalBox49);
+  panels.add(pedestalBox50);
+  panels.add(pedestalBox51);
+  panels.add(pedestalBox52);
+  panels.add(pedestalBox53);
+  
+  pedestalBoxes.add(pedestalBox1);
+  pedestalBoxes.add(pedestalBox2);
+  pedestalBoxes.add(pedestalBox3);
+  pedestalBoxes.add(pedestalBox4);
+  pedestalBoxes.add(pedestalBox5);
+  pedestalBoxes.add(pedestalBox6);
+  pedestalBoxes.add(pedestalBox7);
+  pedestalBoxes.add(pedestalBox8);
+  pedestalBoxes.add(pedestalBox9);
+  pedestalBoxes.add(pedestalBox10);
+  pedestalBoxes.add(pedestalBox11);
+  pedestalBoxes.add(pedestalBox12);
+  pedestalBoxes.add(pedestalBox13);
+  pedestalBoxes.add(pedestalBox14);
+  pedestalBoxes.add(pedestalBox15);
+  pedestalBoxes.add(pedestalBox16);
+  pedestalBoxes.add(pedestalBox17);
+  pedestalBoxes.add(pedestalBox18);
+  pedestalBoxes.add(pedestalBox19);
+  pedestalBoxes.add(pedestalBox20);
+  pedestalBoxes.add(pedestalBox21);
+  pedestalBoxes.add(pedestalBox22);
+  pedestalBoxes.add(pedestalBox23);
+  pedestalBoxes.add(pedestalBox24);
+  pedestalBoxes.add(pedestalBox25);
+  pedestalBoxes.add(pedestalBox26);
+  pedestalBoxes.add(pedestalBox27);
+  pedestalBoxes.add(pedestalBox28);
+  pedestalBoxes.add(pedestalBox29);
+  pedestalBoxes.add(pedestalBox30);
+  pedestalBoxes.add(pedestalBox31);
+  pedestalBoxes.add(pedestalBox32);
+  pedestalBoxes.add(pedestalBox33);
+  pedestalBoxes.add(pedestalBox34);
+  pedestalBoxes.add(pedestalBox35);
+  pedestalBoxes.add(pedestalBox36);
+  pedestalBoxes.add(pedestalBox37);
+  pedestalBoxes.add(pedestalBox38);
+  pedestalBoxes.add(pedestalBox39);
+  pedestalBoxes.add(pedestalBox40);
+  pedestalBoxes.add(pedestalBox41);
+  pedestalBoxes.add(pedestalBox42);
+  pedestalBoxes.add(pedestalBox43);
+  pedestalBoxes.add(pedestalBox44);
+  pedestalBoxes.add(pedestalBox45);
+  pedestalBoxes.add(pedestalBox46);
+  pedestalBoxes.add(pedestalBox47);
+  pedestalBoxes.add(pedestalBox48);
+  pedestalBoxes.add(pedestalBox49);
+  pedestalBoxes.add(pedestalBox50);
+  pedestalBoxes.add(pedestalBox51);
+  pedestalBoxes.add(pedestalBox52);
+  pedestalBoxes.add(pedestalBox53);
+  
     powerUP.setVisible(false);
     KeyboardFocusManager.getCurrentKeyboardFocusManager().addKeyEventDispatcher(new KeyEventDispatcher() { // Event f�r die Abfrage der Tasteneingaben wird definiert
 
@@ -152,13 +440,13 @@ public class SuperMario_mit_Kommentaren extends JApplet {
     marioCharacter.setBackground(Color.RED);
 
     cp.add(marioCharacter);
-    eventBox.setBounds(230, 450, 32, 32);
-    eventBox.setOpaque(false);
-    cp.add(eventBox);
-    box.setBounds(262, 450, 32, 32);
-    box.setOpaque(false);
-    cp.add(box);
-    powerUP.setBounds(eventBox.getX(), eventBox.getY() - eventBox.getHeight(), 50, 50);
+    eventBox1.setBounds(262, 450, 32, 32);
+    eventBox1.setOpaque(false);
+    cp.add(eventBox1);
+    box1.setBounds(262, 450, 32, 32);
+    box1.setOpaque(false);
+    //cp.add(box1);
+    powerUP.setBounds(eventBox1.getX(), eventBox1.getY() - eventBox1.getHeight(), 32, 32);
     powerUP.setOpaque(true);
     powerUP.setBackground(Color.CYAN);
     cp.add(powerUP);
@@ -347,16 +635,16 @@ public class SuperMario_mit_Kommentaren extends JApplet {
   
   //Noch nicht integriert
   public boolean contactwithbox_top() {
-    if (marioCharacter.getY() - marioCharacter.getHeight() <= eventBox.getY()
-        && (marioCharacter.getX() >= eventBox.getX() && marioCharacter.getX() <= eventBox.getX() + 50)) {
+    if (marioCharacter.getY() - marioCharacter.getHeight() <= eventBox1.getY()
+        && (marioCharacter.getX() >= eventBox1.getX() && marioCharacter.getX() <= eventBox1.getX() + 50)) {
       return true;
     } else {
       return false;
     } 
   }
   public boolean contactwithbox_bottom() {
-    if (marioCharacter.getY()<= eventBox.getY() - eventBox.getHeight()
-        && (marioCharacter.getX() >= eventBox.getX() && marioCharacter.getX() <= eventBox.getX() + 50)) {
+    if (marioCharacter.getY()<= eventBox1.getY() - eventBox1.getHeight()
+        && (marioCharacter.getX() >= eventBox1.getX() && marioCharacter.getX() <= eventBox1.getX() + 50)) {
       return true;
     } else {
       return false;
@@ -452,7 +740,6 @@ public class SuperMario_mit_Kommentaren extends JApplet {
     try {
       boxImage = ImageIO.read((getClass().getResourceAsStream("box.jpg")));
       eventBoxImage = ImageIO.read((getClass().getResourceAsStream("eventBox.jpg")));
-      testImage = new ImageIcon(getClass().getResource("eventBox.jpg")).getImage();
     } catch(Exception e) {
       System.out.println(e.toString());
     }
@@ -462,30 +749,11 @@ public class SuperMario_mit_Kommentaren extends JApplet {
   private void paintLabels(){
     //Graphics werden geladen und zeichnen ein Bild
     
-    BoxGraphics = box.getGraphics();
-    eventBoxGraphics = eventBox.getGraphics();
-    BoxGraphics.drawImage(boxImage,0,0,this);
-    eventBoxGraphics.drawImage(testImage,0,0,this);
+    //BoxGraphics = box1.getGraphics();
+    eventBoxGraphics = eventBox1.getGraphics();
+    //BoxGraphics.drawImage(boxImage,0,0,this);
+    eventBoxGraphics.drawImage(eventBoxImage,0,0,this);
     
-    //Die Graphics der Labels werden auf die Graphic gesetzt
-    //eventBox.paint(eventBoxGraphics);
   }
   // Ende Methoden
 }
-    
-    
-    
-        
-    
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-
