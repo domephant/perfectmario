@@ -1,32 +1,34 @@
-import java.awt.*;
-import java.awt.event.*;
-import javax.swing.*;
-import javax.swing.event.*;
-import java.awt.event.KeyEvent;
-import java.util.ArrayList;
-import java.util.Hashtable;
-import java.awt.font.TextAttribute;
-import java.io.*;
-import java.awt.image.BufferedImage;
-import javax.imageio.*;
-import java.awt.Image;
-import javax.swing.JPanel;
-import javax.swing.ImageIcon;
-
-/**
- *
- * Beschreibung
- *
- * @version 1.3 vom 10.06.2020
- * @Marc St�we, Lars von Bandel, Niklas Goldschmidt und Dominik Schulz
- *
- * Bekannte Bugs/Baustellen:
+  import java.awt.*;
+  import java.awt.event.*;
+  import javax.swing.*;
+  import javax.swing.event.*;
+  import java.awt.event.KeyEvent;
+  import java.util.ArrayList;
+  import java.util.Hashtable;
+  import java.awt.font.TextAttribute;
+  import java.io.*;
+  import java.awt.image.BufferedImage;
+  import javax.imageio.*;
+  import java.awt.Image;
+  import javax.swing.JPanel;
+  import javax.swing.ImageIcon;
+  import java.awt.Graphics;
+import javax.imageio.ImageIO;
+  
+  /**
+  *
+  * Beschreibung
+  *
+  * @version 1.3 vom 10.06.2020
+  * @Marc St�we, Lars von Bandel, Niklas Goldschmidt und Dominik Schulz
+  *
+  * Bekannte Bugs/Baustellen:
   * Springen resettet sich nicht vern�nftig, Fliegen m�glich (muss noch umgecodet werden, gerade sehr unelegant gel�st)
   * groundpanel bewegt sich nicht mit <- bewegt sich mit, ist größer als das Fenster
   * Marios Boxinteraktionen sind nicht fertig
   * Programmieren eines Gegners und weiterer Spielelemente
- */
-
+  */
+  
 public class SuperMario_mit_Kommentaren extends JApplet {
   //Benutzte Objekte (Charakter, Box, PowerUp, Boden und ein Array zum Speichern der zu bewegenden Panels wird definiert
   // Anfang Attribute
@@ -166,7 +168,7 @@ public class SuperMario_mit_Kommentaren extends JApplet {
   private Timer opponentleft = new Timer(1000, null);
   private JTextField text_fail = new JTextField();
   private Timer chek_for_finishline = new Timer(1000, null);
-
+  
   //Abfragevariablen fuer den Gegner
   int maxJumpHeightOpponent = 110;
   int currentJumpHeightOpponent = 0;
@@ -179,14 +181,14 @@ public class SuperMario_mit_Kommentaren extends JApplet {
   //BufferedImages werden definiert
   private BufferedImage boxImage;     
   private BufferedImage eventBoxImage; 
+  private BufferedImage pedestalBoxImage;
   
-  //Graphics werden definiert
-  private Graphics BoxGraphics;       
+  //Graphics werden definiert  
   private Graphics eventBoxGraphics;  
   private JTextField text_win = new JTextField();
   // Ende Attribute
-
-
+  
+  
   public void init() {
     Container cp = getContentPane();
     cp.setLayout(null);
@@ -195,257 +197,534 @@ public class SuperMario_mit_Kommentaren extends JApplet {
     panels.add(powerUP);
     panels.add(ground);
     panels.add(flag);
-  
-  //Boxen werden bei Panels & Boxes hinzugefügt
-  panels.add(box1);
-  panels.add(box2);
-  panels.add(box3);
-  panels.add(box4);
-  panels.add(box5);
-  panels.add(box6);
-  panels.add(box7);
-  panels.add(box8);
-  panels.add(box9);
-  panels.add(box10);
-  panels.add(box11);
-  panels.add(box12);
-  panels.add(box13);
-  panels.add(box14);
-  panels.add(box15);
-  panels.add(box16);
-  panels.add(box17);
-  panels.add(box18);
-  panels.add(box19);
-  panels.add(box20);
-  panels.add(box21);
-  panels.add(box22);
-  panels.add(box23);
-  panels.add(box24);
-  panels.add(box25);
-  panels.add(box26);
-  
-  boxes.add(box1);
-  boxes.add(box2);
-  boxes.add(box3);
-  boxes.add(box4);
-  boxes.add(box5);
-  boxes.add(box6);
-  boxes.add(box7);
-  boxes.add(box8);
-  boxes.add(box9);
-  boxes.add(box10);
-  boxes.add(box11);
-  boxes.add(box12);
-  boxes.add(box13);
-  boxes.add(box14);
-  boxes.add(box15);
-  boxes.add(box16);
-  boxes.add(box17);
-  boxes.add(box18);
-  boxes.add(box19);
-  boxes.add(box20);
-  boxes.add(box21);
-  boxes.add(box22);
-  boxes.add(box23);
-  boxes.add(box24);
-  boxes.add(box25);
-  boxes.add(box26);
-  
-  //EventBoxen werden bei Panels und EventBoxes hinzugefügt
-  panels.add(eventBox1);
-  panels.add(eventBox2);
-  panels.add(eventBox3);
-  panels.add(eventBox4);
-  panels.add(eventBox5);
-  panels.add(eventBox6);
-  panels.add(eventBox7);
-  panels.add(eventBox8);
-  panels.add(eventBox9);
-  panels.add(eventBox10);
-  panels.add(eventBox11);
-  
-  eventBoxes.add(eventBox1);
-  eventBoxes.add(eventBox2);
-  eventBoxes.add(eventBox3);
-  eventBoxes.add(eventBox4);
-  eventBoxes.add(eventBox5);
-  eventBoxes.add(eventBox6);
-  eventBoxes.add(eventBox7);
-  eventBoxes.add(eventBox8);
-  eventBoxes.add(eventBox9);
-  eventBoxes.add(eventBox10);
-  eventBoxes.add(eventBox11);
-  
-  //Podest Boxen werden bei Panels und PedestalBoxes hinzugefügt
-  panels.add(pedestalBox1);
-  panels.add(pedestalBox2);
-  panels.add(pedestalBox3);
-  panels.add(pedestalBox4);
-  panels.add(pedestalBox5);
-  panels.add(pedestalBox6);
-  panels.add(pedestalBox7);
-  panels.add(pedestalBox8);
-  panels.add(pedestalBox9);
-  panels.add(pedestalBox10);
-  panels.add(pedestalBox11);
-  panels.add(pedestalBox12);
-  panels.add(pedestalBox13);
-  panels.add(pedestalBox14);
-  panels.add(pedestalBox15);
-  panels.add(pedestalBox16);
-  panels.add(pedestalBox17);
-  panels.add(pedestalBox18);
-  panels.add(pedestalBox19);
-  panels.add(pedestalBox20);
-  panels.add(pedestalBox21);
-  panels.add(pedestalBox22);
-  panels.add(pedestalBox23);
-  panels.add(pedestalBox24);
-  panels.add(pedestalBox25);
-  panels.add(pedestalBox26);
-  panels.add(pedestalBox27);
-  panels.add(pedestalBox28);
-  panels.add(pedestalBox29);
-  panels.add(pedestalBox30);
-  panels.add(pedestalBox31);
-  panels.add(pedestalBox32);
-  panels.add(pedestalBox33);
-  panels.add(pedestalBox34);
-  panels.add(pedestalBox35);
-  panels.add(pedestalBox36);
-  panels.add(pedestalBox37);
-  panels.add(pedestalBox38);
-  panels.add(pedestalBox39);
-  panels.add(pedestalBox40);
-  panels.add(pedestalBox41);
-  panels.add(pedestalBox42);
-  panels.add(pedestalBox43);
-  panels.add(pedestalBox44);
-  panels.add(pedestalBox45);
-  panels.add(pedestalBox46);
-  panels.add(pedestalBox47);
-  panels.add(pedestalBox48);
-  panels.add(pedestalBox49);
-  panels.add(pedestalBox50);
-  panels.add(pedestalBox51);
-  panels.add(pedestalBox52);
-  panels.add(pedestalBox53);
-  
-  pedestalBoxes.add(pedestalBox1);
-  pedestalBoxes.add(pedestalBox2);
-  pedestalBoxes.add(pedestalBox3);
-  pedestalBoxes.add(pedestalBox4);
-  pedestalBoxes.add(pedestalBox5);
-  pedestalBoxes.add(pedestalBox6);
-  pedestalBoxes.add(pedestalBox7);
-  pedestalBoxes.add(pedestalBox8);
-  pedestalBoxes.add(pedestalBox9);
-  pedestalBoxes.add(pedestalBox10);
-  pedestalBoxes.add(pedestalBox11);
-  pedestalBoxes.add(pedestalBox12);
-  pedestalBoxes.add(pedestalBox13);
-  pedestalBoxes.add(pedestalBox14);
-  pedestalBoxes.add(pedestalBox15);
-  pedestalBoxes.add(pedestalBox16);
-  pedestalBoxes.add(pedestalBox17);
-  pedestalBoxes.add(pedestalBox18);
-  pedestalBoxes.add(pedestalBox19);
-  pedestalBoxes.add(pedestalBox20);
-  pedestalBoxes.add(pedestalBox21);
-  pedestalBoxes.add(pedestalBox22);
-  pedestalBoxes.add(pedestalBox23);
-  pedestalBoxes.add(pedestalBox24);
-  pedestalBoxes.add(pedestalBox25);
-  pedestalBoxes.add(pedestalBox26);
-  pedestalBoxes.add(pedestalBox27);
-  pedestalBoxes.add(pedestalBox28);
-  pedestalBoxes.add(pedestalBox29);
-  pedestalBoxes.add(pedestalBox30);
-  pedestalBoxes.add(pedestalBox31);
-  pedestalBoxes.add(pedestalBox32);
-  pedestalBoxes.add(pedestalBox33);
-  pedestalBoxes.add(pedestalBox34);
-  pedestalBoxes.add(pedestalBox35);
-  pedestalBoxes.add(pedestalBox36);
-  pedestalBoxes.add(pedestalBox37);
-  pedestalBoxes.add(pedestalBox38);
-  pedestalBoxes.add(pedestalBox39);
-  pedestalBoxes.add(pedestalBox40);
-  pedestalBoxes.add(pedestalBox41);
-  pedestalBoxes.add(pedestalBox42);
-  pedestalBoxes.add(pedestalBox43);
-  pedestalBoxes.add(pedestalBox44);
-  pedestalBoxes.add(pedestalBox45);
-  pedestalBoxes.add(pedestalBox46);
-  pedestalBoxes.add(pedestalBox47);
-  pedestalBoxes.add(pedestalBox48);
-  pedestalBoxes.add(pedestalBox49);
-  pedestalBoxes.add(pedestalBox50);
-  pedestalBoxes.add(pedestalBox51);
-  pedestalBoxes.add(pedestalBox52);
-  pedestalBoxes.add(pedestalBox53);
-  
+    
+    //Boxen werden bei Panels & Boxes hinzugefügt
+    panels.add(box1);
+    panels.add(box2);
+    panels.add(box3);
+    panels.add(box4);
+    panels.add(box5);
+    panels.add(box6);
+    panels.add(box7);
+    panels.add(box8);
+    panels.add(box9);
+    panels.add(box10);
+    panels.add(box11);
+    panels.add(box12);
+    panels.add(box13);
+    panels.add(box14);
+    panels.add(box15);
+    panels.add(box16);
+    panels.add(box17);
+    panels.add(box18);
+    panels.add(box19);
+    panels.add(box20);
+    panels.add(box21);
+    panels.add(box22);
+    panels.add(box23);
+    panels.add(box24);
+    panels.add(box25);
+    panels.add(box26);
+    
+    boxes.add(box1);
+    boxes.add(box2);
+    boxes.add(box3);
+    boxes.add(box4);
+    boxes.add(box5);
+    boxes.add(box6);
+    boxes.add(box7);
+    boxes.add(box8);
+    boxes.add(box9);
+    boxes.add(box10);
+    boxes.add(box11);
+    boxes.add(box12);
+    boxes.add(box13);
+    boxes.add(box14);
+    boxes.add(box15);
+    boxes.add(box16);
+    boxes.add(box17);
+    boxes.add(box18);
+    boxes.add(box19);
+    boxes.add(box20);
+    boxes.add(box21);
+    boxes.add(box22);
+    boxes.add(box23);
+    boxes.add(box24);
+    boxes.add(box25);
+    boxes.add(box26);
+    
+    //EventBoxen werden bei Panels und EventBoxes hinzugefügt
+    panels.add(eventBox1);
+    panels.add(eventBox2);
+    panels.add(eventBox3);
+    panels.add(eventBox4);
+    panels.add(eventBox5);
+    panels.add(eventBox6);
+    panels.add(eventBox7);
+    panels.add(eventBox8);
+    panels.add(eventBox9);
+    panels.add(eventBox10);
+    
+    eventBoxes.add(eventBox1);
+    eventBoxes.add(eventBox2);
+    eventBoxes.add(eventBox3);
+    eventBoxes.add(eventBox4);
+    eventBoxes.add(eventBox5);
+    eventBoxes.add(eventBox6);
+    eventBoxes.add(eventBox7);
+    eventBoxes.add(eventBox8);
+    eventBoxes.add(eventBox9);
+    eventBoxes.add(eventBox10);
+    
+    //Podest Boxen werden bei Panels und PedestalBoxes hinzugefügt
+    panels.add(pedestalBox1);
+    panels.add(pedestalBox2);
+    panels.add(pedestalBox3);
+    panels.add(pedestalBox4);
+    panels.add(pedestalBox5);
+    panels.add(pedestalBox6);
+    panels.add(pedestalBox7);
+    panels.add(pedestalBox8);
+    panels.add(pedestalBox9);
+    panels.add(pedestalBox10);
+    panels.add(pedestalBox11);
+    panels.add(pedestalBox12);
+    panels.add(pedestalBox13);
+    panels.add(pedestalBox14);
+    panels.add(pedestalBox15);
+    panels.add(pedestalBox16);
+    panels.add(pedestalBox17);
+    panels.add(pedestalBox18);
+    panels.add(pedestalBox19);
+    panels.add(pedestalBox20);
+    panels.add(pedestalBox21);
+    panels.add(pedestalBox22);
+    panels.add(pedestalBox23);
+    panels.add(pedestalBox24);
+    panels.add(pedestalBox25);
+    panels.add(pedestalBox26);
+    panels.add(pedestalBox27);
+    panels.add(pedestalBox28);
+    panels.add(pedestalBox29);
+    panels.add(pedestalBox30);
+    panels.add(pedestalBox31);
+    panels.add(pedestalBox32);
+    panels.add(pedestalBox33);
+    panels.add(pedestalBox34);
+    panels.add(pedestalBox35);
+    panels.add(pedestalBox36);
+    panels.add(pedestalBox37);
+    panels.add(pedestalBox38);
+    panels.add(pedestalBox39);
+    panels.add(pedestalBox40);
+    panels.add(pedestalBox41);
+    panels.add(pedestalBox42);
+    panels.add(pedestalBox43);
+    panels.add(pedestalBox44);
+    panels.add(pedestalBox45);
+    panels.add(pedestalBox46);
+    panels.add(pedestalBox47);
+    panels.add(pedestalBox48);
+    panels.add(pedestalBox49);
+    panels.add(pedestalBox50);
+    panels.add(pedestalBox51);
+    panels.add(pedestalBox52);
+    panels.add(pedestalBox53);
+    
+    pedestalBoxes.add(pedestalBox1);
+    pedestalBoxes.add(pedestalBox2);
+    pedestalBoxes.add(pedestalBox3);
+    pedestalBoxes.add(pedestalBox4);
+    pedestalBoxes.add(pedestalBox5);
+    pedestalBoxes.add(pedestalBox6);
+    pedestalBoxes.add(pedestalBox7);
+    pedestalBoxes.add(pedestalBox8);
+    pedestalBoxes.add(pedestalBox9);
+    pedestalBoxes.add(pedestalBox10);
+    pedestalBoxes.add(pedestalBox11);
+    pedestalBoxes.add(pedestalBox12);
+    pedestalBoxes.add(pedestalBox13);
+    pedestalBoxes.add(pedestalBox14);
+    pedestalBoxes.add(pedestalBox15);
+    pedestalBoxes.add(pedestalBox16);
+    pedestalBoxes.add(pedestalBox17);
+    pedestalBoxes.add(pedestalBox18);
+    pedestalBoxes.add(pedestalBox19);
+    pedestalBoxes.add(pedestalBox20);
+    pedestalBoxes.add(pedestalBox21);
+    pedestalBoxes.add(pedestalBox22);
+    pedestalBoxes.add(pedestalBox23);
+    pedestalBoxes.add(pedestalBox24);
+    pedestalBoxes.add(pedestalBox25);
+    pedestalBoxes.add(pedestalBox26);
+    pedestalBoxes.add(pedestalBox27);
+    pedestalBoxes.add(pedestalBox28);
+    pedestalBoxes.add(pedestalBox29);
+    pedestalBoxes.add(pedestalBox30);
+    pedestalBoxes.add(pedestalBox31);
+    pedestalBoxes.add(pedestalBox32);
+    pedestalBoxes.add(pedestalBox33);
+    pedestalBoxes.add(pedestalBox34);
+    pedestalBoxes.add(pedestalBox35);
+    pedestalBoxes.add(pedestalBox36);
+    pedestalBoxes.add(pedestalBox37);
+    pedestalBoxes.add(pedestalBox38);
+    pedestalBoxes.add(pedestalBox39);
+    pedestalBoxes.add(pedestalBox40);
+    pedestalBoxes.add(pedestalBox41);
+    pedestalBoxes.add(pedestalBox42);
+    pedestalBoxes.add(pedestalBox43);
+    pedestalBoxes.add(pedestalBox44);
+    pedestalBoxes.add(pedestalBox45);
+    pedestalBoxes.add(pedestalBox46);
+    pedestalBoxes.add(pedestalBox47);
+    pedestalBoxes.add(pedestalBox48);
+    pedestalBoxes.add(pedestalBox49);
+    pedestalBoxes.add(pedestalBox50);
+    pedestalBoxes.add(pedestalBox51);
+    pedestalBoxes.add(pedestalBox52);
+    pedestalBoxes.add(pedestalBox53);
+    
+    //Boxen werden plaziert
+    box1.setBounds(784, 450, 32, 32);
+    box1.setOpaque(false);
+    cp.add(box1);
+    box2.setBounds(816, 450, 32, 32);
+    box2.setOpaque(false);
+    cp.add(box2);
+    box3.setBounds(848, 450, 32, 32);
+    box3.setOpaque(false);
+    cp.add(box3);
+    box4.setBounds(1665, 450, 32, 32);
+    box4.setOpaque(false);
+    cp.add(box4);
+    box5.setBounds(1729, 450, 32, 32);
+    box5.setOpaque(false);
+    cp.add(box5);
+    box6.setBounds(1761, 450, 32, 32);
+    box6.setOpaque(false);
+    cp.add(box6);
+    box7.setBounds(1793, 336, 32, 32);
+    box7.setOpaque(false);
+    cp.add(box7);
+    box8.setBounds(1825, 336, 32, 32);
+    box8.setOpaque(false);
+    cp.add(box8);
+    box9.setBounds(1857, 336, 32, 32);
+    box9.setOpaque(false);
+    cp.add(box9);
+    box10.setBounds(1889, 336, 32, 32);
+    box10.setOpaque(false);
+    cp.add(box10);
+    box11.setBounds(1921, 336, 32, 32);
+    box11.setOpaque(false);
+    cp.add(box11);
+    box12.setBounds(1953, 336, 32, 32);
+    box12.setOpaque(false);
+    cp.add(box12);
+    box13.setBounds(2075, 336, 32, 32);
+    box13.setOpaque(false);
+    cp.add(box13);
+    box14.setBounds(2107, 336, 32, 32);
+    box14.setOpaque(false);
+    cp.add(box14);
+    box15.setBounds(2139, 336, 32, 32);
+    box15.setOpaque(false);
+    cp.add(box15);
+    box16.setBounds(2171, 336, 32, 32);
+    box16.setOpaque(false);
+    cp.add(box16);
+    box17.setBounds(2203, 336, 32, 32);
+    box17.setOpaque(false);
+    cp.add(box17);
+    box18.setBounds(2235, 450, 32, 32);
+    box18.setOpaque(false);
+    cp.add(box18);
+    box19.setBounds(2835, 450, 32, 32);
+    box19.setOpaque(false);
+    cp.add(box19);
+    box20.setBounds(2922, 336, 32, 32);
+    box20.setOpaque(false);
+    cp.add(box20);
+    box21.setBounds(2954, 336, 32, 32);
+    box21.setOpaque(false);
+    cp.add(box21);
+    box22.setBounds(2986, 336, 32, 32);
+    box22.setOpaque(false);
+    cp.add(box22);
+    box23.setBounds(3114, 336, 32, 32);
+    box23.setOpaque(false);
+    cp.add(box23);
+    box24.setBounds(3146, 450, 32, 32);
+    box24.setOpaque(false);
+    cp.add(box24);
+    box25.setBounds(3178, 450, 32, 32);
+    box25.setOpaque(false);
+    cp.add(box25);
+    box26.setBounds(3210, 336, 32, 32);
+    box26.setOpaque(false);
+    cp.add(box26);
+    
+    //EventBoxen werden gesetzt
+    eventBox1.setBounds(262, 450, 32, 32);
+    eventBox1.setOpaque(false);
+    cp.add(eventBox1);
+    eventBox2.setBounds(880, 450, 32, 32);
+    eventBox2.setOpaque(false);
+    cp.add(eventBox2);
+    eventBox3.setBounds(1697, 450, 32, 32);
+    eventBox3.setOpaque(false);
+    cp.add(eventBox3);
+    eventBox4.setBounds(2235, 336, 32, 32);
+    eventBox4.setOpaque(false);
+    cp.add(eventBox4);
+    eventBox5.setBounds(2580, 450, 32, 32);
+    eventBox5.setOpaque(false);
+    cp.add(eventBox5);
+    eventBox6.setBounds(2644, 450, 32, 32);
+    eventBox6.setOpaque(false);
+    cp.add(eventBox6);
+    eventBox7.setBounds(2644, 336, 32, 32);
+    eventBox7.setOpaque(false);
+    cp.add(eventBox7);
+    eventBox8.setBounds(2708, 450, 32, 32);
+    eventBox9.setOpaque(false);
+    cp.add(eventBox8);
+    eventBox9.setBounds(3146, 336, 32, 32);
+    eventBox9.setOpaque(false);
+    cp.add(eventBox9);
+    eventBox10.setBounds(3178, 336, 32, 32);
+    eventBox10.setOpaque(false);
+    cp.add(eventBox10);
+    
+    //Podstboxen werden gesetzt
+    //Erstes Podest
+    pedestalBox1.setBounds(600, 598, 32, 32);
+    pedestalBox1.setOpaque(false);
+    cp.add(pedestalBox1);
+    pedestalBox2.setBounds(632, 598, 32, 32);
+    pedestalBox2.setOpaque(false);
+    cp.add(pedestalBox2);
+    pedestalBox3.setBounds(632, 566, 32, 32);
+    pedestalBox3.setOpaque(false);
+    cp.add(pedestalBox3);
+    pedestalBox4.setBounds(696, 598, 32, 32);
+    pedestalBox4.setOpaque(false);
+    cp.add(pedestalBox4);
+    pedestalBox5.setBounds(696, 566, 32, 32);
+    pedestalBox5.setOpaque(false);
+    cp.add(pedestalBox5);
+    pedestalBox6.setBounds(728, 598, 32, 32);
+    pedestalBox6.setOpaque(false);
+    cp.add(pedestalBox6);
+    
+    //Zweites Podest
+    pedestalBox7.setBounds(1180, 598, 32, 32);
+    pedestalBox7.setOpaque(false);
+    cp.add(pedestalBox7);
+    pedestalBox8.setBounds(1212, 598, 32, 32);
+    pedestalBox8.setOpaque(false);
+    cp.add(pedestalBox8);
+    pedestalBox9.setBounds(1212, 566, 32, 32);
+    pedestalBox9.setOpaque(false);
+    cp.add(pedestalBox9);
+    pedestalBox10.setBounds(1244, 598, 32, 32);
+    pedestalBox10.setOpaque(false);
+    cp.add(pedestalBox10);
+    pedestalBox11.setBounds(1244, 566, 32, 32);
+    pedestalBox11.setOpaque(false);
+    cp.add(pedestalBox11);
+    pedestalBox12.setBounds(1244, 534, 32, 32);
+    pedestalBox12.setOpaque(false);
+    cp.add(pedestalBox12);
+    pedestalBox13.setBounds(1340, 598, 32, 32);
+    pedestalBox13.setOpaque(false);
+    cp.add(pedestalBox13);
+    pedestalBox14.setBounds(1340, 566, 32, 32);
+    pedestalBox14.setOpaque(false);
+    cp.add(pedestalBox14);
+    pedestalBox15.setBounds(1340, 534, 32, 32);
+    pedestalBox15.setOpaque(false);
+    cp.add(pedestalBox15);
+    pedestalBox16.setBounds(1372, 598, 32, 32);
+    pedestalBox16.setOpaque(false);
+    cp.add(pedestalBox16);
+    pedestalBox17.setBounds(1372, 566, 32, 32);
+    pedestalBox17.setOpaque(false);
+    cp.add(pedestalBox17);
+    pedestalBox18.setBounds(1404, 598, 32, 32);
+    pedestalBox18.setOpaque(false);
+    cp.add(pedestalBox18);
+    
+    //Ziel Podest
+    pedestalBox19.setBounds(3550, 598, 32, 32);
+    pedestalBox19.setOpaque(false);
+    cp.add(pedestalBox19);
+    
+    pedestalBox20.setBounds(3582, 598, 32, 32);
+    pedestalBox20.setOpaque(false);
+    cp.add(pedestalBox20);
+    pedestalBox21.setBounds(3582, 566, 32, 32);
+    pedestalBox21.setOpaque(false);
+    cp.add(pedestalBox21);
+    
+    pedestalBox22.setBounds(3614, 598, 32, 32);
+    pedestalBox22.setOpaque(false);
+    cp.add(pedestalBox22);
+    pedestalBox23.setBounds(3614, 566, 32, 32);
+    pedestalBox23.setOpaque(false);
+    cp.add(pedestalBox23);
+    pedestalBox24.setBounds(3614, 534, 32, 32);
+    pedestalBox24.setOpaque(false);
+    cp.add(pedestalBox24);
+    
+    pedestalBox25.setBounds(3646, 598, 32, 32);
+    pedestalBox25.setOpaque(false);
+    cp.add(pedestalBox25);
+    pedestalBox26.setBounds(3646, 566, 32, 32);
+    pedestalBox26.setOpaque(false);
+    cp.add(pedestalBox26);
+    pedestalBox27.setBounds(3646, 534, 32, 32);
+    pedestalBox27.setOpaque(false);
+    cp.add(pedestalBox27);
+    pedestalBox28.setBounds(3646, 502, 32, 32);
+    pedestalBox28.setOpaque(false);
+    cp.add(pedestalBox28);
+    
+    pedestalBox29.setBounds(3678, 598, 32, 32);
+    pedestalBox29.setOpaque(false);
+    cp.add(pedestalBox29);
+    pedestalBox30.setBounds(3678, 566, 32, 32);
+    pedestalBox30.setOpaque(false);
+    cp.add(pedestalBox30);
+    pedestalBox31.setBounds(3678, 534, 32, 32);
+    pedestalBox31.setOpaque(false);
+    cp.add(pedestalBox31);
+    pedestalBox32.setBounds(3678, 502, 32, 32);
+    pedestalBox32.setOpaque(false);
+    cp.add(pedestalBox32);
+    pedestalBox33.setBounds(3678, 470, 32, 32);
+    pedestalBox33.setOpaque(false);
+    cp.add(pedestalBox33);
+    
+    pedestalBox34.setBounds(3710, 598, 32, 32);
+    pedestalBox34.setOpaque(false);
+    cp.add(pedestalBox34);
+    pedestalBox35.setBounds(3710, 566, 32, 32);
+    pedestalBox35.setOpaque(false);
+    cp.add(pedestalBox35);
+    pedestalBox36.setBounds(3710, 534, 32, 32);
+    pedestalBox36.setOpaque(false);
+    cp.add(pedestalBox36);
+    pedestalBox37.setBounds(3710, 502, 32, 32);
+    pedestalBox37.setOpaque(false);
+    cp.add(pedestalBox37);
+    pedestalBox38.setBounds(3710, 470, 32, 32);
+    pedestalBox38.setOpaque(false);
+    cp.add(pedestalBox38);
+    pedestalBox39.setBounds(3710, 438, 32, 32);
+    pedestalBox39.setOpaque(false);
+    cp.add(pedestalBox39);
+    
+    pedestalBox40.setBounds(3742, 598, 32, 32);
+    pedestalBox40.setOpaque(false);
+    cp.add(pedestalBox40);
+    pedestalBox41.setBounds(3742, 566, 32, 32);
+    pedestalBox41.setOpaque(false);
+    cp.add(pedestalBox41);
+    pedestalBox42.setBounds(3742, 534, 32, 32);
+    pedestalBox42.setOpaque(false);
+    cp.add(pedestalBox42);
+    pedestalBox43.setBounds(3742, 502, 32, 32);
+    pedestalBox43.setOpaque(false);
+    cp.add(pedestalBox43);
+    pedestalBox44.setBounds(3742, 470, 32, 32);
+    pedestalBox44.setOpaque(false);
+    cp.add(pedestalBox44);
+    pedestalBox45.setBounds(3742, 438, 32, 32);
+    pedestalBox45.setOpaque(false);
+    cp.add(pedestalBox45);
+    pedestalBox46.setBounds(3742, 406, 32, 32);
+    pedestalBox46.setOpaque(false);
+    cp.add(pedestalBox46);
+    
+    pedestalBox47.setBounds(3774, 598, 32, 32);
+    pedestalBox47.setOpaque(false);
+    cp.add(pedestalBox47);
+    pedestalBox48.setBounds(3774, 566, 32, 32);
+    pedestalBox48.setOpaque(false);
+    cp.add(pedestalBox48);
+    pedestalBox49.setBounds(3774, 534, 32, 32);
+    pedestalBox49.setOpaque(false);
+    cp.add(pedestalBox49);
+    pedestalBox50.setBounds(3774, 502, 32, 32);
+    pedestalBox50.setOpaque(false);
+    cp.add(pedestalBox50);
+    pedestalBox51.setBounds(3774, 470, 32, 32);
+    pedestalBox51.setOpaque(false);
+    cp.add(pedestalBox51);
+    pedestalBox52.setBounds(3774, 438, 32, 32);
+    pedestalBox52.setOpaque(false);
+    cp.add(pedestalBox52);
+    pedestalBox53.setBounds(3774, 406, 32, 32);
+    pedestalBox53.setOpaque(false);
+    cp.add(pedestalBox53);
+    
     powerUP.setVisible(false);
     KeyboardFocusManager.getCurrentKeyboardFocusManager().addKeyEventDispatcher(new KeyEventDispatcher() { // Event f�r die Abfrage der Tasteneingaben wird definiert
-
+      
       @Override
       public boolean dispatchKeyEvent(KeyEvent ke) {
         switch (ke.getID()) {
           case KeyEvent.KEY_PRESSED: // sollte irgendeine Taste heruntergedr�ckt werden, wird folgender Code abgefragt
             if (ke.getKeyCode() == KeyEvent.VK_SPACE) { // Wenn die heruntergedr�ckte Taste die Leertaste ist
               if (currentJumpHeight == 0){
-              jumping = true;  
+                jumping = true;  
               }
               if (contactwithbox_top()) {
                 powerUP.setVisible(true);
+              }
             }
-          }
             if (ke.getKeyCode() == KeyEvent.VK_D) {
               moveSpeed = -2;
               moveRight = true; // folgender Befehl wird ausgef�hrt, sollte Taste 'D' gedr�ckt werden
-            // moveSidewards(movespeed);
-          }
+              // moveSidewards(movespeed);
+            }
             if (ke.getKeyCode() == KeyEvent.VK_A) { // folgender Befehl wird ausgef�hrt, sollte Taste 'A' gedr�ckt werden
               moveSpeed = 2;
               moveLeft = true;
-            // moveSidewards(movespeed);
-          }
+              // moveSidewards(movespeed);
+            }
             if (ke.getKeyCode() == KeyEvent.VK_SHIFT) {
               sneaking = true;
             } // end of if
-          break;
-
+            break;
+            
           case KeyEvent.KEY_RELEASED: // Folgendes passiert, sollte eine Taste losgelassen werden
             if (ke.getKeyCode() == KeyEvent.VK_D) {
               moveRight = false;
-          }
+            }
             if (ke.getKeyCode() == KeyEvent.VK_A) {
               moveLeft = false;
-          }
+            }
             if (ke.getKeyCode() == KeyEvent.VK_SHIFT) {
               sneaking = false;
               marioCharacter.setLocation(marioCharacter.getX(), marioCharacter.getY() - 30);
               marioCharacter.setSize(marioCharacter.getWidth(), 100);
               sneak_confirm = true;
             } // end of if
-          break;
+            break;
         }
         return false;
       }
     });
     // Anfang Komponenten
-
+    
     marioCharacter.setBounds(230, 350, 32, 64);
     marioCharacter.setOpaque(true);
     marioCharacter.setBackground(Color.RED);
-
+    
     cp.add(marioCharacter);
-    eventBox1.setBounds(262, 450, 32, 32);
-    eventBox1.setOpaque(false);
-    cp.add(eventBox1);
-    box1.setBounds(262, 450, 32, 32);
-    box1.setOpaque(false);
-    //cp.add(box1);
     powerUP.setBounds(eventBox1.getX(), eventBox1.getY() - eventBox1.getHeight(), 32, 32);
     powerUP.setOpaque(true);
     powerUP.setBackground(Color.CYAN);
@@ -530,7 +809,7 @@ public class SuperMario_mit_Kommentaren extends JApplet {
     // Ende Komponenten
     loadBuffedImages();
   } // end of init
-    
+  
   //Methode f�r Bewegungen wird erstellt
   public void move(int a) {
     //wenn Mario nach links oder rechts geht, verschiebt sich der Hintergrund / die Panels passend
@@ -551,7 +830,7 @@ public class SuperMario_mit_Kommentaren extends JApplet {
       sneak_confirm = false;
     } // end of if 
   }
-
+  
   // Anfang Methoden
   public void timer_update_ActionPerformed(ActionEvent evt) {
     // Methoden zu Bewegung und die Schwerkraft werden bei jedem Tick des Timers (jede Millisekunde) abgerufen
@@ -564,7 +843,7 @@ public class SuperMario_mit_Kommentaren extends JApplet {
     this.opponentdie();
     this.paintLabels();
   } // end of timer_update_ActionPerformed
-
+  
   public void bStart_ActionPerformed(ActionEvent evt) {
     // Updatetimer wird gestartet
     timer_update.start();
@@ -575,7 +854,7 @@ public class SuperMario_mit_Kommentaren extends JApplet {
     //check_for_finishline wird gestertet
     chek_for_finishline.start();   //Jede ms wird kontrolliert ob Mario im Ziel angekommen ist
   }
-
+  
   public void variablereset() {
     // Wenn Mario bei seiner maximalen Sprungh�he angekommen ist, wird es auf nicht mehr springend gesetzt, damit die Schwerkraft wieder greift
     if (currentJumpHeight == maxJumpHeight) {
@@ -583,12 +862,12 @@ public class SuperMario_mit_Kommentaren extends JApplet {
       jumping = false;
     } // end of if
   }
-
+  
   public void gravity() {
     // Sollte Mario nicht im Sprung sein oder auf dem Boden stehen, wird er nach unten verschoben, bis er den Boden ber�hrt
     if (jumping == false && this.contactwithground_top() == false && this.contactwithopponent() != true) {
       /*if (contactwithbox_top() == false) {
-        
+      
       }       */
       marioCharacter.setLocation(marioCharacter.getX(), marioCharacter.getY() + jumpSpeed);
       if (this.contactwithground_top() == true){
@@ -617,26 +896,26 @@ public class SuperMario_mit_Kommentaren extends JApplet {
   }
   
   public boolean opponentcontactwithground(){
-     if ((opponent.getY() + opponent.getHeight()) == ground.getY()){     //Wenn der Gegner den Boden ber?hrt,
+    if ((opponent.getY() + opponent.getHeight()) == ground.getY()){     //Wenn der Gegner den Boden ber?hrt,
       return true;                                                       //wird zur?ckgegeben, dass er das tut
-      } 
-     else{
+    } 
+    else{
       return false;                                                      //oder es wird zur?ckgegeben, dass er den Boden nicht ber?hrt.
-     }        
-    }
+    }        
+  }
   public boolean opponetcontactleft(){
     if (opponent.getX() <= -opponent.getWidth()){          //Wenn der Gegner aus dem Bild gelaufen ist,
       return true;                                         //wird dies zur?ckgegeben
-      }
+    }
     else{
       return false;                                       //oder zur?ckgegeben, dass er nicht aus dem Bild gelaufen ist.
-      }
     }
+  }
   
   //Noch nicht integriert
   public boolean contactwithbox_top() {
     if (marioCharacter.getY() - marioCharacter.getHeight() <= eventBox1.getY()
-        && (marioCharacter.getX() >= eventBox1.getX() && marioCharacter.getX() <= eventBox1.getX() + 50)) {
+    && (marioCharacter.getX() >= eventBox1.getX() && marioCharacter.getX() <= eventBox1.getX() + 50)) {
       return true;
     } else {
       return false;
@@ -644,7 +923,7 @@ public class SuperMario_mit_Kommentaren extends JApplet {
   }
   public boolean contactwithbox_bottom() {
     if (marioCharacter.getY()<= eventBox1.getY() - eventBox1.getHeight()
-        && (marioCharacter.getX() >= eventBox1.getX() && marioCharacter.getX() <= eventBox1.getX() + 50)) {
+    && (marioCharacter.getX() >= eventBox1.getX() && marioCharacter.getX() <= eventBox1.getX() + 50)) {
       return true;
     } else {
       return false;
@@ -657,8 +936,8 @@ public class SuperMario_mit_Kommentaren extends JApplet {
     switch(random){                                           //Switch mit der Zufallszahl
       case 0:                                                 //Wenn die Zufallszahl 0 ist trift der case ein, dass der Gegner springt
         opponentjump = true;  
-      }
-  
+    }
+    
   } // end of opponent_jump_ActionPerformed
   
   public void opponentjump() {
@@ -668,7 +947,7 @@ public class SuperMario_mit_Kommentaren extends JApplet {
       if (currentJumpHeightOpponent == maxJumpHeightOpponent) {                     //Wenn currentJumpHeightOpponent gleich der maximalen Springh?he ist,
         opponentjump = false;                                                       //soll der Gegner nicht mehr springen
         currentJumpHeightOpponent = 0;                                              //und die Sprungh?he wird auf 0 zur?ckgesetzt
-        } //end of if
+      } //end of if
     } // end of if
   }
   
@@ -697,14 +976,14 @@ public class SuperMario_mit_Kommentaren extends JApplet {
       if (marioCharacter.getBounds().contains(opponent.getBounds().x, opponent.getBounds().y) && marioCharacter.getBounds().contains(opponent.getBounds().x + 5, opponent.getBounds().y) || (marioCharacter.getBounds().contains(opponent.getBounds().x + opponent.getBounds().width, opponent.getBounds().y) && marioCharacter.getBounds().contains(opponent.getBounds().x + (opponent.getBounds().width -5), opponent.getBounds().y)) ){
         opponentdie = true;
       } else if (nottouched == true) {
-      text_fail.setVisible(true);
-      timer_update.stop();
-      opponent_jump.stop();    
-      opponentleft.stop();
+        text_fail.setVisible(true);
+        timer_update.stop();
+        opponent_jump.stop();    
+        opponentleft.stop();
       }
     }
   }
-
+  
   public void opponentdie(){
     if (opponentdie == true) {
       nottouched = !true;
@@ -716,7 +995,7 @@ public class SuperMario_mit_Kommentaren extends JApplet {
       opponent.setBounds(1500, 575, opponentwidth, opponentheight);
     }
   }
-    
+  
   public void chek_for_finishline_ActionPerformed(ActionEvent evt) {
     if (marioCharacter.getBounds().intersects(flag.getBounds())) {
       flagtouched = true;
@@ -727,19 +1006,20 @@ public class SuperMario_mit_Kommentaren extends JApplet {
     } // end of if
     if (flagtouched == true){
       if(this.contactwithground_top() != true){
-      marioCharacter.setBounds(marioCharacter.getBounds().x, marioCharacter.getBounds().y +1, marioCharacter.getBounds().width, marioCharacter.getBounds().height);
-      flag.setBounds(flag.getBounds().x, flag.getBounds().y +1, flag.getBounds().width, flag.getBounds().height);
+        marioCharacter.setBounds(marioCharacter.getBounds().x, marioCharacter.getBounds().y +1, marioCharacter.getBounds().width, marioCharacter.getBounds().height);
+        flag.setBounds(flag.getBounds().x, flag.getBounds().y +1, flag.getBounds().width, flag.getBounds().height);
       }
     }
-  
+    
   } // end of chek_for_finishline_ActionPerformed
-
+  
   private void loadBuffedImages(){
     
-  //Es wird versucht die BufferedImages zu laden
+    //Es wird versucht die BufferedImages zu laden
     try {
       boxImage = ImageIO.read((getClass().getResourceAsStream("box.jpg")));
       eventBoxImage = ImageIO.read((getClass().getResourceAsStream("eventBox.jpg")));
+      pedestalBoxImage = ImageIO.read((getClass().getResourceAsStream("pedestalBox.jpg")));
     } catch(Exception e) {
       System.out.println(e.toString());
     }
@@ -748,12 +1028,18 @@ public class SuperMario_mit_Kommentaren extends JApplet {
   
   private void paintLabels(){
     //Graphics werden geladen und zeichnen ein Bild
-    
-    BoxGraphics = box1.getGraphics();
-    eventBoxGraphics = eventBox1.getGraphics();
-    BoxGraphics.drawImage(boxImage,0,0,this);
-    eventBoxGraphics.drawImage(eventBoxImage,0,0,this);
-    
+    for (JPanel box : boxes) {
+      Graphics boxGraphics = box.getGraphics();
+      boxGraphics.drawImage(boxImage,0,0,this);
+    } // end of for  
+    for (JPanel eventBox : eventBoxes) {
+      Graphics eventBoxGraphics = eventBox.getGraphics();
+      eventBoxGraphics.drawImage(eventBoxImage,0,0,this);
+    } // end of for 
+    for (JPanel eventBox : pedestalBoxes) {
+      Graphics pedestalBoxGraphics = eventBox.getGraphics();
+      pedestalBoxGraphics.drawImage(pedestalBoxImage,0,0,this);
+    } // end of for
   }
   // Ende Methoden
 }
