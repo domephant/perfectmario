@@ -160,6 +160,8 @@ public class SuperMario_mit_Kommentaren extends JApplet {
   boolean flagtouched = false;
   boolean sneaking = false;
   boolean sneak_confirm = true;
+  boolean baby = true;
+  boolean normal = false;
   private Timer opponent_jump = new Timer(1000, null);
   private Timer opponentleft = new Timer(1000, null);
   private JTextField text_fail = new JTextField();
@@ -182,6 +184,10 @@ public class SuperMario_mit_Kommentaren extends JApplet {
   //Graphics werden definiert  
   private Graphics eventBoxGraphics;  
   private JTextField text_win = new JTextField();
+  
+  //Weitere Abfragen
+  boolean poweruppickupable = false;
+  boolean poweruppickuped = false;
   // Ende Attribute
   
   
@@ -743,10 +749,12 @@ public class SuperMario_mit_Kommentaren extends JApplet {
             }
             if (ke.getKeyCode() == KeyEvent.VK_SHIFT) {
               sneaking = false;
-              marioCharacter.setLocation(marioCharacter.getX(), marioCharacter.getY() - 16);
-              marioCharacter.setSize(marioCharacter.getWidth(), marioCharacter.getHeight()*4/3);
               sneak_confirm = true;
-            } // end of if
+              if (baby == false) {
+                marioCharacter.setLocation(marioCharacter.getX(), marioCharacter.getY() - 16);
+                marioCharacter.setSize(marioCharacter.getWidth(), marioCharacter.getHeight()*4/3);
+              } 
+            } 
             break;
         }
         return false;
@@ -754,7 +762,7 @@ public class SuperMario_mit_Kommentaren extends JApplet {
     });
     // Anfang Komponenten
     
-    marioCharacter.setBounds(230, 350, 32, 64);
+    marioCharacter.setBounds(230, 350, 32, 32);
     marioCharacter.setOpaque(true);
     marioCharacter.setBackground(Color.RED);
     
@@ -858,7 +866,7 @@ public class SuperMario_mit_Kommentaren extends JApplet {
       marioCharacter.setLocation(marioCharacter.getX(), (marioCharacter.getY() - jumpSpeed));
       currentJumpHeight = currentJumpHeight + jumpSpeed;
     }
-    if (sneaking == true && sneak_confirm == true) {
+    if (sneaking == true && sneak_confirm == true && baby == false) {
       marioCharacter.setLocation(marioCharacter.getX(), marioCharacter.getY() + 16);
       marioCharacter.setSize(marioCharacter.getWidth(), marioCharacter.getHeight()*3/4);
       sneak_confirm = false;
@@ -875,10 +883,22 @@ public class SuperMario_mit_Kommentaren extends JApplet {
     this.contactwithbox_bottom(boxes, eventBoxes);
     this.opponentjump();
     this.gravity();
+    this.powerUP_pickup(panels);
     this.touched();
     this.opponentdie();
   } // end of timer_update_ActionPerformed
-  
+  public void powerUP_pickup(ArrayList<JPanel> allpnls){
+    if (poweruppickupable == true && marioCharacter.getBounds().intersects(powerUP.getBounds()) == true) {
+      marioCharacter.setLocation(marioCharacter.getX(), marioCharacter.getY() - marioCharacter.getHeight());
+      marioCharacter.setSize(marioCharacter.getWidth(), marioCharacter.getHeight()*2);
+      powerUP.setVisible(false);
+      poweruppickupable = false;
+      poweruppickuped = true;
+      baby = false;
+      normal = true;
+      panels.remove(powerUP);
+    } // end of if
+  }
   public void bStart_ActionPerformed(ActionEvent evt) {
     // Updatetimer wird gestartet
     timer_update.start();
@@ -1017,8 +1037,11 @@ public class SuperMario_mit_Kommentaren extends JApplet {
       JPanel boxpanel_eb = (JPanel) pan_eb.toArray()[j];
       if (marioCharacter.getY() == boxpanel_eb.getY() + boxpanel_eb.getHeight() && marioCharacter.getX() + marioCharacter.getWidth()>= boxpanel_eb.getX() && marioCharacter.getX() <= boxpanel_eb.getX() + boxpanel_eb.getWidth()) {
         jumping = false;
-        if ((boxpanel_eb.getX() == powerUP.getX()) && boxpanel_eb.getY() == (powerUP.getY() + powerUP.getHeight())) {
+        if ((boxpanel_eb.getX() == powerUP.getX()) && boxpanel_eb.getY() == (powerUP.getY() + powerUP.getHeight()) && falling == false) {
           powerUP.setVisible(true);
+          if (poweruppickuped == false) {
+            poweruppickupable = true;
+          } // end of if
         } // end of if
         help2 = 1;
         break;
@@ -1227,5 +1250,4 @@ public class SuperMario_mit_Kommentaren extends JApplet {
       pedestalBoxGraphics.drawImage(pedestalBoxImage,0,0,this);
     } // end of for
   }
-  // Ende Methoden
 }
