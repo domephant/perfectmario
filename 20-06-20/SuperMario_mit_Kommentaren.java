@@ -898,7 +898,7 @@ public class SuperMario_mit_Kommentaren extends JApplet {
   } // end of timer_update_ActionPerformed
   
   /**
-   * 
+   * Beschreibt, was passiert, wenn Mario ein liegendes PowerUP berührt
    */
   public void powerUP_pickup(ArrayList<JPanel> allpnls){
     if (poweruppickupable == true && marioCharacter.getBounds().intersects(powerUP.getBounds()) == true) {
@@ -926,7 +926,7 @@ public class SuperMario_mit_Kommentaren extends JApplet {
     chek_for_finishline.start();   //Jede ms wird kontrolliert ob Mario im Ziel angekommen ist
   }
   /**
-   * Setz die Variablen zurück
+   * Setzt die Variablen zurück
    */
   public void variablereset() {
     // Wenn Mario bei seiner maximalen Sprungh�he angekommen ist, wird es auf nicht mehr springend gesetzt, damit die Schwerkraft wieder greift
@@ -1002,54 +1002,50 @@ public class SuperMario_mit_Kommentaren extends JApplet {
    * @return help1 (True oder false, je nachdem, ob Mario berührt)
    */
   public boolean contactwithbox_top(ArrayList<JPanel> pan_b, ArrayList<JPanel> pan_eb, ArrayList<JPanel> pan_pb) {
-    int help1 = 0;
+    boolean help1 = 0;
     for (int i = 0; i < pan_b.size(); i++) {
       JPanel boxpanel_b = (JPanel) pan_b.toArray()[i];
       if ((marioCharacter.getY() + marioCharacter.getHeight() == boxpanel_b.getY() && marioCharacter.getX() + marioCharacter.getWidth() > boxpanel_b.getX() && marioCharacter.getX() < boxpanel_b.getX() + boxpanel_b.getWidth())) {
         currentJumpHeight = 0;
-        help1 = 1;
+        help1 = true;
         falling = false;
         break;                                                                                                                           
       } else {
-        help1 = 0;
+        help1 = false;
       }
     }
     for (int j = 0; j < pan_eb.size(); j++) {
-      if (help1 == 1) {
+      if (help1 == true) {
         break;
       }
       JPanel boxpanel_eb = (JPanel) pan_eb.toArray()[j];
       if ((marioCharacter.getY() + marioCharacter.getHeight() == boxpanel_eb.getY() && marioCharacter.getX() + marioCharacter.getWidth() > boxpanel_eb.getX() && marioCharacter.getX() < boxpanel_eb.getX() + boxpanel_eb.getWidth())) {
         currentJumpHeight = 0;
-        help1 = 1;
+        help1 = true;
         falling = false;
         break;                                                                                                                           
       } else {
-        help1 = 0;
+        help1 = false;
       }
     }
     for (int h = 0; h < pan_pb.size(); h++) {
-      if (help1 == 1) {
+      if (help1 == true) {
         break;
       }
       JPanel boxpanel_pb = (JPanel) pan_pb.toArray()[h];
-      if (help1 != 1 && (marioCharacter.getY() + marioCharacter.getHeight() == boxpanel_pb.getY() && marioCharacter.getX() + marioCharacter.getWidth() > boxpanel_pb.getX() && marioCharacter.getX() < boxpanel_pb.getX() + boxpanel_pb.getWidth())) {
+      if ((marioCharacter.getY() + marioCharacter.getHeight() == boxpanel_pb.getY() && marioCharacter.getX() + marioCharacter.getWidth() > boxpanel_pb.getX() && marioCharacter.getX() < boxpanel_pb.getX() + boxpanel_pb.getWidth())) {
         currentJumpHeight = 0;
-        help1 = 1;
+        help1 = true;
         falling = false;
         break;                                                                                                                           
       } else {
-        help1 = 0;
+        help1 = false;
       }
     }
-    if (help1 == 1) {
-      return true;
-    } else {
-      return false;  
-    } // end of if-else                                                 
+    return help1;                                               
   }
   /**
-   * Überprüft, ob Marios obere Kante Kontakt mit der unteren Kante einer Box hat (er also gegen einen Block springt)
+   * Überprüft, ob Marios obere Kante Kontakt mit der unteren Kante einer Box hat (er also gegen einen Block springt) und beschreibt, was daraufhin passiert
    * 
    * @return help2 (True oder false, je nachdem, ob Mario berührt)
    */
@@ -1057,6 +1053,7 @@ public class SuperMario_mit_Kommentaren extends JApplet {
     int help2 = 0;
     for (int i = 0; i < pan_b.size(); i++) {
       JPanel boxpanel_b = (JPanel) pan_b.toArray()[i];
+      //Wenn Mario gegen einen normalen Block von untern gegenspringt, verschwindet die Box und wird gelöscht
       if (marioCharacter.getY() == boxpanel_b.getY() + boxpanel_b.getHeight() && marioCharacter.getX() + marioCharacter.getWidth()> boxpanel_b.getX() && marioCharacter.getX() < boxpanel_b.getX() + boxpanel_b.getWidth()) {
         jumping = false;
         if (falling == false) {
@@ -1075,6 +1072,7 @@ public class SuperMario_mit_Kommentaren extends JApplet {
         break;
       }
       JPanel boxpanel_eb = (JPanel) pan_eb.toArray()[j];
+      // Wenn Mario von unten gegen eine Eventbox gegenspringt, wird ein PowerUP über die Box geschoben und sichtbar gemacht zum Einsammeln
       if (marioCharacter.getY() == boxpanel_eb.getY() + boxpanel_eb.getHeight() && marioCharacter.getX() + marioCharacter.getWidth()> boxpanel_eb.getX() && marioCharacter.getX() < boxpanel_eb.getX() + boxpanel_eb.getWidth()) {
         powerUP.setLocation(boxpanel_eb.getX(), boxpanel_eb.getY() - 32);
         jumping = false;
@@ -1145,7 +1143,10 @@ public class SuperMario_mit_Kommentaren extends JApplet {
     } // end of if-else        
   }
   /**
+   * Überprüft, ob Mario gegen die rechte Seite irgendeiner Box läuft bzw.
+   * an der rechten Seite von irgendeiner Box steht
    * 
+   * @return help4 (true or false, je nachdem, ob die Bedingung bei einer Box zutrifft)
    */
   public boolean contactwithbox_sideright(ArrayList<JPanel> pan_b, ArrayList<JPanel> pan_eb, ArrayList<JPanel> pan_pb){
     int help4 = 0;
