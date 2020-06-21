@@ -1036,8 +1036,10 @@ public class SuperMario_mit_Kommentaren extends JApplet {
       }
       JPanel boxpanel_eb = (JPanel) pan_eb.toArray()[j];
       if (marioCharacter.getY() == boxpanel_eb.getY() + boxpanel_eb.getHeight() && marioCharacter.getX() + marioCharacter.getWidth()>= boxpanel_eb.getX() && marioCharacter.getX() <= boxpanel_eb.getX() + boxpanel_eb.getWidth()) {
+        powerUP.setLocation(boxpanel_eb.getX(), boxpanel_eb.getY() - 32);
         jumping = false;
         if ((boxpanel_eb.getX() == powerUP.getX()) && boxpanel_eb.getY() == (powerUP.getY() + powerUP.getHeight()) && falling == false) {
+          
           powerUP.setVisible(true);
           if (poweruppickuped == false) {
             poweruppickupable = true;

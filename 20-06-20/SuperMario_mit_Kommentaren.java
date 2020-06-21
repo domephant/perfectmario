@@ -201,10 +201,10 @@ public class SuperMario_mit_Kommentaren extends JApplet {
     panels.add(flag);
     
     /**Boxen werden bei Panels & Boxes hinzugefügt
-  * um bei paintLabels die Texturen leichter zu laden 
-  * und um die Elemente leichter zu verschieben, wenn
-  * Mario bewegt wird
-  */
+    * um bei paintLabels die Texturen leichter zu laden 
+    * und um die Elemente leichter zu verschieben, wenn
+    * Mario bewegt wird
+    */
     panels.add(box1);
     panels.add(box2);
     panels.add(box3);
@@ -259,11 +259,11 @@ public class SuperMario_mit_Kommentaren extends JApplet {
     boxes.add(box25);
     boxes.add(box26);
     
-   /**EventBoxen werden bei Panels & eventBoxes hinzugefügt
-  * um bei paintLabels die Texturen leichter zu laden 
-  * und um die Elemente leichter zu verschieben, wenn
-  * Mario bewegt wird
-  */
+    /**EventBoxen werden bei Panels & eventBoxes hinzugefügt
+    * um bei paintLabels die Texturen leichter zu laden 
+    * und um die Elemente leichter zu verschieben, wenn
+    * Mario bewegt wird
+    */
     panels.add(eventBox1);
     panels.add(eventBox2);
     panels.add(eventBox3);
@@ -287,10 +287,10 @@ public class SuperMario_mit_Kommentaren extends JApplet {
     eventBoxes.add(eventBox10);
     
     /**Podest Boxen werden bei Panels und PedestalBoxes hinzugefügt
-  * um bei paintLabels die Texturen leichter zu laden 
-  * und um die Elemente leichter zu verschieben, wenn
-  * Mario bewegt wird
-  */
+    * um bei paintLabels die Texturen leichter zu laden 
+    * und um die Elemente leichter zu verschieben, wenn
+    * Mario bewegt wird
+    */
     panels.add(pedestalBox1);
     panels.add(pedestalBox2);
     panels.add(pedestalBox3);
@@ -513,47 +513,47 @@ public class SuperMario_mit_Kommentaren extends JApplet {
     
     //Podstboxen werden gesetzt
     //Erstes Podest
-  //erste Spalte
+    //erste Spalte
     pedestalBox1.setBounds(600, 598, 32, 32);
     pedestalBox1.setOpaque(false);
     cp.add(pedestalBox1);
-  
-  //zweite Spalte
+    
+    //zweite Spalte
     pedestalBox2.setBounds(632, 598, 32, 32);
     pedestalBox2.setOpaque(false);
     cp.add(pedestalBox2);
     pedestalBox3.setBounds(632, 566, 32, 32);
     pedestalBox3.setOpaque(false);
     cp.add(pedestalBox3);
-  
-  //dritte Spalte
+    
+    //dritte Spalte
     pedestalBox4.setBounds(696, 598, 32, 32);
     pedestalBox4.setOpaque(false);
     cp.add(pedestalBox4);
     pedestalBox5.setBounds(696, 566, 32, 32);
     pedestalBox5.setOpaque(false);
     cp.add(pedestalBox5);
-  
-  //vierte Spalte
+    
+    //vierte Spalte
     pedestalBox6.setBounds(728, 598, 32, 32);
     pedestalBox6.setOpaque(false);
     cp.add(pedestalBox6);
     
     //Zweites Podest
-  //erste Spalte
+    //erste Spalte
     pedestalBox7.setBounds(1180, 598, 32, 32);
     pedestalBox7.setOpaque(false);
     cp.add(pedestalBox7);
-  
-  //zweite Spalte
+    
+    //zweite Spalte
     pedestalBox8.setBounds(1212, 598, 32, 32);
     pedestalBox8.setOpaque(false);
     cp.add(pedestalBox8);
     pedestalBox9.setBounds(1212, 566, 32, 32);
     pedestalBox9.setOpaque(false);
     cp.add(pedestalBox9);
-  
-  //dritte Spalte
+    
+    //dritte Spalte
     pedestalBox10.setBounds(1244, 598, 32, 32);
     pedestalBox10.setOpaque(false);
     cp.add(pedestalBox10);
@@ -563,8 +563,8 @@ public class SuperMario_mit_Kommentaren extends JApplet {
     pedestalBox12.setBounds(1244, 534, 32, 32);
     pedestalBox12.setOpaque(false);
     cp.add(pedestalBox12);
-  
-  //vierte Spalte
+    
+    //vierte Spalte
     pedestalBox13.setBounds(1340, 598, 32, 32);
     pedestalBox13.setOpaque(false);
     cp.add(pedestalBox13);
@@ -574,16 +574,16 @@ public class SuperMario_mit_Kommentaren extends JApplet {
     pedestalBox15.setBounds(1340, 534, 32, 32);
     pedestalBox15.setOpaque(false);
     cp.add(pedestalBox15);
-  
-  //fünfte Spalte
+    
+    //fünfte Spalte
     pedestalBox16.setBounds(1372, 598, 32, 32);
     pedestalBox16.setOpaque(false);
     cp.add(pedestalBox16);
     pedestalBox17.setBounds(1372, 566, 32, 32);
     pedestalBox17.setOpaque(false);
     cp.add(pedestalBox17);
-  
-  //sechste Spalte
+    
+    //sechste Spalte
     pedestalBox18.setBounds(1404, 598, 32, 32);
     pedestalBox18.setOpaque(false);
     cp.add(pedestalBox18);
@@ -593,7 +593,7 @@ public class SuperMario_mit_Kommentaren extends JApplet {
     pedestalBox19.setOpaque(false);
     cp.add(pedestalBox19);
     
-  //zweite Spalte
+    //zweite Spalte
     pedestalBox20.setBounds(3582, 598, 32, 32);
     pedestalBox20.setOpaque(false);
     cp.add(pedestalBox20);
@@ -601,7 +601,7 @@ public class SuperMario_mit_Kommentaren extends JApplet {
     pedestalBox21.setOpaque(false);
     cp.add(pedestalBox21);
     
-  //dritte Spalte
+    //dritte Spalte
     pedestalBox22.setBounds(3614, 598, 32, 32);
     pedestalBox22.setOpaque(false);
     cp.add(pedestalBox22);
@@ -612,7 +612,7 @@ public class SuperMario_mit_Kommentaren extends JApplet {
     pedestalBox24.setOpaque(false);
     cp.add(pedestalBox24);
     
-  //vierte Spalte
+    //vierte Spalte
     pedestalBox25.setBounds(3646, 598, 32, 32);
     pedestalBox25.setOpaque(false);
     cp.add(pedestalBox25);
@@ -626,7 +626,7 @@ public class SuperMario_mit_Kommentaren extends JApplet {
     pedestalBox28.setOpaque(false);
     cp.add(pedestalBox28);
     
-  //fünfte Spalte
+    //fünfte Spalte
     pedestalBox29.setBounds(3678, 598, 32, 32);
     pedestalBox29.setOpaque(false);
     cp.add(pedestalBox29);
@@ -643,7 +643,7 @@ public class SuperMario_mit_Kommentaren extends JApplet {
     pedestalBox33.setOpaque(false);
     cp.add(pedestalBox33);
     
-  //sechste Spalte
+    //sechste Spalte
     pedestalBox34.setBounds(3710, 598, 32, 32);
     pedestalBox34.setOpaque(false);
     cp.add(pedestalBox34);
@@ -663,7 +663,7 @@ public class SuperMario_mit_Kommentaren extends JApplet {
     pedestalBox39.setOpaque(false);
     cp.add(pedestalBox39);
     
-  //siebte Spalte
+    //siebte Spalte
     pedestalBox40.setBounds(3742, 598, 32, 32);
     pedestalBox40.setOpaque(false);
     cp.add(pedestalBox40);
@@ -686,7 +686,7 @@ public class SuperMario_mit_Kommentaren extends JApplet {
     pedestalBox46.setOpaque(false);
     cp.add(pedestalBox46);
     
-  //achte Spalte
+    //achte Spalte
     pedestalBox47.setBounds(3774, 598, 32, 32);
     pedestalBox47.setOpaque(false);
     cp.add(pedestalBox47);
@@ -1036,8 +1036,10 @@ public class SuperMario_mit_Kommentaren extends JApplet {
       }
       JPanel boxpanel_eb = (JPanel) pan_eb.toArray()[j];
       if (marioCharacter.getY() == boxpanel_eb.getY() + boxpanel_eb.getHeight() && marioCharacter.getX() + marioCharacter.getWidth()>= boxpanel_eb.getX() && marioCharacter.getX() <= boxpanel_eb.getX() + boxpanel_eb.getWidth()) {
+        powerUP.setLocation(boxpanel_eb.getX(), boxpanel_eb.getY() - 32);
         jumping = false;
         if ((boxpanel_eb.getX() == powerUP.getX()) && boxpanel_eb.getY() == (powerUP.getY() + powerUP.getHeight()) && falling == false) {
+          
           powerUP.setVisible(true);
           if (poweruppickuped == false) {
             poweruppickupable = true;
