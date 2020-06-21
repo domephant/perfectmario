@@ -996,7 +996,10 @@ public class SuperMario_mit_Kommentaren extends JApplet {
     }
   }
   /**
+   * Überprüft, ob Marios untere Kante Kontakt mit der oberen Kante irgendeiner Box hat (auf einer Box steht) 
+   * und setzt Variablen dann so, dass Mario wieder springen kann
    * 
+   * @return help1 (True oder false, je nachdem, ob Mario berührt)
    */
   public boolean contactwithbox_top(ArrayList<JPanel> pan_b, ArrayList<JPanel> pan_eb, ArrayList<JPanel> pan_pb) {
     int help1 = 0;
@@ -1046,7 +1049,9 @@ public class SuperMario_mit_Kommentaren extends JApplet {
     } // end of if-else                                                 
   }
   /**
+   * Überprüft, ob Marios obere Kante Kontakt mit der unteren Kante einer Box hat (er also gegen einen Block springt)
    * 
+   * @return help2 (True oder false, je nachdem, ob Mario berührt)
    */
   public boolean contactwithbox_bottom(ArrayList<JPanel> pan_b, ArrayList<JPanel> pan_eb) {
     int help2 = 0;
@@ -1093,7 +1098,10 @@ public class SuperMario_mit_Kommentaren extends JApplet {
     } // end of if-else                    
   }
   /**
+   * Überprüft, ob Mario gegen die linke Seite einer Box o. Eventbox o. Pedestalbox läuft 
+   * bzw. an der linken Seite einer Box o. Eventbox o. Pedestalboxsteht
    * 
+   * @return help3 (true oder false, je nachdem ob Bedingungén zutreffen)
    */
   public boolean contactwithbox_sideleft(ArrayList<JPanel> pan_b, ArrayList<JPanel> pan_eb, ArrayList<JPanel> pan_pb){
     int help3 = 0;
