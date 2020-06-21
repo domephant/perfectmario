@@ -200,7 +200,7 @@ public class SuperMario_mit_Kommentaren extends JApplet {
     panels.add(ground);
     panels.add(flag);
     
-    /**Boxen werden bei Panels & Boxes hinzugefügt
+    /*Boxen werden bei Panels & Boxes hinzugefügt
     * um bei paintLabels die Texturen leichter zu laden 
     * und um die Elemente leichter zu verschieben, wenn
     * Mario bewegt wird
@@ -259,7 +259,7 @@ public class SuperMario_mit_Kommentaren extends JApplet {
     boxes.add(box25);
     boxes.add(box26);
     
-    /**EventBoxen werden bei Panels & eventBoxes hinzugefügt
+    /*EventBoxen werden bei Panels & eventBoxes hinzugefügt
     * um bei paintLabels die Texturen leichter zu laden 
     * und um die Elemente leichter zu verschieben, wenn
     * Mario bewegt wird
@@ -286,7 +286,7 @@ public class SuperMario_mit_Kommentaren extends JApplet {
     eventBoxes.add(eventBox9);
     eventBoxes.add(eventBox10);
     
-    /**Podest Boxen werden bei Panels und PedestalBoxes hinzugefügt
+    /*Podest Boxen werden bei Panels und PedestalBoxes hinzugefügt
     * um bei paintLabels die Texturen leichter zu laden 
     * und um die Elemente leichter zu verschieben, wenn
     * Mario bewegt wird
@@ -715,8 +715,10 @@ public class SuperMario_mit_Kommentaren extends JApplet {
       @Override
       public boolean dispatchKeyEvent(KeyEvent ke) {
         switch (ke.getID()) {
-          case KeyEvent.KEY_PRESSED: // sollte irgendeine Taste heruntergedr�ckt werden, wird folgender Code abgefragt
-            if (ke.getKeyCode() == KeyEvent.VK_SPACE) { // Wenn die heruntergedr�ckte Taste die Leertaste ist
+          //sollte irgendeine Taste heruntergedrückt werden, wird folgender Code abgefragt
+          case KeyEvent.KEY_PRESSED:
+            // Wenn die heruntergedrückte Taste die Leertaste ist
+            if (ke.getKeyCode() == KeyEvent.VK_SPACE) { 
               if (currentJumpHeight == 0){
                 jumping = true;  
               }
@@ -724,13 +726,14 @@ public class SuperMario_mit_Kommentaren extends JApplet {
                 
               }
             }
+            // folgender Befehl wird ausgeführt, sollte Taste 'D' gedrückt werden
             if (ke.getKeyCode() == KeyEvent.VK_D) {
               moveLeft = false;
               moveRight = true;
-              moveSpeed = -2; // folgender Befehl wird ausgef�hrt, sollte Taste 'D' gedr�ckt werden
-              // moveSidewards(movespeed);
+              moveSpeed = -2;
             }
-            if (ke.getKeyCode() == KeyEvent.VK_A) { // folgender Befehl wird ausgef�hrt, sollte Taste 'A' gedr�ckt werden
+            // folgender Befehl wird ausgef�hrt, sollte Taste 'A' gedrückt werden
+            if (ke.getKeyCode() == KeyEvent.VK_A) { 
               moveRight = false;
               moveLeft = true;
               moveSpeed = 2; 
@@ -739,8 +742,8 @@ public class SuperMario_mit_Kommentaren extends JApplet {
               sneaking = true;
             } // end of if
             break;
-            
-          case KeyEvent.KEY_RELEASED: // Folgendes passiert, sollte eine Taste losgelassen werden
+          // Folgendes passiert, sollte eine Taste losgelassen werden
+          case KeyEvent.KEY_RELEASED: 
             if (ke.getKeyCode() == KeyEvent.VK_D) {
               moveRight = false;
             }
@@ -760,8 +763,7 @@ public class SuperMario_mit_Kommentaren extends JApplet {
         return false;
       }
     });
-    // Anfang Komponenten
-    
+    // Anfang Komponenten    
     marioCharacter.setBounds(230, 350, 32, 32);
     marioCharacter.setOpaque(true);
     marioCharacter.setBackground(Color.RED);
@@ -852,8 +854,11 @@ public class SuperMario_mit_Kommentaren extends JApplet {
     loadBuffedImages();
   } // end of init
   
-  //Methode f�r Bewegungen wird erstellt
-  public void move(int a) {
+  //Methode für Bewegungen wird erstellt
+  /**
+   * Die Methode bewegt den Hintergrund.
+   */
+  public void move() {
     //wenn Mario nach links oder rechts geht, verschiebt sich der Hintergrund / die Panels passend
     if ((moveRight == true && this.contactwithbox_sideleft(boxes, eventBoxes, pedestalBoxes) == false) || (moveLeft == true && this.contactwithbox_sideright(boxes, eventBoxes, pedestalBoxes) == false)) {
       for (int i = 0; i < panels.size(); i++) {
@@ -874,9 +879,13 @@ public class SuperMario_mit_Kommentaren extends JApplet {
   }
   
   // Anfang Methoden
+  /**
+   * Die Methode wird durch ein Timer update ausgeführt,
+   * und sorgt dafür, dass die Bewegungen von Mario flüssig aussehen.
+   */
   public void timer_update_ActionPerformed(ActionEvent evt) {
     // Methoden zu Bewegung und die Schwerkraft werden bei jedem Tick des Timers (jede Millisekunde) abgerufen
-    this.move(moveSpeed);
+    this.move();
     this.variablereset();
     this.paintLabels();
     this.opponetcontactleft();
@@ -887,6 +896,10 @@ public class SuperMario_mit_Kommentaren extends JApplet {
     this.touched();
     this.opponentdie();
   } // end of timer_update_ActionPerformed
+  
+  /**
+   * 
+   */
   public void powerUP_pickup(ArrayList<JPanel> allpnls){
     if (poweruppickupable == true && marioCharacter.getBounds().intersects(powerUP.getBounds()) == true) {
       marioCharacter.setLocation(marioCharacter.getX(), marioCharacter.getY() - marioCharacter.getHeight());
@@ -899,6 +912,9 @@ public class SuperMario_mit_Kommentaren extends JApplet {
       panels.remove(powerUP);
     } // end of if
   }
+  /**
+   * Die Methode wird ausgeführt, wenn der Start Knopf gedrückt wird.
+   */
   public void bStart_ActionPerformed(ActionEvent evt) {
     // Updatetimer wird gestartet
     timer_update.start();
@@ -909,7 +925,9 @@ public class SuperMario_mit_Kommentaren extends JApplet {
     //check_for_finishline wird gestertet
     chek_for_finishline.start();   //Jede ms wird kontrolliert ob Mario im Ziel angekommen ist
   }
-  
+  /**
+   * Setz die Variablen zurück
+   */
   public void variablereset() {
     // Wenn Mario bei seiner maximalen Sprungh�he angekommen ist, wird es auf nicht mehr springend gesetzt, damit die Schwerkraft wieder greift
     if (currentJumpHeight == maxJumpHeight) {
@@ -917,7 +935,9 @@ public class SuperMario_mit_Kommentaren extends JApplet {
       jumping = false;
     } // end of if
   }
-  
+  /**
+   * 
+   */
   public void gravity() {
     // Sollte Mario nicht im Sprung sein oder auf dem Boden stehen, wird er nach unten verschoben, bis er den Boden ber�hrt
     if (jumping == false && this.contactwithground_top() == false && this.contactwithopponent() != true && this.contactwithbox_top(boxes, eventBoxes, pedestalBoxes) != true) {
@@ -931,8 +951,11 @@ public class SuperMario_mit_Kommentaren extends JApplet {
       opponent.setLocation(opponent.getX(), opponent.getY() + jumpSpeed/2);         //dann f?llt er zur?ck auf den Boden
     } // end of if
   }
-  //Wenn Mario den Boden ber�hrt (Marios Y + H�he = Y des Bodes), gibt die Methode true aus, um die Schwerkraft zu stoppen
+  /**
+   * Überprüft, ob Mario den Boden berührt.
+   */
   public boolean contactwithground_top() {
+    //Wenn Mario den Boden berührt, gibt die Methode ein true zurück, damit er nicht durch den Boden fällt
     if ((marioCharacter.getY() + marioCharacter.getHeight()) == ground.getY()) {
       falling = false;
       return true;
@@ -940,7 +963,9 @@ public class SuperMario_mit_Kommentaren extends JApplet {
       return false;
     } 
   }
-  
+  /**
+   * 
+   */
   public boolean contactwithopponent(){
     if (marioCharacter.getBounds().intersects(opponent.getBounds())){
       return true;
@@ -948,7 +973,9 @@ public class SuperMario_mit_Kommentaren extends JApplet {
       return false;
     }
   }
-  
+  /**
+   * 
+   */
   public boolean opponentcontactwithground(){
     if ((opponent.getY() + opponent.getHeight()) == ground.getY()){     //Wenn der Gegner den Boden ber?hrt,
       return true;                                                       //wird zur?ckgegeben, dass er das tut
@@ -957,6 +984,9 @@ public class SuperMario_mit_Kommentaren extends JApplet {
       return false;                                                      //oder es wird zur?ckgegeben, dass er den Boden nicht ber?hrt.
     }        
   }
+  /**
+   * 
+   */
   public boolean opponetcontactleft(){
     if (opponent.getX() <= -opponent.getWidth()){          //Wenn der Gegner aus dem Bild gelaufen ist,
       return true;                                         //wird dies zur?ckgegeben
@@ -965,7 +995,9 @@ public class SuperMario_mit_Kommentaren extends JApplet {
       return false;                                       //oder zur?ckgegeben, dass er nicht aus dem Bild gelaufen ist.
     }
   }
-  
+  /**
+   * 
+   */
   public boolean contactwithbox_top(ArrayList<JPanel> pan_b, ArrayList<JPanel> pan_eb, ArrayList<JPanel> pan_pb) {
     int help1 = 0;
     for (int i = 0; i < pan_b.size(); i++) {
@@ -1013,6 +1045,9 @@ public class SuperMario_mit_Kommentaren extends JApplet {
       return false;  
     } // end of if-else                                                 
   }
+  /**
+   * 
+   */
   public boolean contactwithbox_bottom(ArrayList<JPanel> pan_b, ArrayList<JPanel> pan_eb) {
     int help2 = 0;
     for (int i = 0; i < pan_b.size(); i++) {
@@ -1057,6 +1092,9 @@ public class SuperMario_mit_Kommentaren extends JApplet {
       return false;  
     } // end of if-else                    
   }
+  /**
+   * 
+   */
   public boolean contactwithbox_sideleft(ArrayList<JPanel> pan_b, ArrayList<JPanel> pan_eb, ArrayList<JPanel> pan_pb){
     int help3 = 0;
     for (int i = 0; i < pan_b.size(); i++) {
@@ -1098,7 +1136,9 @@ public class SuperMario_mit_Kommentaren extends JApplet {
       return false;  
     } // end of if-else        
   }
-  
+  /**
+   * 
+   */
   public boolean contactwithbox_sideright(ArrayList<JPanel> pan_b, ArrayList<JPanel> pan_eb, ArrayList<JPanel> pan_pb){
     int help4 = 0;
     for (int i = 0; i < pan_b.size(); i++) {
@@ -1140,7 +1180,9 @@ public class SuperMario_mit_Kommentaren extends JApplet {
       return false;  
     } // end of if-else                        
   }                            
-  
+  /**
+   * 
+   */
   public void opponent_jump_ActionPerformed(ActionEvent evt) {
     int random;
     random = (int) (Math.random() * 10);                      //Die Zufallszahll wird ausgelost
@@ -1151,6 +1193,9 @@ public class SuperMario_mit_Kommentaren extends JApplet {
     
   } // end of opponent_jump_ActionPerformed
   
+  /**
+   * 
+   */
   public void opponentjump() {
     if (opponentjump == true && currentJumpHeightOpponent <= maxJumpHeightOpponent) {      //Wenn der Gegner springen soll und die maximale Springh?he noch nicht erreicht ist, springt er jede ms um 2 Einheiten nach oben
       opponent.setLocation(opponent.getX(), opponent.getY() - jumpSpeed/2);           //Y-Koordinate um jumpSpeed erh?hen
@@ -1161,7 +1206,9 @@ public class SuperMario_mit_Kommentaren extends JApplet {
       } //end of if
     } // end of if
   }
-  
+  /**
+   * 
+   */
   public void opponentleft_ActionPerformed(ActionEvent evt) {
     if (opponetcontactleft() != true && moveLeft != true) {               //Wenn der Gegner nicht links rausgeleufen und Mario nicht nach links l?uft
       if (opponent.getX() - marioCharacter.getX() >= 1200) {              //Wenn dann auch noch der Abstand zwischen dem Gegnjer und Mario gr??er als 1200 einheiten ist,
@@ -1206,7 +1253,9 @@ public class SuperMario_mit_Kommentaren extends JApplet {
       opponent.setBounds(1500, 575, opponentwidth, opponentheight);
     }
   }
-  
+  /**
+   * Es wird überprüft, ob Mario beim Ziel angekommen ist
+   */
   public void chek_for_finishline_ActionPerformed(ActionEvent evt) {
     if (marioCharacter.getBounds().intersects(flag.getBounds())) {
       flagtouched = true;
@@ -1224,19 +1273,23 @@ public class SuperMario_mit_Kommentaren extends JApplet {
     
   } // end of chek_for_finishline_ActionPerformed
   
-  private void loadBuffedImages(){
-    
+  /**
+   * Methode lädt die Texutren 
+   */
+  private void loadBuffedImages(){  
     //Es wird versucht die BufferedImages zu laden
     try {
-      boxImage = ImageIO.read((getClass().getResourceAsStream("box.jpg")));
-      eventBoxImage = ImageIO.read((getClass().getResourceAsStream("eventBox.jpg")));
-      pedestalBoxImage = ImageIO.read((getClass().getResourceAsStream("pedestalBox.jpg")));
+      boxImage = ImageIO.read(new File("box.jpg"));
+      eventBoxImage = ImageIO.read(new File("eventBox.jpg"));
+      pedestalBoxImage = ImageIO.read(new File("pedestalBox.jpg"));
     } catch(Exception e) {
       System.out.println(e.toString());
     }
   }
   
-  
+  /**
+   * Methode färbt die JLabels
+   */ 
   private void paintLabels(){
     //Graphics werden geladen und zeichnen ein Bild
     for (JPanel box : boxes) {

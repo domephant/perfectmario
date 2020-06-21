@@ -1,6 +1,6 @@
 object SuperMario_mit_Kommentaren: TFGUIForm
-  Left = 787
-  Top = 95
+  Left = 1181
+  Top = 134
   BorderIcons = [biSystemMenu]
   ClientHeight = 652
   ClientWidth = 941
