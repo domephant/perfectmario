@@ -149,7 +149,7 @@ public class SuperMario_mit_Kommentaren extends JApplet {
   //Essentielle globale Bewegungsvariablen f�r Mario
   int jumpSpeed = 2;
   int moveSpeed = 2;
-  int maxJumpHeight = 260;
+  int maxJumpHeight = 240;
   int currentJumpHeight = 0;
   
   //Abfragevariablen f�r Marios Aktionen
@@ -1005,7 +1005,7 @@ public class SuperMario_mit_Kommentaren extends JApplet {
     int help1 = 0;
     for (int i = 0; i < pan_b.size(); i++) {
       JPanel boxpanel_b = (JPanel) pan_b.toArray()[i];
-      if ((marioCharacter.getY() + marioCharacter.getHeight() == boxpanel_b.getY() && marioCharacter.getX() + marioCharacter.getWidth() >= boxpanel_b.getX() && marioCharacter.getX() <= boxpanel_b.getX() + boxpanel_b.getWidth())) {
+      if ((marioCharacter.getY() + marioCharacter.getHeight() == boxpanel_b.getY() && marioCharacter.getX() + marioCharacter.getWidth() > boxpanel_b.getX() && marioCharacter.getX() < boxpanel_b.getX() + boxpanel_b.getWidth())) {
         currentJumpHeight = 0;
         help1 = 1;
         falling = false;
@@ -1019,7 +1019,7 @@ public class SuperMario_mit_Kommentaren extends JApplet {
         break;
       }
       JPanel boxpanel_eb = (JPanel) pan_eb.toArray()[j];
-      if ((marioCharacter.getY() + marioCharacter.getHeight() == boxpanel_eb.getY() && marioCharacter.getX() + marioCharacter.getWidth() >= boxpanel_eb.getX() && marioCharacter.getX() <= boxpanel_eb.getX() + boxpanel_eb.getWidth())) {
+      if ((marioCharacter.getY() + marioCharacter.getHeight() == boxpanel_eb.getY() && marioCharacter.getX() + marioCharacter.getWidth() > boxpanel_eb.getX() && marioCharacter.getX() < boxpanel_eb.getX() + boxpanel_eb.getWidth())) {
         currentJumpHeight = 0;
         help1 = 1;
         falling = false;
@@ -1033,7 +1033,7 @@ public class SuperMario_mit_Kommentaren extends JApplet {
         break;
       }
       JPanel boxpanel_pb = (JPanel) pan_pb.toArray()[h];
-      if (help1 != 1 && (marioCharacter.getY() + marioCharacter.getHeight() == boxpanel_pb.getY() && marioCharacter.getX() + marioCharacter.getWidth() >= boxpanel_pb.getX() && marioCharacter.getX() <= boxpanel_pb.getX() + boxpanel_pb.getWidth())) {
+      if (help1 != 1 && (marioCharacter.getY() + marioCharacter.getHeight() == boxpanel_pb.getY() && marioCharacter.getX() + marioCharacter.getWidth() > boxpanel_pb.getX() && marioCharacter.getX() < boxpanel_pb.getX() + boxpanel_pb.getWidth())) {
         currentJumpHeight = 0;
         help1 = 1;
         falling = false;
@@ -1057,7 +1057,7 @@ public class SuperMario_mit_Kommentaren extends JApplet {
     int help2 = 0;
     for (int i = 0; i < pan_b.size(); i++) {
       JPanel boxpanel_b = (JPanel) pan_b.toArray()[i];
-      if (marioCharacter.getY() == boxpanel_b.getY() + boxpanel_b.getHeight() && marioCharacter.getX() + marioCharacter.getWidth()>= boxpanel_b.getX() && marioCharacter.getX() <= boxpanel_b.getX() + boxpanel_b.getWidth()) {
+      if (marioCharacter.getY() == boxpanel_b.getY() + boxpanel_b.getHeight() && marioCharacter.getX() + marioCharacter.getWidth()> boxpanel_b.getX() && marioCharacter.getX() < boxpanel_b.getX() + boxpanel_b.getWidth()) {
         jumping = false;
         if (falling == false) {
           boxpanel_b.setVisible(false);
@@ -1075,13 +1075,12 @@ public class SuperMario_mit_Kommentaren extends JApplet {
         break;
       }
       JPanel boxpanel_eb = (JPanel) pan_eb.toArray()[j];
-      if (marioCharacter.getY() == boxpanel_eb.getY() + boxpanel_eb.getHeight() && marioCharacter.getX() + marioCharacter.getWidth()>= boxpanel_eb.getX() && marioCharacter.getX() <= boxpanel_eb.getX() + boxpanel_eb.getWidth()) {
+      if (marioCharacter.getY() == boxpanel_eb.getY() + boxpanel_eb.getHeight() && marioCharacter.getX() + marioCharacter.getWidth()> boxpanel_eb.getX() && marioCharacter.getX() < boxpanel_eb.getX() + boxpanel_eb.getWidth()) {
         powerUP.setLocation(boxpanel_eb.getX(), boxpanel_eb.getY() - 32);
         jumping = false;
         if ((boxpanel_eb.getX() == powerUP.getX()) && boxpanel_eb.getY() == (powerUP.getY() + powerUP.getHeight()) && falling == false) {
-          
-          powerUP.setVisible(true);
           if (poweruppickuped == false) {
+            powerUP.setVisible(true);
             poweruppickupable = true;
           } // end of if
         } // end of if
@@ -1103,6 +1102,7 @@ public class SuperMario_mit_Kommentaren extends JApplet {
    * 
    * @return help3 (true oder false, je nachdem ob Bedingungén zutreffen)
    */
+  
   public boolean contactwithbox_sideleft(ArrayList<JPanel> pan_b, ArrayList<JPanel> pan_eb, ArrayList<JPanel> pan_pb){
     int help3 = 0;
     for (int i = 0; i < pan_b.size(); i++) {
