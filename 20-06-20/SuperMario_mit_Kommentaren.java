@@ -1217,7 +1217,7 @@ public class SuperMario_mit_Kommentaren extends JApplet {
     } // end of if
   }
   /**
-   * 
+   * Beschreibt die Bewegung des Gegners in Abhängigkeit von Marios Bewegung
    */
   public void opponentleft_ActionPerformed(ActionEvent evt) {
     if (opponetcontactleft() != true && moveLeft != true) {               //Wenn der Gegner nicht links rausgeleufen und Mario nicht nach links l?uft
@@ -1239,7 +1239,7 @@ public class SuperMario_mit_Kommentaren extends JApplet {
     } // end of if
   } // end of opponentleft_ActionPerformed
   /**
-   * 
+   * Beschreibt die Interaktion zwischen Mario und dem Gegner bei Berührung und beendet dann entweder das Spiel oder führt die Methode zum Sterben des Gegners aus (opponentdie)
    */
   public void touched(){
     if (marioCharacter.getBounds().intersects(opponent.getBounds())){
