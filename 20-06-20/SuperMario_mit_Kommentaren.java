@@ -199,7 +199,7 @@ public class SuperMario_mit_Kommentaren extends JApplet {
     Container cp = getContentPane();
     cp.setLayout(null);
     cp.setSize(1080, 720);
-    cp.setBounds(0, 0, 957, 688);
+    cp.setBounds(0, 0, 1280, 720);
     panels.add(powerUP);
     panels.add(ground);
     panels.add(flag);
@@ -804,7 +804,7 @@ public class SuperMario_mit_Kommentaren extends JApplet {
     });
     timer_update.setRepeats(true);
     timer_update.setInitialDelay(0);
-    bStart.setBounds(1172, 7, 75, 25);
+    bStart.setBounds(1372, 7, 75, 25);
     bStart.setText("Start");
     bStart.setMargin(new Insets(2, 2, 2, 2));
     bStart.addActionListener(new ActionListener() {
@@ -884,7 +884,7 @@ public class SuperMario_mit_Kommentaren extends JApplet {
    */
   public void move() {
     //wenn Mario nach links oder rechts geht, verschiebt sich der Hintergrund / die Panels passend
-    if ((moveRight == true && this.contactwithbox_sideleft(boxes, eventBoxes, pedestalBoxes) == false) || (moveLeft == true && this.contactwithbox_sideright(boxes, eventBoxes, pedestalBoxes) == false)) {
+    if ((moveRight == true && this.contactwithbox_sideleft(boxes, eventBoxes, pedestalBoxes, tubes) == false) || (moveLeft == true && this.contactwithbox_sideright(boxes, eventBoxes, pedestalBoxes, tubes) == false)) {
       for (int i = 0; i < panels.size(); i++) {
         JPanel panel = (JPanel) panels.toArray()[i];
         panel.setLocation(panel.getX() + moveSpeed, panel.getY());
@@ -1145,7 +1145,7 @@ public class SuperMario_mit_Kommentaren extends JApplet {
    * @return help3 (true oder false, je nachdem ob Bedingungén zutreffen)
    */
   
-  public boolean contactwithbox_sideleft(ArrayList<JPanel> pan_b, ArrayList<JPanel> pan_eb, ArrayList<JPanel> pan_pb){
+  public boolean contactwithbox_sideleft(ArrayList<JPanel> pan_b, ArrayList<JPanel> pan_eb, ArrayList<JPanel> pan_pb, ArrayList<JPanel> pan_t){
     boolean help3 = false;
     //Überprüfung normaler Boxen
     for (int i = 0; i < pan_b.size(); i++) {
@@ -1183,6 +1183,19 @@ public class SuperMario_mit_Kommentaren extends JApplet {
         help3 = false;  
       } // end of if-else 
     }
+    //Überprüfung für Tubes
+    for (int i = 0; i < pan_t.size(); i++) {
+      if (help3 == true) {
+        break;
+      }
+      JPanel boxpanel_b = (JPanel) pan_t.toArray()[i];
+      if (marioCharacter.getX() + marioCharacter.getWidth() == boxpanel_b.getX() && (marioCharacter.getY() <  boxpanel_b.getY() + boxpanel_b.getHeight() && marioCharacter.getY() + marioCharacter.getHeight() > boxpanel_b.getY())) {
+        help3 = true;
+        break;
+      } else {                                                                                                                                          
+        help3 = false;  
+      } // end of if-else 
+    }
     return help3;        
   }
   /**
@@ -1191,7 +1204,7 @@ public class SuperMario_mit_Kommentaren extends JApplet {
    * 
    * @return help4 (true or false, je nachdem, ob die Bedingung bei einer Box zutrifft)
    */
-  public boolean contactwithbox_sideright(ArrayList<JPanel> pan_b, ArrayList<JPanel> pan_eb, ArrayList<JPanel> pan_pb){
+  public boolean contactwithbox_sideright(ArrayList<JPanel> pan_b, ArrayList<JPanel> pan_eb, ArrayList<JPanel> pan_pb, ArrayList<JPanel> pan_t){
     boolean help4 = false;
     //Überprüfung normaler Boxen
     for (int i = 0; i < pan_b.size(); i++) {
@@ -1229,7 +1242,20 @@ public class SuperMario_mit_Kommentaren extends JApplet {
         help4 = false;  
       } 
     }
-    return help4;                        
+    //Überprüfung für Tubes
+    for (int h = 0; h < pan_t.size(); h++) {
+      if (help4 == true) {
+        break;
+      }
+      JPanel boxpanel_pb = (JPanel) pan_t.toArray()[h];
+      if (marioCharacter.getX() == boxpanel_pb.getX() + boxpanel_pb.getWidth() && (marioCharacter.getY() < boxpanel_pb.getY() + boxpanel_pb.getHeight() && marioCharacter.getY() + marioCharacter.getHeight() > boxpanel_pb.getY())) {
+        help4 = true;
+        break;
+      } else {
+        help4 = false;  
+      } 
+    }
+    return help4;                         
   }                            
   /**
    * Bestimmt mithilfe einer Zufallszahl, wann der Gegner springt und startet passende Methode (opponentjump)
@@ -1275,7 +1301,7 @@ public class SuperMario_mit_Kommentaren extends JApplet {
     if (moveRight == true && moveLeft != true) {                         //Falls jedoch MArio nach rechts l?uft,
       opponent.setLocation(opponent.getX() -5, opponent.getY());         //l?uft der Gegner schneller
     } // end of if
-    if (opponetcontactleft() == true) {                                  //Falls der Gegner links aus dem Bild l?uft,
+    if (opponentcontactleft() == true) {                                  //Falls der Gegner links aus dem Bild l?uft,
       opponent.setLocation(opponent.getX() + 1500, opponent.getY());     //wird er nach rechts ausserhalb des Bildes gesetzt und l?uft dann wieder nach links weiter
     } // end of if
   } // end of opponentleft_ActionPerformed
@@ -1371,7 +1397,7 @@ public class SuperMario_mit_Kommentaren extends JApplet {
     if(baby){
       marioGraphic.drawImage(babyMarioImage,0,0,this);
     }else if(normal){
-      marioGraphic.drawImage(bigMarioImage,0,0,this);
-    }
+      marioGraphic.drawImage(bigMarioImage,0,0,this);      
+    }                                                      
   }
 }
