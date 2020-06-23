@@ -722,9 +722,6 @@ public class SuperMario_mit_Kommentaren extends JApplet {
               if (currentJumpHeight == 0){
                 jumping = true;  
               }
-              if (contactwithbox_top(boxes, eventBoxes, pedestalBoxes)) {
-                
-              }
             }
             // folgender Befehl wird ausgeführt, sollte Taste 'D' gedrückt werden
             if (ke.getKeyCode() == KeyEvent.VK_D) {
@@ -938,7 +935,7 @@ public class SuperMario_mit_Kommentaren extends JApplet {
     } // end of if
   }
   /**
-   * 
+   * Die Schwerkraft wird implementiert (Mario fällt, wenn er nicht auf einem Objekt steht)
    */
   public void gravity() {
     // Sollte Mario nicht im Sprung sein oder auf dem Boden stehen, wird er nach unten verschoben, bis er den Boden ber�hrt
@@ -955,6 +952,7 @@ public class SuperMario_mit_Kommentaren extends JApplet {
   }
   /**
    * Überprüft, ob Mario den Boden berührt.
+   * @return true (Boden wird berührt), false (Boden wird nicht berührt)
    */
   public boolean contactwithground_top() {
     //Wenn Mario den Boden berührt, gibt die Methode ein true zurück, damit er nicht durch den Boden fällt
@@ -966,7 +964,8 @@ public class SuperMario_mit_Kommentaren extends JApplet {
     } 
   }
   /**
-   * 
+   * Überprüft, ob Mario einen Gegner berührt
+   * @return true (Gegner wird berührt), false (Gegner wird nicht berührt)
    */
   public boolean contactwithopponent(){
     if (marioCharacter.getBounds().intersects(opponent.getBounds())){
@@ -976,7 +975,8 @@ public class SuperMario_mit_Kommentaren extends JApplet {
     }
   }
   /**
-   * 
+   * Überprüft, ob der Gegner den Boden berührt
+   * @return true (Gegner berührt den Boden), false (Gegner berührt nicht den Boden)
    */
   public boolean opponentcontactwithground(){
     if ((opponent.getY() + opponent.getHeight()) == ground.getY()){     //Wenn der Gegner den Boden ber?hrt,
@@ -1005,6 +1005,7 @@ public class SuperMario_mit_Kommentaren extends JApplet {
    */
   public boolean contactwithbox_top(ArrayList<JPanel> pan_b, ArrayList<JPanel> pan_eb, ArrayList<JPanel> pan_pb) {
     boolean help1 = false;
+    //Überprüfung normaler Boxen
     for (int i = 0; i < pan_b.size(); i++) {
       JPanel boxpanel_b = (JPanel) pan_b.toArray()[i];
       if ((marioCharacter.getY() + marioCharacter.getHeight() == boxpanel_b.getY() && marioCharacter.getX() + marioCharacter.getWidth() > boxpanel_b.getX() && marioCharacter.getX() < boxpanel_b.getX() + boxpanel_b.getWidth())) {
@@ -1016,6 +1017,7 @@ public class SuperMario_mit_Kommentaren extends JApplet {
         help1 = false;
       }
     }
+    //Überprüfung von Eventboxen
     for (int j = 0; j < pan_eb.size(); j++) {
       if (help1 == true) {
         break;
@@ -1030,6 +1032,7 @@ public class SuperMario_mit_Kommentaren extends JApplet {
         help1 = false;
       }
     }
+    //Überprüfung von Pedestalboxen
     for (int h = 0; h < pan_pb.size(); h++) {
       if (help1 == true) {
         break;
@@ -1053,6 +1056,7 @@ public class SuperMario_mit_Kommentaren extends JApplet {
    */
   public boolean contactwithbox_bottom(ArrayList<JPanel> pan_b, ArrayList<JPanel> pan_eb) {
     boolean help2 = false;
+    //Überprüfung normaler Boxen
     for (int i = 0; i < pan_b.size(); i++) {
       JPanel boxpanel_b = (JPanel) pan_b.toArray()[i];
       //Wenn Mario gegen einen normalen Block von untern gegenspringt, verschwindet die Box und wird gelöscht
@@ -1069,6 +1073,7 @@ public class SuperMario_mit_Kommentaren extends JApplet {
         help2 = false;
       }
     }
+    //Überprüfung von Eventboxen
     for (int j = 0; j < pan_eb.size(); j++) {
       if (help2 == true) {
         break;
@@ -1101,6 +1106,7 @@ public class SuperMario_mit_Kommentaren extends JApplet {
   
   public boolean contactwithbox_sideleft(ArrayList<JPanel> pan_b, ArrayList<JPanel> pan_eb, ArrayList<JPanel> pan_pb){
     boolean help3 = false;
+    //Überprüfung normaler Boxen
     for (int i = 0; i < pan_b.size(); i++) {
       JPanel boxpanel_b = (JPanel) pan_b.toArray()[i];
       if (marioCharacter.getX() + marioCharacter.getWidth() == boxpanel_b.getX() && (marioCharacter.getY() <  boxpanel_b.getY() + boxpanel_b.getHeight() && marioCharacter.getY() + marioCharacter.getHeight() > boxpanel_b.getY())) {
@@ -1110,6 +1116,7 @@ public class SuperMario_mit_Kommentaren extends JApplet {
         help3 = false;  
       } // end of if-else 
     }
+    //Überprüfung von Eventboxen
     for (int j = 0; j < pan_eb.size(); j++) {
       if (help3 == true) {
         break;
@@ -1122,6 +1129,7 @@ public class SuperMario_mit_Kommentaren extends JApplet {
         help3 = false;  
       } // end of if-else 
     }
+    //Überprüfung von Pedestalboxen
     for (int h = 0; h < pan_pb.size(); h++) {
       if (help3 == true) {
         break;
@@ -1144,6 +1152,7 @@ public class SuperMario_mit_Kommentaren extends JApplet {
    */
   public boolean contactwithbox_sideright(ArrayList<JPanel> pan_b, ArrayList<JPanel> pan_eb, ArrayList<JPanel> pan_pb){
     boolean help4 = false;
+    //Überprüfung normaler Boxen
     for (int i = 0; i < pan_b.size(); i++) {
       JPanel boxpanel_b = (JPanel) pan_b.toArray()[i];
       if (marioCharacter.getX() == boxpanel_b.getX() + boxpanel_b.getWidth() && (marioCharacter.getY() < boxpanel_b.getY() + boxpanel_b.getHeight() && marioCharacter.getY() + marioCharacter.getHeight() > boxpanel_b.getY())) {
@@ -1153,6 +1162,7 @@ public class SuperMario_mit_Kommentaren extends JApplet {
         help4 = false;                                                     
       } 
     }
+    //Überprüfung von Eventboxen
     for (int j = 0; j < pan_eb.size(); j++){ 
       if (help4 == true) {
         break;
@@ -1165,6 +1175,7 @@ public class SuperMario_mit_Kommentaren extends JApplet {
         help4 = false;  
       } 
     }
+    //Überprüfung von Pedestalboxen
     for (int h = 0; h < pan_pb.size(); h++) {
       if (help4 == true) {
         break;
@@ -1180,7 +1191,7 @@ public class SuperMario_mit_Kommentaren extends JApplet {
     return help4;                        
   }                            
   /**
-   * 
+   * Bestimmt mithilfe einer Zufallszahl, wann der Gegner springt und startet passende Methode (opponentjump)
    */
   public void opponent_jump_ActionPerformed(ActionEvent evt) {
     int random;
@@ -1193,7 +1204,7 @@ public class SuperMario_mit_Kommentaren extends JApplet {
   } // end of opponent_jump_ActionPerformed
   
   /**
-   * 
+   * Lässt den Gegner springen 
    */
   public void opponentjump() {
     if (opponentjump == true && currentJumpHeightOpponent <= maxJumpHeightOpponent) {      //Wenn der Gegner springen soll und die maximale Springh?he noch nicht erreicht ist, springt er jede ms um 2 Einheiten nach oben
@@ -1227,7 +1238,9 @@ public class SuperMario_mit_Kommentaren extends JApplet {
       opponent.setLocation(opponent.getX() + 1500, opponent.getY());     //wird er nach rechts ausserhalb des Bildes gesetzt und l?uft dann wieder nach links weiter
     } // end of if
   } // end of opponentleft_ActionPerformed
-  
+  /**
+   * 
+   */
   public void touched(){
     if (marioCharacter.getBounds().intersects(opponent.getBounds())){
       if (marioCharacter.getBounds().contains(opponent.getBounds().x, opponent.getBounds().y) && marioCharacter.getBounds().contains(opponent.getBounds().x + 5, opponent.getBounds().y) || (marioCharacter.getBounds().contains(opponent.getBounds().x + opponent.getBounds().width, opponent.getBounds().y) && marioCharacter.getBounds().contains(opponent.getBounds().x + (opponent.getBounds().width -5), opponent.getBounds().y)) ){
@@ -1240,7 +1253,9 @@ public class SuperMario_mit_Kommentaren extends JApplet {
       }
     }
   }
-  
+  /**
+   * 
+   */
   public void opponentdie(){
     if (opponentdie == true) {
       nottouched = !true;
