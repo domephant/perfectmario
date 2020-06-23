@@ -1058,7 +1058,7 @@ public class SuperMario_mit_Kommentaren extends JApplet {
         help1 = false;
       }
     }
-    //Überprüfung von Tubes
+    //Überprüfung von Pedestalboxen
     for (int h = 0; h < pan_pb.size(); h++) {
       if (help1 == true) {
         break;
@@ -1073,6 +1073,7 @@ public class SuperMario_mit_Kommentaren extends JApplet {
         help1 = false;
       }
     }
+    //Überprüfung von Tubes
       for (int h = 0; h < pan_t.size(); h++) {
         if (help1 == true) {
           break;
