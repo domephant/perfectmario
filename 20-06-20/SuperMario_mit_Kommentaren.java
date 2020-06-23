@@ -710,9 +710,15 @@ public class SuperMario_mit_Kommentaren extends JApplet {
     cp.add(pedestalBox53);
     
     powerUP.setVisible(false);
-    KeyboardFocusManager.getCurrentKeyboardFocusManager().addKeyEventDispatcher(new KeyEventDispatcher() { // Event f�r die Abfrage der Tasteneingaben wird definiert
+    /**
+     * Event für die Abfrage der Tasteneingabe wird erstellt
+     */
+    KeyboardFocusManager.getCurrentKeyboardFocusManager().addKeyEventDispatcher(new KeyEventDispatcher() {
       
       @Override
+      /**
+       * Event für die Abfrage der Tasteneingabe
+       */
       public boolean dispatchKeyEvent(KeyEvent ke) {
         switch (ke.getID()) {
           //sollte irgendeine Taste heruntergedrückt werden, wird folgender Code abgefragt
@@ -738,6 +744,7 @@ public class SuperMario_mit_Kommentaren extends JApplet {
               moveLeft = true;
               moveSpeed = 2; 
             }
+            //follgender Befehl wird ausgedführt, sollte Taste 'Shift' gedückt werden
             if (ke.getKeyCode() == KeyEvent.VK_SHIFT) {
               sneaking = true;
             } // end of if
