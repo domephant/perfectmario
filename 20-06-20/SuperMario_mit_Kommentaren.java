@@ -914,7 +914,7 @@ public class SuperMario_mit_Kommentaren extends JApplet {
     this.variablereset();
     this.gravity();
     this.paintLabels();
-    this.opponetcontactleft();
+    this.opponentcontactleft();
     this.contactwithbox_bottom(boxes, eventBoxes);
     this.opponentjump();
     this.powerUP_pickup(panels);
@@ -1015,7 +1015,7 @@ public class SuperMario_mit_Kommentaren extends JApplet {
   /**
    * 
    */
-  public boolean opponetcontactleft(){
+  public boolean opponentcontactleft(){
     if (opponent.getX() <= -opponent.getWidth()){          //Wenn der Gegner aus dem Bild gelaufen ist,
       return true;                                         //wird dies zur?ckgegeben
     }
@@ -1260,7 +1260,7 @@ public class SuperMario_mit_Kommentaren extends JApplet {
    * Beschreibt die Bewegung des Gegners in Abhängigkeit von Marios Bewegung
    */
   public void opponentleft_ActionPerformed(ActionEvent evt) {
-    if (opponetcontactleft() != true && moveLeft != true) {               //Wenn der Gegner nicht links rausgeleufen und Mario nicht nach links l?uft
+    if (opponentcontactleft() != true && moveLeft != true) {               //Wenn der Gegner nicht links rausgeleufen und Mario nicht nach links l?uft
       if (opponent.getX() - marioCharacter.getX() >= 1200) {              //Wenn dann auch noch der Abstand zwischen dem Gegnjer und Mario gr??er als 1200 einheiten ist,
         opponent.setLocation(opponent.getX() -100, opponent.getY());      //wird l?uft der Gegner mit 100 Einheiten pro 10ms richtung Mario, bis dieser n?her als 1200 einheiten ist
       } // end of if
