@@ -750,6 +750,7 @@ public class SuperMario_mit_Kommentaren extends JApplet {
             if (ke.getKeyCode() == KeyEvent.VK_A) {
               moveLeft = false;
             }
+            // Wenn Shift losgelassen wird, wird Mario wieder normal groß
             if (ke.getKeyCode() == KeyEvent.VK_SHIFT) {
               sneaking = false;
               sneak_confirm = true;
@@ -871,6 +872,7 @@ public class SuperMario_mit_Kommentaren extends JApplet {
       marioCharacter.setLocation(marioCharacter.getX(), (marioCharacter.getY() - jumpSpeed));
       currentJumpHeight = currentJumpHeight + jumpSpeed;
     }
+    // Beim Schleichen wird Mario (wenn er bereits ein PowerUp eingesammelt hat) kleiner
     if (sneaking == true && sneak_confirm == true && baby == false) {
       marioCharacter.setLocation(marioCharacter.getX(), marioCharacter.getY() + 16);
       marioCharacter.setSize(marioCharacter.getWidth(), marioCharacter.getHeight()*3/4);
@@ -884,7 +886,7 @@ public class SuperMario_mit_Kommentaren extends JApplet {
    * und sorgt dafür, dass die Bewegungen von Mario flüssig aussehen.
    */
   public void timer_update_ActionPerformed(ActionEvent evt) {
-    // Methoden zu Bewegung und die Schwerkraft werden bei jedem Tick des Timers (jede Millisekunde) abgerufen
+    // Methoden zu Bewegung, der Schwerkraft und der Interaktionen zwischen Objekten werden bei jedem Tick des Timers (jede Millisekunde) abgerufen
     this.move();
     this.variablereset();
     this.paintLabels();
