@@ -765,9 +765,11 @@ public class SuperMario_mit_Kommentaren extends JApplet {
             break;
             // Folgendes passiert, sollte eine Taste losgelassen werden
           case KeyEvent.KEY_RELEASED: 
+            //Folgendes passiert, wenn D losgelassen wird
             if (ke.getKeyCode() == KeyEvent.VK_D) {
               moveRight = false;
             }
+            //Folgendes passiert, wenn A losgelassen wird
             if (ke.getKeyCode() == KeyEvent.VK_A) {
               moveLeft = false;
             }
@@ -910,11 +912,11 @@ public class SuperMario_mit_Kommentaren extends JApplet {
     // Methoden zu Bewegung, der Schwerkraft und der Interaktionen zwischen Objekten werden bei jedem Tick des Timers (jede Millisekunde) abgerufen
     this.move();
     this.variablereset();
+    this.gravity();
     this.paintLabels();
     this.opponetcontactleft();
     this.contactwithbox_bottom(boxes, eventBoxes);
     this.opponentjump();
-    this.gravity();
     this.powerUP_pickup(panels);
     this.touched();
     this.opponentdie();
