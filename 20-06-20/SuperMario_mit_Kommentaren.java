@@ -141,6 +141,7 @@ public class SuperMario_mit_Kommentaren extends JApplet {
   ArrayList<JPanel> boxes = new ArrayList<JPanel>();  
   ArrayList<JPanel> eventBoxes = new ArrayList<JPanel>();
   ArrayList<JPanel> pedestalBoxes = new ArrayList<JPanel>();
+  ArrayList<JPanel> tubes = new ArrayList<JPanel>();
   
   //Definition zus�tzlicher Objekte
   private Timer timer_update = new Timer(1000, null);
@@ -180,6 +181,9 @@ public class SuperMario_mit_Kommentaren extends JApplet {
   private BufferedImage boxImage;     
   private BufferedImage eventBoxImage; 
   private BufferedImage pedestalBoxImage;
+  private BufferedImage babyMarioImage;
+  private BufferedImage bigMarioImage;
+  private BufferedImage tubeImage;
   
   //Graphics werden definiert  
   private Graphics eventBoxGraphics;  
@@ -195,7 +199,7 @@ public class SuperMario_mit_Kommentaren extends JApplet {
     Container cp = getContentPane();
     cp.setLayout(null);
     cp.setSize(1080, 720);
-    cp.setBounds(0, 0, 957, 691);
+    cp.setBounds(0, 0, 957, 688);
     panels.add(powerUP);
     panels.add(ground);
     panels.add(flag);
@@ -285,6 +289,15 @@ public class SuperMario_mit_Kommentaren extends JApplet {
     eventBoxes.add(eventBox8);
     eventBoxes.add(eventBox9);
     eventBoxes.add(eventBox10);
+    
+    /*Tubes werden bei Panels & eventBoxes hinzugefügt
+    * um bei paintLabels die Texturen leichter zu laden 
+    * und um die Elemente leichter zu verschieben, wenn
+    * Mario bewegt wird
+    */
+    panels.add(tube1);
+    
+    tubes.add(tube1);
     
     /*Podest Boxen werden bei Panels und PedestalBoxes hinzugefügt
     * um bei paintLabels die Texturen leichter zu laden 
@@ -399,7 +412,7 @@ public class SuperMario_mit_Kommentaren extends JApplet {
     pedestalBoxes.add(pedestalBox52);
     pedestalBoxes.add(pedestalBox53);
     
-    //Boxen werden plaziert
+    //Boxen werden gesetzt
     box1.setBounds(784, 450, 32, 32);
     box1.setOpaque(false);
     cp.add(box1);
@@ -479,6 +492,10 @@ public class SuperMario_mit_Kommentaren extends JApplet {
     box26.setOpaque(false);
     cp.add(box26);
     
+    //Tubes werden gesetzt
+    tube1.setBounds(664, 566, 32, 64);
+    tube1.setOpaque(false);
+    cp.add(tube1);
     //EventBoxen werden gesetzt
     eventBox1.setBounds(262, 450, 32, 32);
     eventBox1.setOpaque(false);
@@ -711,14 +728,14 @@ public class SuperMario_mit_Kommentaren extends JApplet {
     
     powerUP.setVisible(false);
     /**
-     * Event für die Abfrage der Tasteneingabe wird erstellt
-     */
+    * Event für die Abfrage der Tasteneingabe wird erstellt
+    */
     KeyboardFocusManager.getCurrentKeyboardFocusManager().addKeyEventDispatcher(new KeyEventDispatcher() {
       
       @Override
       /**
-       * Event für die Abfrage der Tasteneingabe
-       */
+      * Event für die Abfrage der Tasteneingabe
+      */
       public boolean dispatchKeyEvent(KeyEvent ke) {
         switch (ke.getID()) {
           //sollte irgendeine Taste heruntergedrückt werden, wird folgender Code abgefragt
@@ -746,7 +763,7 @@ public class SuperMario_mit_Kommentaren extends JApplet {
               sneaking = true;
             } // end of if
             break;
-          // Folgendes passiert, sollte eine Taste losgelassen werden
+            // Folgendes passiert, sollte eine Taste losgelassen werden
           case KeyEvent.KEY_RELEASED: 
             if (ke.getKeyCode() == KeyEvent.VK_D) {
               moveRight = false;
@@ -946,7 +963,7 @@ public class SuperMario_mit_Kommentaren extends JApplet {
    */
   public void gravity() {
     // Sollte Mario nicht im Sprung sein oder auf dem Boden stehen, wird er nach unten verschoben, bis er den Boden ber�hrt
-    if (jumping == false && this.contactwithground_top() == false && this.contactwithopponent() != true && this.contactwithbox_top(boxes, eventBoxes, pedestalBoxes) != true) {
+    if (jumping == false && this.contactwithground_top() == false && this.contactwithopponent() != true && this.contactwithbox_top(boxes, eventBoxes, pedestalBoxes, tubes) != true) {
       marioCharacter.setLocation(marioCharacter.getX(), marioCharacter.getY() + jumpSpeed);
       falling = true;
       if (this.contactwithground_top() == true){
@@ -1010,7 +1027,7 @@ public class SuperMario_mit_Kommentaren extends JApplet {
    * 
    * @return help1 (True oder false, je nachdem, ob Mario berührt)
    */
-  public boolean contactwithbox_top(ArrayList<JPanel> pan_b, ArrayList<JPanel> pan_eb, ArrayList<JPanel> pan_pb) {
+  public boolean contactwithbox_top(ArrayList<JPanel> pan_b, ArrayList<JPanel> pan_eb, ArrayList<JPanel> pan_pb, ArrayList<JPanel> pan_t) {
     boolean help1 = false;
     //Überprüfung normaler Boxen
     for (int i = 0; i < pan_b.size(); i++) {
@@ -1039,7 +1056,7 @@ public class SuperMario_mit_Kommentaren extends JApplet {
         help1 = false;
       }
     }
-    //Überprüfung von Pedestalboxen
+    //Überprüfung von Tubes
     for (int h = 0; h < pan_pb.size(); h++) {
       if (help1 == true) {
         break;
@@ -1054,13 +1071,27 @@ public class SuperMario_mit_Kommentaren extends JApplet {
         help1 = false;
       }
     }
-    return help1;                                               
-  }
-  /**
-   * Überprüft, ob Marios obere Kante Kontakt mit der unteren Kante einer Box hat (er also gegen einen Block springt) und beschreibt, was daraufhin passiert
-   * 
-   * @return help2 (True oder false, je nachdem, ob Mario berührt)
-   */
+      for (int h = 0; h < pan_t.size(); h++) {
+        if (help1 == true) {
+          break;
+        }
+        JPanel tubePanel = (JPanel) pan_t.toArray()[h];
+        if ((marioCharacter.getY() + marioCharacter.getHeight() == tubePanel.getY() && marioCharacter.getX() + marioCharacter.getWidth() > tubePanel.getX() && marioCharacter.getX() < tubePanel.getX() + tubePanel.getWidth())) {
+          currentJumpHeight = 0;
+          help1 = true;
+          falling = false;
+          break;                                                                                                                           
+        } else {
+          help1 = false;
+        }
+      }
+      return help1;                                               
+    }
+    /**
+    * Überprüft, ob Marios obere Kante Kontakt mit der unteren Kante einer Box hat (er also gegen einen Block springt) und beschreibt, was daraufhin passiert
+    * 
+    * @return help2 (True oder false, je nachdem, ob Mario berührt)
+    */
   public boolean contactwithbox_bottom(ArrayList<JPanel> pan_b, ArrayList<JPanel> pan_eb) {
     boolean help2 = false;
     //Überprüfung normaler Boxen
@@ -1303,6 +1334,9 @@ public class SuperMario_mit_Kommentaren extends JApplet {
       boxImage = ImageIO.read(new File("box.jpg"));
       eventBoxImage = ImageIO.read(new File("eventBox.jpg"));
       pedestalBoxImage = ImageIO.read(new File("pedestalBox.jpg"));
+      babyMarioImage = ImageIO.read(new File("babyMario.jpg"));
+      bigMarioImage = ImageIO.read(new File("bigMario.jpg"));
+      tubeImage = ImageIO.read(new File("tube.jpg"));
     } catch(Exception e) {
       System.out.println(e.toString());
     }
@@ -1321,9 +1355,20 @@ public class SuperMario_mit_Kommentaren extends JApplet {
       Graphics eventBoxGraphics = eventBox.getGraphics();
       eventBoxGraphics.drawImage(eventBoxImage,0,0,this);
     } // end of for 
-    for (JPanel eventBox : pedestalBoxes) {
-      Graphics pedestalBoxGraphics = eventBox.getGraphics();
+    for (JPanel pedestalBox : pedestalBoxes) {
+      Graphics pedestalBoxGraphics = pedestalBox.getGraphics();
       pedestalBoxGraphics.drawImage(pedestalBoxImage,0,0,this);
     } // end of for
+    for (JPanel tube : tubes) {
+      Graphics tubeGraphics = tube.getGraphics();
+      tubeGraphics.drawImage(tubeImage,0,0,this);
+    } // end of for
+    
+    Graphics marioGraphic = marioCharacter.getGraphics();
+    if(baby){
+      marioGraphic.drawImage(babyMarioImage,0,0,this);
+    }else if(normal){
+      marioGraphic.drawImage(bigMarioImage,0,0,this);
+    }
   }
 }
