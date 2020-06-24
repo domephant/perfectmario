@@ -927,13 +927,15 @@ public class SuperMario_mit_Kommentaren extends JApplet {
    */
   public void powerUP_pickup(ArrayList<JPanel> allpnls){
     if (poweruppickupable == true && marioCharacter.getBounds().intersects(powerUP.getBounds()) == true) {
+      //Mario wird größer
       marioCharacter.setLocation(marioCharacter.getX(), marioCharacter.getY() - marioCharacter.getHeight());
       marioCharacter.setSize(marioCharacter.getWidth(), marioCharacter.getHeight()*2);
+      baby = false;
+      normal = true;
+      //Das PowerUP verschwindet
       powerUP.setVisible(false);
       poweruppickupable = false;
       poweruppickuped = true;
-      baby = false;
-      normal = true;
       panels.remove(powerUP);
     } // end of if
   }
@@ -1013,7 +1015,8 @@ public class SuperMario_mit_Kommentaren extends JApplet {
     }        
   }
   /**
-   * 
+   * Fragt ab, ob der Gegner aus dem Bild gelaufen ist
+   * @return true, false
    */
   public boolean opponentcontactleft(){
     if (opponent.getX() <= -opponent.getWidth()){          //Wenn der Gegner aus dem Bild gelaufen ist,
@@ -1217,7 +1220,8 @@ public class SuperMario_mit_Kommentaren extends JApplet {
       } 
     }
     //Überprüfung von Eventboxen
-    for (int j = 0; j < pan_eb.size(); j++){ 
+    for (int j = 0; j < pan_eb.size(); j++){
+      //Schleife wird frühzeitig unterbrochen, wenn richtige Box schon gefunden wurde
       if (help4 == true) {
         break;
       }
@@ -1231,6 +1235,7 @@ public class SuperMario_mit_Kommentaren extends JApplet {
     }
     //Überprüfung von Pedestalboxen
     for (int h = 0; h < pan_pb.size(); h++) {
+      //Schleife wird frühzeitig unterbrochen, wenn richtige Box schon gefunden wurde
       if (help4 == true) {
         break;
       }
@@ -1244,6 +1249,7 @@ public class SuperMario_mit_Kommentaren extends JApplet {
     }
     //Überprüfung für Tubes
     for (int h = 0; h < pan_t.size(); h++) {
+      //Schleife wird frühzeitig unterbrochen, wenn richtige Box schon gefunden wurde
       if (help4 == true) {
         break;
       }
@@ -1339,6 +1345,7 @@ public class SuperMario_mit_Kommentaren extends JApplet {
    */
   public void chek_for_finishline_ActionPerformed(ActionEvent evt) {
     if (marioCharacter.getBounds().intersects(flag.getBounds())) {
+      //Spiel wird beendet
       flagtouched = true;
       text_win.setVisible(true);
       timer_update.stop();
